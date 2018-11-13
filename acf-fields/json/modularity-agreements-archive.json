@@ -1,0 +1,119 @@
+[{
+    "key": "group_5be98c9780f80",
+    "title": "Modularity agreements archive API",
+    "fields": [
+        {
+            "key": "field_5be98c9d34843",
+            "label": "Api Host",
+            "name": "mod_agreement_archive_api_host",
+            "type": "url",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Write the Url to the API"
+        },
+        {
+            "key": "field_5be98cc334844",
+            "label": "API Key",
+            "name": "mod_agreement_archive_api_key",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Add API key",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5be98d1034845",
+            "label": "API Encryption Key",
+            "name": "mod_agreement_archive_api_encryption_key",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Generates automaticly",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "disabled": true
+        },
+        {
+            "key": "field_5be98d3234846",
+            "label": "API Encryption Salt",
+            "name": "mod_agreement_archive_api_encryption_salt",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Generates automaticly",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "disabled": true
+        },
+        {
+            "key": "field_5bea90756612f",
+            "label": "API Token",
+            "name": "mod_agreement_archive_api_token",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Generates automaticly",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "disabled": true
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "Agreement Archive-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+
