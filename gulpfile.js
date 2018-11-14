@@ -10,7 +10,7 @@
 
 const gulp          = require('gulp');
 const sass          = require('gulp-sass');
-const uglify        = require('gulp-uglify');
+const terser        = require('gulp-terser');
 const cleanCSS      = require('gulp-clean-css');
 const rename        = require('gulp-rename');
 const autoprefixer  = require('gulp-autoprefixer');
@@ -60,31 +60,38 @@ gulp.task('build:scripts', function(callback) {
 // Watch Task
 // ==========================================================================
 gulp.task('watch', function() {
-    gulp.watch('source/js/**/*.js', ['build:scripts']);
-    gulp.watch('source/js/**/*.jsx', ['build:scripts']);
+    gulp.watch(['source/js/**/*.js', 'source/js/**/*.jsx'], ['build:scripts']);
     gulp.watch('source/sass/**/*.scss', ['build:sass']);
 });
-
 
 // ==========================================================================
 // SASS Task
 // ==========================================================================
 gulp.task('sass', function() {
-    return gulp.src('source/sass/modularity-agreements-archive.scss')
-        .pipe(plumber())
-        .pipe(sourcemaps.init())
-        .pipe(sass().on('error', function(err) {
-            console.log(err.message);
-            notifier.notify({
-              'title': 'SASS Compile Error',
-              'message': err.message
-            });
-        }))
-        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('dist/css'))
-        .pipe(cleanCSS({debug: true}))
-        .pipe(gulp.dest('dist/.tmp/css'));
+    var filePath = 'source/sass/';
+    var files = [
+        'modularity-json-render-admin.scss'
+    ];
+
+    var tasks = files.map(function(entry) {
+        return gulp.src(filePath + entry)
+            .pipe(plumber())
+            .pipe(sourcemaps.init())
+            .pipe(sass().on('error', function(err) {
+                console.log(err.message);
+                notifier.notify({
+                    'title': 'SASS Compile Error',
+                    'message': err.message
+                });
+            }))
+            .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
+            .pipe(sourcemaps.write())
+            .pipe(gulp.dest('dist/css'))
+            .pipe(cleanCSS({debug: true}))
+            .pipe(gulp.dest('dist/.tmp/css'));
+    });
+
+    return es.merge.apply(null, tasks);
 });
 
 // ==========================================================================
@@ -93,22 +100,21 @@ gulp.task('sass', function() {
 gulp.task('scripts', function() {
     var filePath = 'source/js/';
     var files = [
-        'modularity-agreements-archive.jsx'
+        'modularity-agreements-archive.js'
     ];
-
     var tasks = files.map(function(entry) {
         return browserify({
-                entries: [filePath + entry],
-                debug: true
-            })
+            entries: [filePath + entry],
+            debug: true
+        })
             .transform([babelify])
             .bundle()
             .on('error', function(err){
                 console.log(err.message);
 
                 notifier.notify({
-                  'title': 'Compile Error',
-                  'message': err.message
+                    'title': 'Compile Error',
+                    'message': err.message
                 });
 
                 this.emit("end");
@@ -119,12 +125,13 @@ gulp.task('scripts', function() {
             .pipe(sourcemaps.init())
             .pipe(sourcemaps.write())
             .pipe(gulp.dest('dist/js'))
-            .pipe(uglify())
+            .pipe(terser())
             .pipe(gulp.dest('dist/.tmp/js'));
     });
 
     return es.merge.apply(null, tasks);
 });
+
 
 // ==========================================================================
 // Revision Task
@@ -132,11 +139,11 @@ gulp.task('scripts', function() {
 
 gulp.task("revision", function(){
     return gulp.src(["./dist/.tmp/**/*"])
-      .pipe(rev())
-      .pipe(gulp.dest('./dist'))
-      .pipe(rev.manifest('rev-manifest.json', {merge: true}))
-      .pipe(revDel({ dest: './dist' }))
-      .pipe(gulp.dest('./dist'));
+        .pipe(rev())
+        .pipe(gulp.dest('./dist'))
+        .pipe(rev.manifest('rev-manifest.json', {merge: true}))
+        .pipe(revDel({ dest: './dist' }))
+        .pipe(gulp.dest('./dist'));
 });
 
 // ==========================================================================

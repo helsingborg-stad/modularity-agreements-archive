@@ -6,6 +6,7 @@ class AgreementsArchive extends \Modularity\Module
 {
     public $slug = 'AgreementsArchive';
     public $supports = array();
+    public $react = false;
 
     public function init()
     {
@@ -29,7 +30,8 @@ class AgreementsArchive extends \Modularity\Module
 
     public function script()
     {
-        \ModularityAgreementsArchive\Helper\React::enqueue();
+        $this->react = new \ModularityAgreementsArchive\Helper\React();
+        $this->react::enqueue();
 
         wp_enqueue_script('modularity-agreements-archive-js');
         wp_localize_script('modularity-agreements-archive-js', 'ModularityAgreementsArchiveObject', $this->scriptData());

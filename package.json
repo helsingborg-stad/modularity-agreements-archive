@@ -1,6 +1,6 @@
 {
   "name": "modularity-agreements-archive",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Integration for agreement data provider and Wordpress",
   "main": "",
   "scripts": {
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate.git"
+    "url": "https://github.com/helsingborg-stad/modularity-agreements-archive/"
   },
   "author": "Johan Silvergrund",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate/issues"
+    "url": "https://github.com/helsingborg-stad/modularity-agreements-archive/issues"
   },
-  "homepage": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate",
+  "homepage": "https://github.com/helsingborg-stad/modularity-agreements-archive/",
   "peerDependencies": {
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
@@ -40,15 +40,20 @@
     "gulp-sass": "^2.1.0",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-streamify": "^1.0.2",
+    "gulp-terser": "^1.1.5",
     "gulp-uglify": "^1.1.0",
     "gulp-util": "^3.0.8",
-    "hbg-react": "^0.3.3",
+    "hbg-react": "^0.3.4",
     "node-notifier": "^5.2.1",
+    "object-path": "^0.11.4",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-onclickoutside": "^6.7.1",
     "reactify": "^1.1.1",
+    "recursive-iterator": "^3.3.0",
     "rev-del": "^1.0.5",
     "run-sequence": "^2.2.1",
+    "uuid": "^3.3.2",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
