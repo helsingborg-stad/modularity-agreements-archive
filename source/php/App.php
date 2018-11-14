@@ -7,7 +7,6 @@ class App
     public function __construct()
     {
         add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
-        add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
 
         register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
         register_activation_hook( __FILE__, 'flushRewrites' );
@@ -33,7 +32,7 @@ class App
      */
     public function enqueueScripts()
     {
-        wp_register_script('modularity-agreements-archive-js', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('js/modularity-agreements-archive.js'));
+        wp_register_script('modularity-agreements-archive-js', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('js/modularity-agreements-archive.js'), array('react', 'react-dom'));
         wp_localize_script('modularity-agreements-archive-js', 'fetchObject', $this->scriptData());
     }
 
