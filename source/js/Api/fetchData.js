@@ -1,9 +1,11 @@
 //import Accordion from './Accordion';
 
-export default class FetchData extends React.Component {
+module.exports = class extends React.Component {
     constructor(props) {
+
         super(props);
         const {authToken, archiveId, archiveType} = this.props;
+
         this.state = {
             error: null,
             isLoaded: false,
@@ -12,18 +14,20 @@ export default class FetchData extends React.Component {
     }
 
     componentDidMount() {
+
         let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken='+authToken+'&archiveType='+archiveType;
         apiUrl += (archiveId) ? '&archiveId='+archiveId : '';
         apiUrl += (listArchive) ? '&listArchive='+listArchive : '';
+        console.log(apiUrl);
 
         fetch(apiUrl)
             .then(res => res.json())
-            .then(
-                (result) => {
+            .then( (result) => {
                     this.setState({
                         isLoaded: true,
                         items: result.items
                     });
+                    console.log(result.items);
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
@@ -55,4 +59,4 @@ export default class FetchData extends React.Component {
             );
         }
     }
-}
+};

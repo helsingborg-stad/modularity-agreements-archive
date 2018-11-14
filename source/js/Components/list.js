@@ -12,4 +12,4 @@ module.exports = class ModularityJsonRenderList extends React.Component {
             </div>
         );
     }
-};
+}

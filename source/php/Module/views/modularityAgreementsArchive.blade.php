@@ -4,7 +4,7 @@
         <h4 class="box-title">{!! apply_filters('the_title', $post_title) !!}</h4>
     </div>
     @endif
-    <div class="grid-xs-12"> apa
+    <div class="grid-xs-12">
         <div id="modularity-agreement-archive"></div>
     </div>
 </div>

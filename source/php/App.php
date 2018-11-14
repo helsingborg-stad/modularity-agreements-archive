@@ -7,6 +7,7 @@ class App
     public function __construct()
     {
         add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
 
         register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
         register_activation_hook( __FILE__, 'flushRewrites' );
@@ -33,28 +34,8 @@ class App
     public function enqueueScripts()
     {
         wp_register_script('modularity-agreements-archive-js', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('js/modularity-agreements-archive.js'), array('react', 'react-dom'));
-        wp_localize_script('modularity-agreements-archive-js', 'fetchObject', $this->scriptData());
     }
 
-    public function scriptData()
-    {
-        $data = array();
-        $data['nonce'] = wp_create_nonce('ModularityAgreementsArchive');
-        $data['authToken'] = get_option('group_5be98c9780f80_mod_agreement_archive_api_token');
-
-        //Translation strings
-        $data['translation'] = array(
-            'foundXItems' => __('Found %s items, display page %s of %s.', 'skyfish-integration'),
-            'xResults' => __('%s results, display page %s of %s.', 'skyfish-integration'),
-            'search' => __('Search', 'skyfish-integration'),
-            'next' => __('Next', 'skyfish-integration'),
-            'previous' => __('Previous', 'skyfish-integration'),
-            'download' => __('Download', 'skyfish-integration'),
-        );
-
-        //Send to script
-        return $data;
-    }
 
     /**
      * Flush permalinks
