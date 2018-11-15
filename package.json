@@ -28,6 +28,8 @@
     "babelify": "^10.0.0",
     "browserify": "^16.2.3",
     "del": "^3.0.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
     "event-stream": "^4.0.0",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^3.1.0",
@@ -53,12 +55,14 @@
     "recursive-iterator": "^3.3.0",
     "rev-del": "^1.0.5",
     "run-sequence": "^2.2.1",
+    "sinon": "^7.1.1",
     "uuid": "^3.3.2",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/polyfill": "^7.0.0"
+    "@babel/polyfill": "^7.0.0",
+    "axios": "^0.18.0"
   }
 }

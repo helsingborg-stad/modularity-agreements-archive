@@ -41,7 +41,7 @@ class AgreementsArchive extends \Modularity\Module
     {
         $data = array();
         $data['nonce'] = wp_create_nonce('ModularityAgreementsArchive');
-        $data['authToken'] = get_option('group_5be98c9780f80_mod_agreement_archive_api_token');
+        $data['authToken'] = \ModularityAgreementsArchive\App::encrypt(get_option('group_5be98c9780f80_mod_agreement_archive_api_token'));
 
         //Translation strings
         $data['translation'] = array(

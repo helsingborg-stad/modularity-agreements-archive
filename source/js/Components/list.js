@@ -1,15 +1,19 @@
 module.exports = class ModularityJsonRenderList extends React.Component {
     render() {
+        const { hits, isLoading } = this.state;
+
+        if (isLoading) {
+            return <p>Loading ...</p>;
+        }
+
         return (
-            <div className="grid">
-                <div className="grid-s-12 grid-md-12">
-                    <ul className="c-list c-list--flush">
-                        <li className="c-list__item">
-                            test
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <ul>
+                {hits.map(hit =>
+                    <li key={hit.objectID}>
+                        <a href={hit.url}>{hit.title}</a>
+                    </li>
+                )}
+            </ul>
         );
     }
 }

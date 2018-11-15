@@ -41,7 +41,7 @@ class App
      * Flush permalinks
      * @return void
      */
-    function flushRewrites() {
+    public function flushRewrites() {
         flush_rewrite_rules();
     }
 
@@ -51,8 +51,7 @@ class App
      */
     public function rewriteEndpoint (){
         add_rewrite_endpoint( 'ModularityAgreementsArchiveAPI', EP_ALL );
-        flush_rewrite_rules();
-
+        $this->flushRewrites();
     }
 
     /**
@@ -73,25 +72,75 @@ class App
         return self::encryptDecrypt('decrypt', $string);
     }
 
+
+    /**
+     * Encrypt & decrypt data
+     * @param $meth  string encrypt or decrypt
+     * @param $data  mixed data to encrypt or decrypt
+     * @return string
+     */
+
     /**
      * Open SSL Encryption
      * @return encrypted/decrypted data (string)
      */
-    public static function encryptDecrypt($action, $string) {
+    /*public static function encryptDecrypt($action, $string) {
         $output = false;
-        $encrypt_method = "AES-256-CBC";
-        $secret_key = get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_key');
-        $secret_iv = get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_salt');
-        $key = hash('sha256', $secret_key);
-        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+        $encryptMethod = "AES-256-CBC";
+        $secretKey = get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_key');
+        $secretIV = get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_salt');
+
+        $key = hash('sha256', $secretKey);
+        $iv = substr(hash('sha256', $secretIV), 0, 16);
 
         if ($action == 'encrypt') {
-            $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+            $output = openssl_encrypt($string, $encryptMethod, $key, 0, $iv);
             $output = base64_encode($output);
-        } else if($action == 'decrypt') {
-            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+        } else if ($action == 'decrypt') {
+            $output = openssl_decrypt(base64_decode($string), $encryptMethod, $key, 0, $iv);
         }
 
         return $output;
+    }*/
+
+    /**
+     * Generates Keys
+     * @return string
+     */
+    public static function scrambleEggs(){
+        return substr(str_shuffle("0123456789&abcdefghijklm!nopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?"), 0, 20);
     }
+
+    /**
+     * Encrypt & decrypt data
+     * @param $meth  string encrypt or decrypt
+     * @param $data  mixed data to encrypt or decrypt
+     * @return string
+     */
+    static function encryptDecrypt($meth, $data)
+    {
+        $encryptMethod = 'AES-256-CBC';
+        $encryptSalt = get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_salt');
+        $encryptKey = get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_key');
+
+        if ($encryptSalt && $encryptKey) {
+            switch ($meth) {
+                case 'encrypt':
+                    return base64_encode(openssl_encrypt(json_encode($data), $encryptMethod,
+                        hash('sha256', $encryptKey), 0,
+                        substr(hash('sha256', $encryptSalt), 0, 16)));
+                    break;
+                case 'decrypt':
+
+                    return openssl_decrypt(base64_decode($data), $encryptMethod,
+                        hash('sha256', $encryptKey), 0,
+                        substr(hash('sha256', $encryptSalt), 0, 16));
+                    break;
+
+            }
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -2,11 +2,10 @@
 
 namespace ModularityAgreementsArchive;
 
-class Api extends App
+class Api
 {
     public function __construct()
     {
-        parent::__construct();
         if (strpos($_SERVER['REQUEST_URI'], "ModularityAgreementsArchiveAPI") !== false) {
             $this->fetchData();
         }
@@ -15,12 +14,13 @@ class Api extends App
 
     public function fetchData()
     {
-        $authToken = (isset($_GET['authToken']) && !empty($_GET['authToken'])) ? $_GET['authToken'] : false;
+
+        $authToken = (isset($_GET['authToken']) && !empty($_GET['authToken'])) ? str_replace('"','', \ModularityAgreementsArchive\App::decrypt($_GET['authToken'])) : '';
         $archiveId = (isset($_GET['archiveId']) && !empty($_GET['archiveId'])) ? $_GET['archiveId'] : false;
         $query = (isset($_GET['query']) && !empty($_GET['query'])) ? $_GET['query'] : false;
         $archiveType = (isset($_GET['archiveType']) && !empty($_GET['archiveType'])) ? $_GET['archiveType'] : false;
 
-        if (self::decrypt($authToken) != get_option('_group_5be98c9780f80_mod_agreement_archive_api_encryption_key') . get_option('_group_5be98c9780f80_mod_agreement_archive_api_encryption_salt')) {
+        if ($authToken != get_option('group_5be98c9780f80_mod_agreement_archive_api_token')) {
             return false;
         }
 

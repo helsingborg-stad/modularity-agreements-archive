@@ -1,5 +1,41 @@
-//import Accordion from './Accordion';
+import axios from 'axios';
 
+module.exports = class extends React.Component  {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            hits: [],
+            isLoading: false,
+            error: null,
+        };
+    }
+
+    componentDidMount() {
+        this.setState({ isLoading: true });
+
+        let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken='+authToken+'&archiveType='+archiveType;
+        apiUrl += (archiveId) ? '&archiveId='+archiveId : '';
+        apiUrl += (listArchive) ? '&listArchive='+listArchive : '';
+        console.log(apiUrl);
+
+        axios.get(apiUrl)
+            .then(result => this.setState({
+                hits: result.data.hits,
+                isLoading: false
+            }))
+            .catch(error => this.setState({
+                error,
+                isLoading: false
+            }));
+    }
+
+};
+
+
+
+
+/*
 module.exports = class extends React.Component {
     constructor(props) {
 
@@ -59,4 +95,6 @@ module.exports = class extends React.Component {
             );
         }
     }
-};
+}
+
+*/
