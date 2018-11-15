@@ -2,7 +2,6 @@
 import "@babel/polyfill";
 import FetchData from './Api/FetchData.js';
 
-const JsonRenderContainer = require('./Components/list.js');
 const domElement = document.getElementById('modularity-agreement-archive');
 
 const App = class {
@@ -16,12 +15,8 @@ const App = class {
             return;
         }
 
-        let archiveId, archiveType;
-
-        const api = new FetchData(ModularityAgreementsArchiveObject.authToken, archiveId, archiveType);
-
         ReactDOM.render(
-            <JsonRenderContainer api={api}/>
+            <FetchData token={ModularityAgreementsArchiveObject.authToken}/>
             , domElement
         );
     }

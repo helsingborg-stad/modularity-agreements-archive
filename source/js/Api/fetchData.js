@@ -1,6 +1,7 @@
 import axios from 'axios';
+import {Pagination} from 'hbg-react';
 
-module.exports = class extends React.Component  {
+module.exports = class extends React.Component {
     constructor(props) {
         super(props);
 
@@ -8,21 +9,29 @@ module.exports = class extends React.Component  {
             hits: [],
             isLoading: false,
             error: null,
+            filteredItems: [],
+            paginatedItems: [],
+            totalPages: 0,
+            currentPage: 1
         };
     }
 
     componentDidMount() {
-        this.setState({ isLoading: true });
-
-        let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken='+authToken+'&archiveType='+archiveType;
+        this.setState({isLoading: true});
+        const {perPage, showPagination} = this.props;
+        /*let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken='+authToken+'&archiveType='+archiveType;
         apiUrl += (archiveId) ? '&archiveId='+archiveId : '';
         apiUrl += (listArchive) ? '&listArchive='+listArchive : '';
         console.log(apiUrl);
-
+        */
+        let apiUrl = 'https://hn.algolia.com/api/v1/search?query=redux'; // Test url med json-data
         axios.get(apiUrl)
             .then(result => this.setState({
                 hits: result.data.hits,
-                isLoading: false
+                isLoading: false,
+                filteredItems: result.data,
+                paginatedItems: result.data,
+                totalPages: Math.ceil(result.data.length / perPage)
             }))
             .catch(error => this.setState({
                 error,
@@ -30,71 +39,93 @@ module.exports = class extends React.Component  {
             }));
     }
 
-};
+    handleSearch(e) {
+        let searchString = e.target.value;
+        let filteredItems = this.state.items;
+        const {perPage, showPagination} = this.props;
 
+        filteredItems = filteredItems.filter((item) => {
+            let title = item.title.toLowerCase();
+            let content = item.content.toLowerCase();
+            return title.indexOf(searchString.toLowerCase()) !== -1 || content.indexOf(searchString.toLowerCase()) !== -1;
+        });
 
-
-
-/*
-module.exports = class extends React.Component {
-    constructor(props) {
-
-        super(props);
-        const {authToken, archiveId, archiveType} = this.props;
-
-        this.state = {
-            error: null,
-            isLoaded: false,
-            items: []
-        };
+        if (showPagination) {
+            this.setState({
+                filteredItems,
+                currentPage: 1,
+                totalPages: Math.ceil(filteredItems.length / perPage)
+            });
+            this.updateItemList(1);
+        } else {
+            this.setState({
+                filteredItems,
+                paginatedItems: filteredItems
+            });
+        }
     }
 
-    componentDidMount() {
+    updateItemList(currentPage) {
+        const {filteredItems} = this.state;
+        const {perPage} = this.props;
+        const begin = ((currentPage - 1) * perPage);
+        const end = begin + perPage;
 
-        let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken='+authToken+'&archiveType='+archiveType;
-        apiUrl += (archiveId) ? '&archiveId='+archiveId : '';
-        apiUrl += (listArchive) ? '&listArchive='+listArchive : '';
-        console.log(apiUrl);
+        this.setState({
+            paginatedItems: filteredItems.slice(begin, end)
+        });
+    }
 
-        fetch(apiUrl)
-            .then(res => res.json())
-            .then( (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        items: result.items
-                    });
-                    console.log(result.items);
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+    nextPage() {
+        if (this.state.currentPage === this.state.totalPages) {
+            return;
+        }
+        const currentPage = this.state.currentPage += 1;
+        this.setState({currentPage: currentPage});
+        this.updateItemList(currentPage);
+    }
+
+    prevPage() {
+        if (this.state.currentPage <= 1) {
+            return;
+        }
+        const currentPage = this.state.currentPage -= 1;
+        this.setState({currentPage: currentPage});
+        this.updateItemList(currentPage);
+    }
+
+    paginationInput(e) {
+        let currentPage = e.target.value ? parseInt(e.target.value) : '';
+        currentPage = (currentPage > this.state.totalPages) ? this.state.totalPages : currentPage;
+        this.setState({currentPage: currentPage});
+        if (currentPage) {
+            this.updateItemList(currentPage);
+        }
     }
 
     render() {
-        const { error, isLoaded, items } = this.state;
-        if (error) {
-            return <div>Error: {error.message}</div>;
-        } else if (!isLoaded) {
-            return <div>Loading...</div>;
-        } else {
-            return (
-                <ul>
-                    {items.map(item => (
-                        <li key={item.name}>
-                            {item.name} {item.price}
-                        </li>
-                    ))}
-                </ul>
-            );
-        }
-    }
-}
+        const {hits, isLoading, error, isLoaded, paginatedItems, totalPages, currentPage} = this.state;
 
-*/
+        if (error) {
+            return <p>{error.message}</p>;
+        }
+
+        if (isLoading) {
+            return <p>Loading ...</p>;
+        }
+
+        return (
+
+            <ul>
+                {hits.map(hit =>
+                    <li key={hit.objectID}>
+                        <a href={hit.url}>{hit.title}</a>
+                    </li>
+                )}
+            </ul>
+
+        );
+    }
+
+
+};
