@@ -38,6 +38,7 @@ module.exports = class extends React.Component {
                 isLoading: false
             }));
     }
+    
 
     handleSearch(e) {
         let searchString = e.target.value;
