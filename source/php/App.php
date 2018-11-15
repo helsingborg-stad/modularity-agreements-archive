@@ -72,37 +72,6 @@ class App
         return self::encryptDecrypt('decrypt', $string);
     }
 
-
-    /**
-     * Encrypt & decrypt data
-     * @param $meth  string encrypt or decrypt
-     * @param $data  mixed data to encrypt or decrypt
-     * @return string
-     */
-
-    /**
-     * Open SSL Encryption
-     * @return encrypted/decrypted data (string)
-     */
-    /*public static function encryptDecrypt($action, $string) {
-        $output = false;
-        $encryptMethod = "AES-256-CBC";
-        $secretKey = get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_key');
-        $secretIV = get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_salt');
-
-        $key = hash('sha256', $secretKey);
-        $iv = substr(hash('sha256', $secretIV), 0, 16);
-
-        if ($action == 'encrypt') {
-            $output = openssl_encrypt($string, $encryptMethod, $key, 0, $iv);
-            $output = base64_encode($output);
-        } else if ($action == 'decrypt') {
-            $output = openssl_decrypt(base64_decode($string), $encryptMethod, $key, 0, $iv);
-        }
-
-        return $output;
-    }*/
-
     /**
      * Generates Keys
      * @return string
@@ -136,7 +105,6 @@ class App
                         hash('sha256', $encryptKey), 0,
                         substr(hash('sha256', $encryptSalt), 0, 16));
                     break;
-
             }
         } else {
             return false;
