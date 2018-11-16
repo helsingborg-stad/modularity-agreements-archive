@@ -17,8 +17,6 @@ class Settings
         add_filter('acf/load_field/name=mod_agreement_archive_api_encryption_key', array($this, 'disabledField'));
         add_filter('acf/load_field/name=mod_agreement_archive_api_token', array($this, 'disabledField'));
         add_filter( 'acf/save_post', array($this, 'generateKeys'), 1 );
-
-
     }
 
     /**
@@ -31,9 +29,6 @@ class Settings
         $field['disabled'] = true;
         return $field;
     }
-
-
-
 
     /**
      * Generates Encryption keys and Token

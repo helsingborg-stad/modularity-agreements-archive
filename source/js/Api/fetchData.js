@@ -2,13 +2,14 @@ import axios from 'axios';
 import {Pagination} from 'hbg-react';
 
 module.exports = class extends React.Component {
-    constructor(props) {
-        super(props);
+
+    constructor() {
+        super();
 
         this.state = {
-            hits: [],
-            isLoading: false,
-            error: null,
+            responseData: [],
+            isLoaded: true,
+            errors: null,
             filteredItems: [],
             paginatedItems: [],
             totalPages: 0,
@@ -16,29 +17,50 @@ module.exports = class extends React.Component {
         };
     }
 
-    componentDidMount() {
-        this.setState({isLoading: true});
+    async getJsonData() {
         const {perPage, showPagination} = this.props;
-        /*let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken='+authToken+'&archiveType='+archiveType;
-        apiUrl += (archiveId) ? '&archiveId='+archiveId : '';
-        apiUrl += (listArchive) ? '&listArchive='+listArchive : '';
-        console.log(apiUrl);
-        */
-        let apiUrl = 'https://hn.algolia.com/api/v1/search?query=redux'; // Test url med json-data
-        axios.get(apiUrl)
-            .then(result => this.setState({
-                hits: result.data.hits,
-                isLoading: false,
-                filteredItems: result.data,
-                paginatedItems: result.data,
-                totalPages: Math.ceil(result.data.length / perPage)
-            }))
-            .catch(error => this.setState({
-                error,
-                isLoading: false
-            }));
+        let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=list';
+        axios
+            .get(apiUrl)
+            .then(response => {
+                const jsonData = JSON.parse(response.data);
+                this.setState({
+                    responseData: jsonData,
+                    isLoading: false,
+                    filteredItems: jsonData,
+                    paginatedItems: jsonData,
+                    totalPages: Math.ceil(jsonData.length / perPage)
+                });
+                if (showPagination) {
+                    this.updateItemList(1);
+                }
+            })
+            .catch(error => this.setState({error, isLoading: false}));
     }
-    
+
+    componentDidMount() {
+        this.getJsonData();
+    }
+
+    render() {
+        
+        const {isLoaded, responseData} = this.state;
+        console.log(responseData);
+        if (!isLoaded) {
+            return <div>Loading...</div>;
+        } else {
+            return (
+                <ul>
+                    {this.state.responseData.map(item => (
+                        <li key={item.Id}>
+                            {item.Name} {item.Id}
+                        </li>
+                    ))}
+                </ul>
+            );
+        }
+    }
+
 
     handleSearch(e) {
         let searchString = e.target.value;
@@ -102,30 +124,6 @@ module.exports = class extends React.Component {
         if (currentPage) {
             this.updateItemList(currentPage);
         }
-    }
-
-    render() {
-        const {hits, isLoading, error, isLoaded, paginatedItems, totalPages, currentPage} = this.state;
-
-        if (error) {
-            return <p>{error.message}</p>;
-        }
-
-        if (isLoading) {
-            return <p>Loading ...</p>;
-        }
-
-        return (
-
-            <ul>
-                {hits.map(hit =>
-                    <li key={hit.objectID}>
-                        <a href={hit.url}>{hit.title}</a>
-                    </li>
-                )}
-            </ul>
-
-        );
     }
 
 
