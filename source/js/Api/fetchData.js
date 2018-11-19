@@ -1,3 +1,4 @@
+import RenderList from '../Components/RenderList.js';
 import axios from 'axios';
 import {Pagination} from 'hbg-react';
 
@@ -20,6 +21,7 @@ module.exports = class extends React.Component {
     async getJsonData() {
         const {perPage, showPagination} = this.props;
         let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=list';
+        console.log(perPage);
         axios
             .get(apiUrl)
             .then(response => {
@@ -41,26 +43,6 @@ module.exports = class extends React.Component {
     componentDidMount() {
         this.getJsonData();
     }
-
-    render() {
-        
-        const {isLoaded, responseData} = this.state;
-        console.log(responseData);
-        if (!isLoaded) {
-            return <div>Loading...</div>;
-        } else {
-            return (
-                <ul>
-                    {this.state.responseData.map(item => (
-                        <li key={item.Id}>
-                            {item.Name} {item.Id}
-                        </li>
-                    ))}
-                </ul>
-            );
-        }
-    }
-
 
     handleSearch(e) {
         let searchString = e.target.value;
@@ -123,6 +105,44 @@ module.exports = class extends React.Component {
         this.setState({currentPage: currentPage});
         if (currentPage) {
             this.updateItemList(currentPage);
+        }
+    }
+
+    render() {
+        const {showSearch} = this.props;
+        const {isLoaded, paginatedItems, totalPages, currentPage} = this.state;
+
+        if (!isLoaded) {
+            return (
+                <div className="gutter">
+                    <div className="loading">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                        <RenderList
+                            paginatedItems={this.state.paginatedItems}
+                        />
+
+                        <div className="grid gutter">
+                            <div className="grid-fit-content u-ml-auto">
+                                <Pagination
+                                    current={currentPage}
+                                    total={totalPages}
+                                    next={this.nextPage.bind(this)}
+                                    prev={this.prevPage.bind(this)}
+                                    input={this.paginationInput.bind(this)}
+                                />
+                            </div>
+                        </div>
+                </div>
+            );
         }
     }
 

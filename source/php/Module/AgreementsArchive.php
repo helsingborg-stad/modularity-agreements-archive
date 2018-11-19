@@ -41,6 +41,9 @@ class AgreementsArchive extends \Modularity\Module
     {
         $data = array();
         $data['nonce'] = wp_create_nonce('ModularityAgreementsArchive');
+        $data['perPage'] = get_option('group_5be98c9780f80_mod_agreement_archive_pagination');
+        $data['showSearch'] = get_option('group_5be98c9780f80_mod_agreement_archive_search');
+        $data['showPagination'] = get_option('group_5be98c9780f80_mod_agreement_archive_show_pagination');
         $data['authToken'] = \ModularityAgreementsArchive\App::encrypt(get_option('group_5be98c9780f80_mod_agreement_archive_api_token'));
 
         //Translation strings

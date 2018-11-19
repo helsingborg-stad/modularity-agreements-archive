@@ -16,7 +16,11 @@ const App = class {
         }
 
         ReactDOM.render(
-            <FetchData token={ModularityAgreementsArchiveObject.authToken}/>
+            <FetchData
+                token={ModularityAgreementsArchiveObject.authToken}
+                showSearch={ModularityAgreementsArchiveObject.showSearch}
+                showPagination={ModularityAgreementsArchiveObject.showPagination}
+                perPage={parseInt(ModularityAgreementsArchiveObject.perPage)} />
             , domElement
         );
     }

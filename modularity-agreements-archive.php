@@ -44,6 +44,7 @@ add_action('plugins_loaded', function () {
     $acfExportManager->setExportFolder(MODULARITYAGREEMENTSARCHIVE_PATH . 'acf-fields/');
     $acfExportManager->autoExport(array(
         'modularity-agreements-archive' => 'group_5be98c9780f80',
+        'modularity-agreements-archive_display' => 'group_5bf2abec3ce8a',
     ));
     $acfExportManager->import();
 });

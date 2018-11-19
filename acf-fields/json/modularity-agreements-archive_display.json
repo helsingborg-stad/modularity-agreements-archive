@@ -1,0 +1,91 @@
+[{
+    "key": "group_5bf2abec3ce8a",
+    "title": "Module agreement archive Display settings",
+    "fields": [
+        {
+            "key": "field_5bf2ac136ded3",
+            "label": "Show search",
+            "name": "mod_agreement_archive_search",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_5bf2ad5f7e886",
+            "label": "Show pagination",
+            "name": "mod_agreement_archive_show_pagination",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_5bf2ae0b25c74",
+            "label": "Pagination",
+            "name": "mod_agreement_archive_pagination",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5bf2ad5f7e886",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 10,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "min": 10,
+            "max": 50,
+            "step": 10
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "Agreement Archive-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+
