@@ -13,6 +13,7 @@ class AgreementsArchive extends \Modularity\Module
         $this->nameSingular = __("Modularity Agreements Archive", 'modularity-agreements-archive');
         $this->namePlural = __("Modularity Agreements Archives", 'modularity-agreements-archive');
         $this->description = __("Integrates Modularity with Primona Kommers API", 'modularity-agreements-archive');
+
     }
 
     public function data() : array
@@ -35,6 +36,7 @@ class AgreementsArchive extends \Modularity\Module
 
         wp_enqueue_script('modularity-agreements-archive-js');
         wp_localize_script('modularity-agreements-archive-js', 'ModularityAgreementsArchiveObject', $this->scriptData());
+
     }
 
     public function scriptData()
@@ -48,12 +50,16 @@ class AgreementsArchive extends \Modularity\Module
 
         //Translation strings
         $data['translation'] = array(
-            'foundXItems' => __('Found %s items, display page %s of %s.', 'skyfish-integration'),
-            'xResults' => __('%s results, display page %s of %s.', 'skyfish-integration'),
-            'search' => __('Search', 'skyfish-integration'),
-            'next' => __('Next', 'skyfish-integration'),
-            'previous' => __('Previous', 'skyfish-integration'),
-            'download' => __('Download', 'skyfish-integration'),
+            'title' => __('Modularity Agreement Archive', 'modularity-agreements-archive'),
+            'number' => __('Number', 'modularity-agreements-archive'),
+            'category' => __('Category', 'modularity-agreements-archive'),
+            'supplier' => __('Supplier', 'modularity-agreements-archive'),
+            'orgnr' => __('Orgnr', 'modularity-agreements-archive'),
+            'fromdate' => __('From date', 'modularity-agreements-archive'),
+            'todate' => __('To date', 'modularity-agreements-archive'),
+            'buyername' => __('Buyer name', 'modularity-agreements-archive'),
+            'search' => __('Search', 'modularity-agreements-archive'),
+            'download' => __('Download', 'modularity-agreements-archive'),
         );
 
         //Send to script
@@ -62,6 +68,7 @@ class AgreementsArchive extends \Modularity\Module
 
     public function style()
     {
+        wp_register_style('modularity-agreements-archive-css', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('css/modularity-agreements-archive.css'));
         wp_enqueue_style('modularity-agreements-archive-css');
     }
 

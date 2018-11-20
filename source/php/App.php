@@ -6,7 +6,7 @@ class App
 {
     public function __construct()
     {
-        add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
+
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
 
         register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
@@ -18,14 +18,6 @@ class App
 
     }
 
-    /**
-     * Enqueue required style
-     * @return void
-     */
-    public function enqueueStyles()
-    {
-        wp_register_style('modularity-agreements-archive-css', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('css/modularity-agreements-archive.css'));
-    }
 
     /**
      * Enqueue required scripts

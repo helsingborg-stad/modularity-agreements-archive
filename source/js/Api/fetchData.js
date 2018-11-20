@@ -9,26 +9,27 @@ module.exports = class extends React.Component {
 
         this.state = {
             responseData: [],
-            isLoaded: true,
+            isLoaded: false,
             errors: null,
             filteredItems: [],
             paginatedItems: [],
             totalPages: 0,
-            currentPage: 1
+            currentPage: 1,
+            query: ''
         };
     }
 
-    async getJsonData() {
+    async getJsonData(type) {
         const {perPage, showPagination} = this.props;
         let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=list';
-        console.log(perPage);
+
         axios
             .get(apiUrl)
             .then(response => {
-                const jsonData = JSON.parse(response.data);
+                const jsonData = JSON.parse(response.data).reverse();
                 this.setState({
                     responseData: jsonData,
-                    isLoading: false,
+                    isLoaded: true,
                     filteredItems: jsonData,
                     paginatedItems: jsonData,
                     totalPages: Math.ceil(jsonData.length / perPage)
@@ -37,37 +38,24 @@ module.exports = class extends React.Component {
                     this.updateItemList(1);
                 }
             })
-            .catch(error => this.setState({error, isLoading: false}));
+            .catch(error => this.setState({error, isLoaded: true}));
     }
 
     componentDidMount() {
-        this.getJsonData();
+        this.getJsonData('list');
     }
 
     handleSearch(e) {
-        let searchString = e.target.value;
-        let filteredItems = this.state.items;
-        const {perPage, showPagination} = this.props;
-
-        filteredItems = filteredItems.filter((item) => {
-            let title = item.title.toLowerCase();
-            let content = item.content.toLowerCase();
-            return title.indexOf(searchString.toLowerCase()) !== -1 || content.indexOf(searchString.toLowerCase()) !== -1;
+        //let searchString = e.target.value;
+        this.setState({
+            query: e.target.value
         });
 
-        if (showPagination) {
-            this.setState({
-                filteredItems,
-                currentPage: 1,
-                totalPages: Math.ceil(filteredItems.length / perPage)
-            });
-            this.updateItemList(1);
-        } else {
-            this.setState({
-                filteredItems,
-                paginatedItems: filteredItems
-            });
-        }
+        this.getJsonData('q');
+
+        const {perPage, showPagination} = this.props;
+
+
     }
 
     updateItemList(currentPage) {
@@ -110,7 +98,9 @@ module.exports = class extends React.Component {
 
     render() {
         const {showSearch} = this.props;
+        const searchStyle = ({showSearch}) ? 'grid-md-4' : 'grid-md-12';
         const {isLoaded, paginatedItems, totalPages, currentPage} = this.state;
+        console.log(paginatedItems);
 
         if (!isLoaded) {
             return (
@@ -125,22 +115,44 @@ module.exports = class extends React.Component {
             );
         } else {
             return (
-                <div>
-                        <RenderList
-                            paginatedItems={this.state.paginatedItems}
-                        />
+                <div className="renderList">
+                    <div className="container-fluid">
+                        <div className="grid">
+                            <div className="grid-md-8 gutter">
+                                <div className="searchApi input-group">
+                                    <span className="input-group-addon"><i className="pricon pricon-file"></i></span>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        onChange={this.handleSearch.bind(this)}
 
-                        <div className="grid gutter">
-                            <div className="grid-fit-content u-ml-auto">
-                                <Pagination
-                                    current={currentPage}
-                                    total={totalPages}
-                                    next={this.nextPage.bind(this)}
-                                    prev={this.prevPage.bind(this)}
-                                    input={this.paginationInput.bind(this)}
-                                />
+                                    />
+                                    <span className="input-group-addon-btn">
+                                        <button type="submit" className="btn btn-primary"
+                                                value="Send">{ModularityAgreementsArchiveObject.translation.search}</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className={searchStyle}>
+                                <div className="gutter grid">
+                                    <div className="grid-fit-content u-ml-auto">
+                                        <Pagination className="pagination"
+                                                    current={currentPage}
+                                                    total={totalPages}
+                                                    next={this.nextPage.bind(this)}
+                                                    prev={this.prevPage.bind(this)}
+                                                    input={this.paginationInput.bind(this)}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <RenderList
+                        paginatedItems={this.state.paginatedItems}
+                    />
+
                 </div>
             );
         }

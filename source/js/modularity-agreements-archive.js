@@ -20,7 +20,9 @@ const App = class {
                 token={ModularityAgreementsArchiveObject.authToken}
                 showSearch={ModularityAgreementsArchiveObject.showSearch}
                 showPagination={ModularityAgreementsArchiveObject.showPagination}
-                perPage={parseInt(ModularityAgreementsArchiveObject.perPage)} />
+                perPage={parseInt(ModularityAgreementsArchiveObject.perPage)}
+
+            />
             , domElement
         );
     }
