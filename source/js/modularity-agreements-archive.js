@@ -1,6 +1,6 @@
 'use strict';
 import "@babel/polyfill";
-import FetchData from './Api/FetchData.js';
+import FetchData from './Components/FetchData.js';
 
 const domElement = document.getElementById('modularity-agreement-archive');
 

@@ -1,6 +1,6 @@
-import RenderTable from '../Components/RenderTable.js';
-import Search from '../Components/Search.js';
-import Paginate from '../Components/Paginate.js';
+import RenderTable from './Components/RenderTable.js';
+import Search from './Components/Search.js';
+import Paginate from './Components/Paginate.js';
 import axios from 'axios';
 
 module.exports = class extends React.Component {
