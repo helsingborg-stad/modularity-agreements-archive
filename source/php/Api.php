@@ -27,7 +27,7 @@ class Api
         $hostUrl = get_option('group_5be98c9780f80_mod_agreement_archive_api_host');
         $url = array(
             'single' => $hostUrl . "/" . $archiveId,
-            'search' => $hostUrl . "/?q=" . isset($query),
+            'search' => $hostUrl . "/?q=" . $query,
             'list' => $hostUrl
         );
 

@@ -15,13 +15,20 @@ module.exports = class extends React.Component {
             paginatedItems: [],
             totalPages: 0,
             currentPage: 1,
-            query: ''
+            archId: '',
+            searchInput: ''
         };
+        this.updateInput = this.updateInput.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     async getJsonData(type) {
         const {perPage, showPagination} = this.props;
-        let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=list';
+        let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=';
+
+        apiUrl += (type === 'list') ? 'list' : '';
+        apiUrl += (type === 'query') ? 'search&query='+this.state.searchInput : '';
+        apiUrl += (type === 'archiveId') ? 'single&archiveId='+this.state.archId : '';
 
         axios
             .get(apiUrl)
@@ -45,17 +52,12 @@ module.exports = class extends React.Component {
         this.getJsonData('list');
     }
 
-    handleSearch(e) {
-        //let searchString = e.target.value;
-        this.setState({
-            query: e.target.value
-        });
+    updateInput(event){
+        this.setState({searchInput : event.target.value})
+    }
 
-        this.getJsonData('q');
-
-        const {perPage, showPagination} = this.props;
-
-
+    handleSubmit(){
+        this.getJsonData('query');
     }
 
     updateItemList(currentPage) {
@@ -100,7 +102,6 @@ module.exports = class extends React.Component {
         const {showSearch} = this.props;
         const searchStyle = ({showSearch}) ? 'grid-md-4' : 'grid-md-12';
         const {isLoaded, paginatedItems, totalPages, currentPage} = this.state;
-        console.log(paginatedItems);
 
         if (!isLoaded) {
             return (
@@ -122,14 +123,15 @@ module.exports = class extends React.Component {
                                 <div className="searchApi input-group">
                                     <span className="input-group-addon"><i className="pricon pricon-file"></i></span>
                                     <input
+                                        id="searchInput"
                                         type="text"
                                         className="form-control"
-                                        onChange={this.handleSearch.bind(this)}
-
+                                        onChange={this.updateInput}
                                     />
                                     <span className="input-group-addon-btn">
                                         <button type="submit" className="btn btn-primary"
-                                                value="Send">{ModularityAgreementsArchiveObject.translation.search}</button>
+                                                value="Send"
+                                                onClick={this.handleSubmit}>{ModularityAgreementsArchiveObject.translation.search}</button>
                                     </span>
                                 </div>
                             </div>
