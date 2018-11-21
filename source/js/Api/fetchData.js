@@ -1,6 +1,7 @@
-import RenderList from '../Components/RenderList.js';
+import RenderTable from '../Components/RenderTable.js';
+import Search from '../Components/Search.js';
+import Paginate from '../Components/Paginate.js';
 import axios from 'axios';
-import {Pagination} from 'hbg-react';
 
 module.exports = class extends React.Component {
 
@@ -18,8 +19,10 @@ module.exports = class extends React.Component {
             archId: '',
             searchInput: ''
         };
+
         this.updateInput = this.updateInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     async getJsonData(type) {
@@ -27,8 +30,8 @@ module.exports = class extends React.Component {
         let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=';
 
         apiUrl += (type === 'list') ? 'list' : '';
-        apiUrl += (type === 'query') ? 'search&query='+this.state.searchInput : '';
-        apiUrl += (type === 'archiveId') ? 'single&archiveId='+this.state.archId : '';
+        apiUrl += (type === 'query') ? 'search&query=' + this.state.searchInput : '';
+        apiUrl += (type === 'archiveId') ? 'single&archiveId=' + this.state.archId : '';
 
         axios
             .get(apiUrl)
@@ -52,11 +55,12 @@ module.exports = class extends React.Component {
         this.getJsonData('list');
     }
 
-    updateInput(event){
-        this.setState({searchInput : event.target.value})
+
+    updateInput(event) {
+        this.setState({searchInput: event});
     }
 
-    handleSubmit(){
+    handleSubmit() {
         this.getJsonData('query');
     }
 
@@ -99,11 +103,8 @@ module.exports = class extends React.Component {
     }
 
     render() {
-        const {showSearch} = this.props;
-        const searchStyle = ({showSearch}) ? 'grid-md-4' : 'grid-md-12';
-        const {isLoaded, paginatedItems, totalPages, currentPage} = this.state;
 
-        if (!isLoaded) {
+        if (!this.state.isLoaded) {
             return (
                 <div className="gutter">
                     <div className="loading">
@@ -119,39 +120,22 @@ module.exports = class extends React.Component {
                 <div className="renderList">
                     <div className="container-fluid">
                         <div className="grid">
-                            <div className="grid-md-8 gutter">
-                                <div className="searchApi input-group">
-                                    <span className="input-group-addon"><i className="pricon pricon-file"></i></span>
-                                    <input
-                                        id="searchInput"
-                                        type="text"
-                                        className="form-control"
-                                        onChange={this.updateInput}
-                                    />
-                                    <span className="input-group-addon-btn">
-                                        <button type="submit" className="btn btn-primary"
-                                                value="Send"
-                                                onClick={this.handleSubmit}>{ModularityAgreementsArchiveObject.translation.search}</button>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div className={searchStyle}>
-                                <div className="gutter grid">
-                                    <div className="grid-fit-content u-ml-auto">
-                                        <Pagination className="pagination"
-                                                    current={currentPage}
-                                                    total={totalPages}
-                                                    next={this.nextPage.bind(this)}
-                                                    prev={this.prevPage.bind(this)}
-                                                    input={this.paginationInput.bind(this)}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                            <Search
+                                change={this.updateInput}
+                                click={this.handleSubmit}
+                            />
+                            <Paginate
+                                showSearch={this.props.showSearch}
+                                current={this.state.currentPage}
+                                total={this.state.totalPages}
+                                next={this.nextPage.bind(this)}
+                                prev={this.prevPage.bind(this)}
+                                input={this.paginationInput.bind(this)}
+                            />
                         </div>
                     </div>
-                    <RenderList
+
+                    <RenderTable
                         paginatedItems={this.state.paginatedItems}
                     />
 

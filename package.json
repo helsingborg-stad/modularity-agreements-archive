@@ -63,6 +63,8 @@
   "dependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
-    "axios": "^0.18.0"
+    "@types/lodash": "^4.14.118",
+    "axios": "^0.18.0",
+    "throttle-debounce": "^2.0.1"
   }
 }
