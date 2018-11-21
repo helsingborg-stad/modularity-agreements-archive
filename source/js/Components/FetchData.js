@@ -1,10 +1,14 @@
-import RenderTable from './Components/RenderTable.js';
-import Search from './Components/Search.js';
-import Paginate from './Components/Paginate.js';
+import RenderTable from './RenderTable.js';
+import Search from './Search.js';
+import Paginate from './Paginate.js';
 import axios from 'axios';
 
 module.exports = class extends React.Component {
-
+    
+    /**
+     * Init
+     * @return void
+     */
     constructor() {
         super();
 
@@ -25,6 +29,10 @@ module.exports = class extends React.Component {
 
     }
 
+    /**
+     * Getting data from Back-end/API
+     * @return void
+     */
     async getJsonData(type) {
         const {perPage, showPagination} = this.props;
         let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=';
@@ -51,19 +59,36 @@ module.exports = class extends React.Component {
             .catch(error => this.setState({error, isLoaded: true}));
     }
 
+    /**
+     * Mounting data onLoad
+     * @return void
+     */
     componentDidMount() {
         this.getJsonData('list');
     }
 
-
+    /**
+     * Updating state from search input
+     * @param event (string) Search input value from Search Component
+     * @return void
+     */
     updateInput(event) {
         this.setState({searchInput: event});
     }
 
+    /**
+     * Submiting data from state to API
+     * @return void
+     */
     handleSubmit() {
         this.getJsonData('query');
     }
 
+    /**
+     * Accordion - Updating list, depending on settings in db and page
+     * @param currentPage (int) value from state or static param
+     * @return void
+     */
     updateItemList(currentPage) {
         const {filteredItems} = this.state;
         const {perPage} = this.props;
@@ -75,6 +100,10 @@ module.exports = class extends React.Component {
         });
     }
 
+    /**
+     * Accordion - Next page
+     * @return void
+     */
     nextPage() {
         if (this.state.currentPage === this.state.totalPages) {
             return;
@@ -84,6 +113,10 @@ module.exports = class extends React.Component {
         this.updateItemList(currentPage);
     }
 
+    /**
+     * Accordion - Previous page
+     * @return void
+     */
     prevPage() {
         if (this.state.currentPage <= 1) {
             return;
@@ -93,6 +126,11 @@ module.exports = class extends React.Component {
         this.updateItemList(currentPage);
     }
 
+    /**
+     * Accordion - Pagination input (page navigation)
+     * @param e (int) value from pagination input
+     * @return void
+     */
     paginationInput(e) {
         let currentPage = e.target.value ? parseInt(e.target.value) : '';
         currentPage = (currentPage > this.state.totalPages) ? this.state.totalPages : currentPage;
@@ -102,6 +140,10 @@ module.exports = class extends React.Component {
         }
     }
 
+    /**
+     * Render jsx
+     * @return Render to javaScript
+     */
     render() {
 
         if (!this.state.isLoaded) {
@@ -143,6 +185,4 @@ module.exports = class extends React.Component {
             );
         }
     }
-
-
 };
