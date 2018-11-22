@@ -4,10 +4,10 @@ class Single extends React.Component {
     }
 
     render() {
-
+        const singleItems = this.props.singleItems;
         return (
             <div id="singleView container-fluid" items={singleItems}>
-                {singleItems.map((item, i) => (
+
                 <div className="grid">
                     <div className="grid-md-2">
                     <button className="go-back btn btn-contrasted"
@@ -85,7 +85,6 @@ class Single extends React.Component {
                         </div>
                     </div>
                 </div>
-                ))}
             </div>
         );
     }
