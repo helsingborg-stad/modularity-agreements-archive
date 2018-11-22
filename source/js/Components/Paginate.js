@@ -4,6 +4,7 @@ import {Pagination} from 'hbg-react';
 class Paginate extends React.Component {
     constructor(props) {
         super(props);
+
     }
 
     render() {

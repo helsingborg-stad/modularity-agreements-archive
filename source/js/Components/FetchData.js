@@ -1,10 +1,12 @@
 import RenderTable from './RenderTable.js';
+import Single from './Single.js';
 import Search from './Search.js';
 import Paginate from './Paginate.js';
 import axios from 'axios';
+//import virtualUrl from '../Helpers/VirtualUrl.js';
 
 module.exports = class extends React.Component {
-    
+
     /**
      * Init
      * @return void
@@ -21,11 +23,15 @@ module.exports = class extends React.Component {
             totalPages: 0,
             currentPage: 1,
             archId: '',
-            searchInput: ''
+            searchInput: '',
+            view: 'table',
+            switchView: false,
         };
 
         this.updateInput = this.updateInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSingleClick = this.handleSingleClick.bind(this);
+        this.handleChangeView = this.handleChangeView.bind(this);
 
     }
 
@@ -39,21 +45,25 @@ module.exports = class extends React.Component {
 
         apiUrl += (type === 'list') ? 'list' : '';
         apiUrl += (type === 'query') ? 'search&query=' + this.state.searchInput : '';
-        apiUrl += (type === 'archiveId') ? 'single&archiveId=' + this.state.archId : '';
+        apiUrl += (type === 'single') ? 'single&archiveId=' + this.state.archId : '';
 
         axios
             .get(apiUrl)
             .then(response => {
                 const jsonData = JSON.parse(response.data).reverse();
+                const view = (type === 'list') ? 'table' : 'single';
                 this.setState({
                     responseData: jsonData,
                     isLoaded: true,
                     filteredItems: jsonData,
                     paginatedItems: jsonData,
-                    totalPages: Math.ceil(jsonData.length / perPage)
+                    totalPages: Math.ceil(jsonData.length / perPage),
+                    view: view
                 });
+                console.log(jsonData);
                 if (showPagination) {
-                    this.updateItemList(1);
+                    let page = (this.state.switchView) ? this.state.currentPage : 1;
+                    this.updateItemList(page);
                 }
             })
             .catch(error => this.setState({error, isLoaded: true}));
@@ -65,6 +75,8 @@ module.exports = class extends React.Component {
      */
     componentDidMount() {
         this.getJsonData('list');
+        const url = new URL(window.location).pathname.split('/');
+        const mediaId = (url.indexOf('skyfishId') != -1) ? virtualUrl.getMediaID() : false;
     }
 
     /**
@@ -82,6 +94,28 @@ module.exports = class extends React.Component {
      */
     handleSubmit() {
         this.getJsonData('query');
+
+    }
+
+    /**
+     * Fetching singleData from API
+     * @return void
+     */
+    handleSingleClick(e,itemId){
+        e.preventDefault();
+        this.setState({archId: itemId});
+        this.getJsonData('single');
+
+    }
+
+    /**
+     * Change to table view fetch data from API
+     * @return void
+     */
+    handleChangeView(){
+        this.setState({switchView: true});
+        this.setState({view: 'table'});
+        this.getJsonData('list');
     }
 
     /**
@@ -145,7 +179,7 @@ module.exports = class extends React.Component {
      * @return Render to javaScript
      */
     render() {
-
+        const view = this.state.view;
         if (!this.state.isLoaded) {
             return (
                 <div className="gutter">
@@ -159,7 +193,8 @@ module.exports = class extends React.Component {
             );
         } else {
             return (
-                <div className="renderList">
+
+                <div className="renderTable">
                     <div className="container-fluid">
                         <div className="grid">
                             <Search
@@ -176,11 +211,17 @@ module.exports = class extends React.Component {
                             />
                         </div>
                     </div>
-
+                    {(view === 'table') ?
                     <RenderTable
                         paginatedItems={this.state.paginatedItems}
+                        single={this.handleSingleClick}
                     />
-
+                    :
+                        <Single
+                            singleItems={this.state.paginatedItems}
+                            tableView={this.handleChangeView}
+                        />
+                    }
                 </div>
             );
         }
