@@ -16,6 +16,7 @@ class App
 
         new \ModularityAgreementsArchive\Admin\Settings();
 
+
     }
 
 
@@ -27,6 +28,7 @@ class App
     {
         wp_register_script('modularity-agreements-archive-js', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('js/modularity-agreements-archive.js'), array('react', 'react-dom'));
     }
+
 
 
     /**

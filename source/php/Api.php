@@ -6,10 +6,27 @@ class Api
 {
     public function __construct()
     {
-        if (strpos($_SERVER['REQUEST_URI'], "ModularityAgreementsArchiveAPI") !== false) {
+        /*if (strpos($_SERVER['REQUEST_URI'], "ModularityAgreementsArchiveAPI") !== false) {
             $this->fetchData();
-        }
+        }*/
+        add_action('rest_api_init', array($this, 'registerRestRoutes'));
+    }
 
+    /**
+     * Registers all rest routes for fetching data from API
+     *
+     * @return void
+     */
+    public function registerRestRoutes()
+    {
+        register_rest_route(
+            "ModularityAgreementsArchive/v1",
+            "ModularityAgreementsArchiveAPI",
+            array(
+                'methods' => \WP_REST_Server::READABLE,
+                'callback' => array($this, 'fetchData'),
+            )
+        );
     }
 
     /**
