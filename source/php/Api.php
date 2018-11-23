@@ -12,6 +12,11 @@ class Api
 
     }
 
+    /**
+     * Fetch data from API
+     * @wp returns wp_send_json
+     * @return false || void
+     */
     public function fetchData()
     {
 

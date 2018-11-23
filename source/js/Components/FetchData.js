@@ -76,7 +76,7 @@ module.exports = class extends React.Component {
     componentDidMount() {
         this.getJsonData('list');
         const url = new URL(window.location).pathname.split('/');
-        const mediaId = (url.indexOf('skyfishId') != -1) ? virtualUrl.getMediaID() : false;
+        const archiveId = (url.indexOf('archiveId') != -1) ? virtualUrl.getMediaID() : false;
     }
 
     /**
@@ -101,7 +101,7 @@ module.exports = class extends React.Component {
      * Fetching singleData from API
      * @return void
      */
-    handleSingleClick(e,itemId){
+    handleSingleClick(e, itemId) {
         e.preventDefault();
         this.setState({archId: itemId});
         this.getJsonData('single');
@@ -112,7 +112,7 @@ module.exports = class extends React.Component {
      * Change to table view fetch data from API
      * @return void
      */
-    handleChangeView(){
+    handleChangeView() {
         this.setState({switchView: true});
         this.setState({view: 'table'});
         this.getJsonData('list');
@@ -195,30 +195,30 @@ module.exports = class extends React.Component {
             return (
 
                 <div className="renderTable">
-                        <div className="grid">
-                            <Search
-                                change={this.updateInput}
-                                click={this.handleSubmit}
+                    <div className="grid">
+                        <Search
+                            change={this.updateInput}
+                            click={this.handleSubmit}
+                        />
+                        {(this.state.view != 'single') ?
+                            <Paginate
+                                showSearch={this.props.showSearch}
+                                current={this.state.currentPage}
+                                total={this.state.totalPages}
+                                next={this.nextPage.bind(this)}
+                                prev={this.prevPage.bind(this)}
+                                input={this.paginationInput.bind(this)}
+                                view={this.state.view}
                             />
-                            {(this.state.view != 'single') ?
-                                <Paginate
-                                    showSearch={this.props.showSearch}
-                                    current={this.state.currentPage}
-                                    total={this.state.totalPages}
-                                    next={this.nextPage.bind(this)}
-                                    prev={this.prevPage.bind(this)}
-                                    input={this.paginationInput.bind(this)}
-                                    view={this.state.view}
-                                />
                             : ''}
-                        </div>
+                    </div>
 
                     {(view === 'table') ?
-                    <RenderTable
-                        paginatedItems={this.state.paginatedItems}
-                        single={this.handleSingleClick}
-                    />
-                    :
+                        <RenderTable
+                            paginatedItems={this.state.paginatedItems}
+                            single={this.handleSingleClick}
+                        />
+                        :
                         <Single
                             singleItems={this.state.paginatedItems}
                             tableView={this.handleChangeView}
