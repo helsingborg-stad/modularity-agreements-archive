@@ -9,7 +9,7 @@ class RenderTable extends React.Component {
         const paginatedItems = this.props.paginatedItems;
         return (
             <div className="box box-panel box-panel-secondary">
-                <h4 className="box-title">{ModularityAgreementsArchiveObject.translation.title}</h4>
+                <h4 className="box-title"></h4>
                 <table className="table table-striped" items={paginatedItems}>
                     <tbody>
                     <tr>

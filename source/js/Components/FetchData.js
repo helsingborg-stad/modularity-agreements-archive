@@ -195,7 +195,7 @@ module.exports = class extends React.Component {
             return (
 
                 <div className="renderTable">
-                    <div className="container-fluid">
+
                         <div className="grid">
                             <Search
                                 change={this.updateInput}
@@ -213,7 +213,7 @@ module.exports = class extends React.Component {
                                 />
                             : ''}
                         </div>
-                    </div>
+
                     {(view === 'table') ?
                     <RenderTable
                         paginatedItems={this.state.paginatedItems}
