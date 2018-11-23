@@ -16,19 +16,29 @@ class AgreementsArchive extends \Modularity\Module
 
     }
 
+    /**
+    * Data array
+    * @return array $data
+    */
     public function data() : array
     {
         $data = array();
-
-        //Send to view
         return $data;
     }
 
+    /**
+     * Blade Template
+     * @return string
+     */
     public function template() : string
     {
         return "modularityAgreementsArchive.blade.php";
     }
 
+    /**
+     * Adding javaScript and Localize to make variables available in doom
+     * @return string
+     */
     public function script()
     {
         $this->react = new \ModularityAgreementsArchive\Helper\React();
@@ -39,6 +49,10 @@ class AgreementsArchive extends \Modularity\Module
 
     }
 
+    /**
+     * Setting all variables for localize script
+     * @return array with data
+     */
     public function scriptData()
     {
         $data = array();
@@ -66,6 +80,11 @@ class AgreementsArchive extends \Modularity\Module
         return $data;
     }
 
+    /**
+     * Style
+     * Register & adding css
+     * @return void
+     */
     public function style()
     {
         wp_register_style('modularity-agreements-archive-css', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('css/modularity-agreements-archive.css'));
