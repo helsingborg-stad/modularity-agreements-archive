@@ -41,7 +41,7 @@ module.exports = class extends React.Component {
      */
     async getJsonData(type) {
         const {perPage, showPagination} = this.props;
-        let apiUrl = '/ModularityAgreementsArchiveAPI/v1/wp-json/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=';
+        let apiUrl = '/ModularityAgreementsArchiveAPI/wp-json/wp/v1/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=';
 
         apiUrl += (type === 'list') ? 'list' : '';
         apiUrl += (type === 'query') ? 'search&query=' + this.state.searchInput : '';
