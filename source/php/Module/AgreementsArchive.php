@@ -10,8 +10,8 @@ class AgreementsArchive extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __("Modularity Agreements Archive", 'modularity-agreements-archive');
-        $this->namePlural = __("Modularity Agreements Archives", 'modularity-agreements-archive');
+        $this->nameSingular = __("Agreements Archive", 'modularity-agreements-archive');
+        $this->namePlural = __("Agreements Archives", 'modularity-agreements-archive');
         $this->description = __("Integrates Modularity with Primona Kommers API", 'modularity-agreements-archive');
 
     }
