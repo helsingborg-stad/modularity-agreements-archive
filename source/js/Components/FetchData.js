@@ -195,7 +195,6 @@ module.exports = class extends React.Component {
             return (
 
                 <div className="renderTable">
-
                         <div className="grid">
                             <Search
                                 change={this.updateInput}
