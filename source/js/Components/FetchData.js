@@ -3,7 +3,7 @@ import Single from './Single.js';
 import Search from './Search.js';
 import Paginate from './Paginate.js';
 import axios from 'axios';
-//import virtualUrl from '../Helpers/VirtualUrl.js';
+import virtualUrl from '../Helpers/VirtualUrl.js';
 
 module.exports = class extends React.Component {
 
@@ -41,7 +41,7 @@ module.exports = class extends React.Component {
      */
     async getJsonData(type) {
         const {perPage, showPagination} = this.props;
-        let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=';
+        let apiUrl = '/ModularityAgreementsArchiveAPI/v1/wp-json/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=';
 
         apiUrl += (type === 'list') ? 'list' : '';
         apiUrl += (type === 'query') ? 'search&query=' + this.state.searchInput : '';
@@ -94,7 +94,6 @@ module.exports = class extends React.Component {
      */
     handleSubmit() {
         this.getJsonData('query');
-
     }
 
     /**
@@ -105,7 +104,6 @@ module.exports = class extends React.Component {
         e.preventDefault();
         this.setState({archId: itemId});
         this.getJsonData('single');
-
     }
 
     /**
