@@ -1,3 +1,4 @@
+import virtualUrl from '../Helpers/Files.js';
 class Single extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +29,7 @@ class Single extends React.Component {
                                 </tr>
                                 <tr>
                                     <td>Kategori</td>
-                                    <td>{item.Supplier.Category}</td>
+                                    <td>{item.Category}</td>
                                 </tr>
                                 <tr>
                                     <td>Allmän information</td>
@@ -45,11 +46,11 @@ class Single extends React.Component {
 
                     <div className="grid-md-6">
                         <div className="box box-panel box-panel-secondary">
-                            <h4 className="box-title">Avtalsansvarig</h4>
+                            <h4 className="box-title">Konstaktperson</h4>
                             <table className="table table-striped">
                                 <tbody>
                                 <tr>
-                                    <td>Leverantör</td>
+                                    <td>Avtalsansvarig</td>
                                     <td>{item.Buyer.Name}</td>
                                 </tr>
                                 {(item.Buyer.OrganisationNumber) ?
@@ -149,7 +150,7 @@ class Single extends React.Component {
                             </table>
                         </div>
                     </div>
-
+                    {(item.Documents) ?
                     <div className="grid-md-12">
                         <div className="box box-panel box-panel-secondary">
                             <h4 className="box-title">Dokument</h4>
@@ -157,18 +158,14 @@ class Single extends React.Component {
                                 <tbody>
                                 {item.Documents.map((doc) => (
                                     <tr>
-                                        <td>{doc.Name}</td>
-                                        <td>{doc.Url}</td>
+                                        <td><a href={doc.Url}>{doc.Name}</a></td>
+                                        <td>{doc.Size} kb</td>
                                     </tr>
                                 ))}
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-
-
-
-
+                    </div> : '' }
                 </div>
 
             ))}
