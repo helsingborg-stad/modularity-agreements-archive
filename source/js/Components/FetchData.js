@@ -201,14 +201,17 @@ module.exports = class extends React.Component {
                                 change={this.updateInput}
                                 click={this.handleSubmit}
                             />
-                            <Paginate
-                                showSearch={this.props.showSearch}
-                                current={this.state.currentPage}
-                                total={this.state.totalPages}
-                                next={this.nextPage.bind(this)}
-                                prev={this.prevPage.bind(this)}
-                                input={this.paginationInput.bind(this)}
-                            />
+                            {(this.state.view != 'single') ?
+                                <Paginate
+                                    showSearch={this.props.showSearch}
+                                    current={this.state.currentPage}
+                                    total={this.state.totalPages}
+                                    next={this.nextPage.bind(this)}
+                                    prev={this.prevPage.bind(this)}
+                                    input={this.paginationInput.bind(this)}
+                                    view={this.state.view}
+                                />
+                            : ''}
                         </div>
                     </div>
                     {(view === 'table') ?
