@@ -58,7 +58,7 @@ module.exports = class extends React.Component {
                     totalPages: Math.ceil(jsonData.length / perPage),
                     view: 'table'
                 });
-                console.log(jsonData);
+
                 if (showPagination) {
                     let page = (this.state.switchView) ? this.state.currentPage : 1;
                     this.updateItemList(page);
@@ -78,7 +78,7 @@ module.exports = class extends React.Component {
     }
 
     /**
-     * Fetching singleData from API
+     * Fetching show single page view with detailed information
      * @return void
      */
     handleSingleClick(e, itemId) {
@@ -97,7 +97,7 @@ module.exports = class extends React.Component {
     }
 
     /**
-     * Change to table view fetch data from API
+     * Change back to table view
      * @return void
      */
     resetView() {
@@ -190,6 +190,7 @@ module.exports = class extends React.Component {
      * @return Render to javaScript
      */
     render() {
+
         const view = this.state.view;
         if (!this.state.isLoaded) {
             return (
