@@ -31,7 +31,7 @@ module.exports = class extends React.Component {
         this.updateInput = this.updateInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSingleClick = this.handleSingleClick.bind(this);
-        this.handleChangeView = this.handleChangeView.bind(this);
+        this.resetView = this.resetView.bind(this);
 
     }
 
@@ -45,22 +45,19 @@ module.exports = class extends React.Component {
 
         apiUrl += (type === 'list') ? 'list' : '';
         apiUrl += (type === 'query') ? 'search&query=' + this.state.searchInput : '';
-        apiUrl += (type === 'single') ? 'single&archiveId=' + this.state.archId : '';
 
         axios
             .get(apiUrl)
             .then(response => {
                 const jsonData = JSON.parse(response.data).reverse();
-                const view = (type === 'list') ? 'table' : 'single';
                 this.setState({
                     responseData: jsonData,
                     isLoaded: true,
                     filteredItems: jsonData,
                     paginatedItems: jsonData,
                     totalPages: Math.ceil(jsonData.length / perPage),
-                    view: view
+                    view: 'table'
                 });
-
                 console.log(jsonData);
                 if (showPagination) {
                     let page = (this.state.switchView) ? this.state.currentPage : 1;
@@ -77,7 +74,40 @@ module.exports = class extends React.Component {
     componentDidMount() {
         this.getJsonData('list');
         const url = new URL(window.location).pathname.split('/');
-        const archiveId = (url.indexOf('archiveId') != -1) ? virtualUrl.getMediaID() : false;
+        //const archiveId = (url.indexOf('archiveId') != -1) ? virtualUrl.getMediaID() : false;
+    }
+
+    /**
+     * Fetching singleData from API
+     * @return void
+     */
+    handleSingleClick(e, itemId) {
+        e.preventDefault();
+
+        let singleItem = this.state.responseData.filter(function (i) {
+            return i.Id === itemId;
+        });
+
+        this.setState({
+            isLoaded: true,
+            filteredItems: singleItem,
+            view: 'single',
+            archId: itemId
+        });
+    }
+
+    /**
+     * Change to table view fetch data from API
+     * @return void
+     */
+    resetView() {
+        this.setState({
+            isLoaded: true,
+            filteredItems: this.state.responseData,
+            view: 'table',
+            archId: '',
+            switchView: true,
+        });
     }
 
     /**
@@ -89,6 +119,7 @@ module.exports = class extends React.Component {
         this.setState({searchInput: event});
     }
 
+
     /**
      * Submiting data from state to API
      * @return void
@@ -97,25 +128,6 @@ module.exports = class extends React.Component {
         this.getJsonData('query');
     }
 
-    /**
-     * Fetching singleData from API
-     * @return void
-     */
-    handleSingleClick(e, itemId) {
-        e.preventDefault();
-        this.setState({archId: itemId});
-        this.getJsonData('single');
-    }
-
-    /**
-     * Change to table view fetch data from API
-     * @return void
-     */
-    handleChangeView() {
-        this.setState({switchView: true});
-        this.setState({view: 'table'});
-        this.getJsonData('list');
-    }
 
     /**
      * Accordion - Updating list, depending on settings in db and page
@@ -219,8 +231,8 @@ module.exports = class extends React.Component {
                         />
                         :
                         <Single
-                            singleItems={this.state.paginatedItems}
-                            tableView={this.handleChangeView}
+                            singleItems={this.state.filteredItems}
+                            tableView={this.resetView}
                         />
                     }
                 </div>

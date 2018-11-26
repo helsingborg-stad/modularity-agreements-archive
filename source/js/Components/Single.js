@@ -7,6 +7,9 @@ class Single extends React.Component {
 
     render() {
         const item = this.props.singleItems[0];
+       //console.log(this.props.singleItems[0]);
+        //let Description = (this.props.singleItems[0].Description) ? item.Description.replace('"','') : '';
+
         return (
             <div id="singleView container-fluid">
 
