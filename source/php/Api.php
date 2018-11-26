@@ -6,9 +6,6 @@ class Api
 {
     public function __construct()
     {
-        /*if (strpos($_SERVER['REQUEST_URI'], "ModularityAgreementsArchiveAPI") !== false) {
-            $this->fetchData();
-        }*/
         add_action('rest_api_init', array($this, 'registerRestRoutes'));
     }
 
@@ -20,8 +17,8 @@ class Api
     public function registerRestRoutes()
     {
         register_rest_route(
-            "ModularityAgreementsArchive/v1",
-            "ModularityAgreementsArchiveAPI",
+            'wp/v2', '/' .'ModularityAgreementsArchive',
+
             array(
                 'methods' => \WP_REST_Server::READABLE,
                 'callback' => array($this, 'fetchData'),

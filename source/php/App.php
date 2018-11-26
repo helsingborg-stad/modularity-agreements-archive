@@ -12,8 +12,6 @@ class App
         register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
         register_activation_hook( __FILE__, 'flushRewrites' );
 
-        add_action( 'init', array($this, 'rewriteEndpoint'));
-
         new \ModularityAgreementsArchive\Admin\Settings();
 
 
@@ -29,24 +27,6 @@ class App
         wp_register_script('modularity-agreements-archive-js', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('js/modularity-agreements-archive.js'), array('react', 'react-dom'));
     }
 
-
-
-    /**
-     * Flush permalinks
-     * @return void
-     */
-    public function flushRewrites() {
-        flush_rewrite_rules();
-    }
-
-    /**
-     * Adding new endpoints for this app
-     * @return void
-     */
-    public function rewriteEndpoint (){
-        add_rewrite_endpoint( 'ModularityAgreementsArchiveAPI', EP_ALL );
-        $this->flushRewrites();
-    }
 
     /**
      * Encrypt strings

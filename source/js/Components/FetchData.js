@@ -41,7 +41,7 @@ module.exports = class extends React.Component {
      */
     async getJsonData(type) {
         const {perPage, showPagination} = this.props;
-        let apiUrl = '/wp-json/ModularityAgreementsArchive/v1/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=';
+        let apiUrl = '/wp-json/wp/v2/ModularityAgreementsArchive?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=';
 
         apiUrl += (type === 'list') ? 'list' : '';
         apiUrl += (type === 'query') ? 'search&query=' + this.state.searchInput : '';
@@ -60,6 +60,7 @@ module.exports = class extends React.Component {
                     totalPages: Math.ceil(jsonData.length / perPage),
                     view: view
                 });
+
                 console.log(jsonData);
                 if (showPagination) {
                     let page = (this.state.switchView) ? this.state.currentPage : 1;
