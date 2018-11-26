@@ -39,12 +39,11 @@ module.exports = class extends React.Component {
      * Getting data from Back-end/API
      * @return void
      */
-    async getJsonData(type) {
+    async getJsonData(type = false) {
         const {perPage, showPagination} = this.props;
-        let apiUrl = '/wp-json/wp/v2/ModularityAgreementsArchive?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=';
+        let apiUrl = '/wp-json/wp/v2/ModularityAgreementsArchive?authToken=' + ModularityAgreementsArchiveObject.authToken;
 
-        apiUrl += (type === 'list') ? 'list' : '';
-        apiUrl += (type === 'query') ? 'search&query=' + this.state.searchInput : '';
+        apiUrl += (type === 'query') ? '&search&query=' + this.state.searchInput : '';
 
         axios
             .get(apiUrl)
@@ -72,7 +71,7 @@ module.exports = class extends React.Component {
      * @return void
      */
     componentDidMount() {
-        this.getJsonData('list');
+        this.getJsonData();
         const url = new URL(window.location).pathname.split('/');
         //const archiveId = (url.indexOf('archiveId') != -1) ? virtualUrl.getMediaID() : false;
     }
