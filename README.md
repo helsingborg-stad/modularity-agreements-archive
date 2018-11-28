@@ -2,11 +2,9 @@
 Modularity module for retrieving data from Primona
 
 ## Getting Started
-Go to Primona website and sign up for their service  
 Get the latest version and follow the installation steps bellow
 
 ### Dependencies
-
 Wordpress, Municipio and Modularity
 
 
