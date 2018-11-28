@@ -72,7 +72,6 @@ module.exports = class extends React.Component {
                     totalPages: Math.ceil(jsonData.length / perPage),
                     view: this.state.view
                 });
-
                 if (showPagination) {
                     let page = (this.state.switchView) ? this.state.currentPage : 1;
                     this.updateItemList(page);
@@ -94,7 +93,6 @@ module.exports = class extends React.Component {
         let singleItem = this.state.responseData.filter(function (i) {
             return i.Id === itemId;
         });
-
         this.setState({
             isLoaded: true,
             filteredItems: singleItem,
@@ -114,7 +112,6 @@ module.exports = class extends React.Component {
             this.getJsonData(false, false)
             loaded = false;
         }
-
         this.setState({
             isLoaded: loaded,
             filteredItems: this.state.responseData,
@@ -125,7 +122,6 @@ module.exports = class extends React.Component {
             searchView: false,
             shared: false
         });
-
         virtualUrl.showDetail('', 'table');
     }
 
@@ -174,7 +170,6 @@ module.exports = class extends React.Component {
         const {perPage} = this.props;
         const begin = ((currentPage - 1) * perPage);
         const end = begin + perPage;
-
         this.setState({
             paginatedItems: filteredItems.slice(begin, end)
         });
@@ -240,7 +235,6 @@ module.exports = class extends React.Component {
             );
         } else {
             return (
-
                 <div className="renderTable">
                     <div className="grid">
                         <Search
@@ -259,7 +253,6 @@ module.exports = class extends React.Component {
                             />
                             : ''}
                     </div>
-
                     {(view === 'table') ?
                         <RenderTable
                             paginatedItems={this.state.paginatedItems}
