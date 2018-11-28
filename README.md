@@ -7,12 +7,11 @@ Get the latest version and follow the installation steps bellow
 
 ### Dependencies
 
-Municipio
-Modularity
+Wordpress, Municipio and Modularity
 
 
 ### Installing
-Get a development env running by doing following
+Get a development enviroment running by doing following
 
 Activate
 
