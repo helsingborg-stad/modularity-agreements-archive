@@ -29,6 +29,7 @@ class Search extends React.Component {
                     </span>
                 </div>
             </div>
+
         );
     }
 

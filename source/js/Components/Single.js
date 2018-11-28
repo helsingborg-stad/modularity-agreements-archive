@@ -82,9 +82,7 @@ class Single extends React.Component {
                                     <tr>
                                         <td>Organisationsnr</td>
                                         <td>{item.Buyer.OrganisationNumber}</td>
-                                    </tr>
-                                    : ''
-                                }
+                                    </tr> : ''}
                                 <tr>
                                     <td>Adress</td>
                                     <td>
@@ -98,7 +96,6 @@ class Single extends React.Component {
                                         {(item.Buyer.Address.Country) ? item.Buyer.Address.Country : ''}
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td>Konstaktperson</td>
                                     <td>
@@ -117,12 +114,10 @@ class Single extends React.Component {
                                         {item.Buyer.Contact.Telephone}
                                     </td>
                                 </tr>
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
                     <div className="grid-md-6">
                         <div className="box box-panel box-panel-secondary">
                             <h4 className="box-title">Leverantör</h4>

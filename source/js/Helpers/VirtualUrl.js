@@ -2,10 +2,10 @@
 
 import queryString from 'query-string';
 
-const singlePageParamKey = 'archiveId';
+const singlePageParamKey = 'agreementArchiveId';
 
 /**
- * Getting Skyfish Id
+ * Getting Id
  * @return (object) id
  */
 const getMediaID = () => {
@@ -63,13 +63,13 @@ const changeVirtualUrl = (id = false) => {
  * Toogle Details dependant on state
  * @return void
  */
-const showDetail = (state) => {
+const showDetail = (archId, view) => {
 
-    if (state.view === 'table') {
+    if (view === 'single') {
         const url = new URL(window.location).pathname.split('/');
         const mediaId = (url.indexOf(singlePageParamKey) != 1) ? getMediaID() : '';
         if (!mediaId)
-            changeVirtualUrl(state.archId);
+            changeVirtualUrl(archId);
     }
     else {
         const path = window.location.pathname.split('/');

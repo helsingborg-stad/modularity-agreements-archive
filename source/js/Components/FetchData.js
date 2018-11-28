@@ -22,28 +22,41 @@ module.exports = class extends React.Component {
             paginatedItems: [],
             totalPages: 0,
             currentPage: 1,
-            archId: '',
+            archId: null,
             searchInput: '',
             view: 'table',
             switchView: false,
+            shared: false
         };
 
         this.updateInput = this.updateInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSingleClick = this.handleSingleClick.bind(this);
         this.resetView = this.resetView.bind(this);
+    }
 
+    /**
+     * Mounting data onLoad
+     * @return void
+     */
+    componentDidMount() {
+        let url = new URL(window.location).pathname.split('/');
+        let archiveId = (url.indexOf('agreementArchiveId') != -1) ? virtualUrl.getMediaID() : false;
+        (archiveId) ? this.getJsonData('id', archiveId) : this.getJsonData(false, false);
     }
 
     /**
      * Getting data from Back-end/API
      * @return void
      */
-    async getJsonData(type = false) {
+    getJsonData(type = false, archiveId) {
         const {perPage, showPagination} = this.props;
         let apiUrl = '/wp-json/wp/v2/ModularityAgreementsArchive?authToken=' + ModularityAgreementsArchiveObject.authToken;
 
-        apiUrl += (type === 'query') ? '&search&query=' + this.state.searchInput : '';
+        apiUrl += (type === 'query') ? '&search=' + this.state.searchInput : '';
+        apiUrl += (type === 'id') ? '&id=' + archiveId : '';
+
+        (archiveId) ? this.setState({archId : archiveId, view: 'single', shared: true, isLoaded: false}) : this.setState({archId : null, view: 'table', isLoaded: false});
 
         axios
             .get(apiUrl)
@@ -55,7 +68,7 @@ module.exports = class extends React.Component {
                     filteredItems: jsonData,
                     paginatedItems: jsonData,
                     totalPages: Math.ceil(jsonData.length / perPage),
-                    view: 'table'
+                    view: this.state.view
                 });
 
                 if (showPagination) {
@@ -67,22 +80,15 @@ module.exports = class extends React.Component {
     }
 
     /**
-     * Mounting data onLoad
-     * @return void
-     */
-    componentDidMount() {
-        this.getJsonData();
-        const url = new URL(window.location).pathname.split('/');
-        //const archiveId = (url.indexOf('archiveId') != -1) ? virtualUrl.getMediaID() : false;
-    }
-
-    /**
      * Fetching show single page view with detailed information
      * @return void
      */
     handleSingleClick(e, itemId) {
         e.preventDefault();
+        this.showSingleDetails(itemId);
+    }
 
+    showSingleDetails(itemId) {
         let singleItem = this.state.responseData.filter(function (i) {
             return i.Id === itemId;
         });
@@ -93,6 +99,7 @@ module.exports = class extends React.Component {
             view: 'single',
             archId: itemId
         });
+        virtualUrl.showDetail(itemId, 'single');
     }
 
     /**
@@ -100,13 +107,43 @@ module.exports = class extends React.Component {
      * @return void
      */
     resetView() {
+        let loaded = true;
+        if (this.state.shared) {
+            this.getJsonData(false, false)
+            loaded = false;
+        }
+
         this.setState({
-            isLoaded: true,
+            isLoaded: loaded,
             filteredItems: this.state.responseData,
             view: 'table',
+            searchInput: '',
             archId: '',
-            switchView: true,
+            switchView: false,
+            searchView: false,
+            shared: false
         });
+
+        virtualUrl.showDetail('', 'table');
+    }
+
+    /**
+     * Updating state from search input
+     * @param event (string) Search input value from Search Component
+     * @return void
+     */
+    updateInput(event) {
+        this.setState({searchInput: event});
+    }
+
+
+    /**
+     * Submiting data from state to API
+     * @return void
+     */
+    handleSubmit() {
+        this.setState({archId : '', view: 'table'});
+        this.getJsonData('query');
     }
 
     /**

@@ -39,12 +39,16 @@ class Api
             return false;
         }
 
-        $query = (isset($_GET['query']) && !empty($_GET['query'])) ? $_GET['query'] : '';
+        $query = (isset($_GET['search']) && !empty($_GET['search'])) ? $_GET['search'] : '';
+        $id = (isset($_GET['id']) && !empty($_GET['id'])) ? $_GET['id'] : '';
         $hostUrl = get_option('group_5be98c9780f80_mod_agreement_archive_api_host');
-        $url = ($query) ? $hostUrl . "/?q=" . $query : $hostUrl;
+
+        $apiUrl = $hostUrl;
+        $apiUrl .= ($query) ? "/?q=" . $query : '';
+        $apiUrl .= ($id) ? "/" . $id : '';
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, $apiUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'apiKey: ' . get_option('group_5be98c9780f80_mod_agreement_archive_api_key')
