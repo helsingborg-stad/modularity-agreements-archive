@@ -56,7 +56,9 @@ module.exports = class extends React.Component {
         apiUrl += (type === 'query') ? '&search=' + this.state.searchInput : '';
         apiUrl += (type === 'id') ? '&id=' + archiveId : '';
 
-        (archiveId) ? this.setState({archId : archiveId, view: 'single', shared: true, isLoaded: false}) : this.setState({archId : null, view: 'table', isLoaded: false});
+        (archiveId)
+            ? this.setState({archId : archiveId, view: 'single', shared: true, isLoaded: false})
+            : this.setState({archId : null, view: 'table', isLoaded: false});
 
         axios
             .get(apiUrl)
@@ -118,7 +120,7 @@ module.exports = class extends React.Component {
             filteredItems: this.state.responseData,
             view: 'table',
             searchInput: '',
-            archId: '',
+            archId: null,
             switchView: false,
             searchView: false,
             shared: false
@@ -136,13 +138,12 @@ module.exports = class extends React.Component {
         this.setState({searchInput: event});
     }
 
-
     /**
      * Submiting data from state to API
      * @return void
      */
     handleSubmit() {
-        this.setState({archId : '', view: 'table'});
+        this.setState({archId : null, view: 'table'});
         this.getJsonData('query');
     }
 
@@ -155,7 +156,6 @@ module.exports = class extends React.Component {
         this.setState({searchInput: event});
     }
 
-
     /**
      * Submiting data from state to API
      * @return void
@@ -163,7 +163,6 @@ module.exports = class extends React.Component {
     handleSubmit() {
         this.getJsonData('query');
     }
-
 
     /**
      * Accordion - Updating list, depending on settings in db and page
