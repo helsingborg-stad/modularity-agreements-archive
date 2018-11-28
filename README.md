@@ -35,7 +35,7 @@ Activate search and pagination under display settings
 * PHP
 * React
 
-## Versioning
+## Releases
 
 https://github.com/helsingborg-stad/modularity-agreements-archive/releases
 
