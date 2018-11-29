@@ -89,6 +89,10 @@ module.exports = class extends React.Component {
         this.showSingleDetails(itemId);
     }
 
+    /**
+     * Show detailed information
+     * @return void
+     */
     showSingleDetails(itemId) {
         let singleItem = this.state.responseData.filter(function (i) {
             return i.Id === itemId;

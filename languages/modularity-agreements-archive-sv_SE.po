@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Modularity Agreements Archive\n"
 "POT-Creation-Date: 2018-11-29 16:23+0100\n"
-"PO-Revision-Date: 2018-11-29 16:24+0100\n"
+"PO-Revision-Date: 2018-11-29 16:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -38,7 +38,7 @@ msgstr "Lägg till API Nyckel"
 
 #: acf-fields/php/modularity-agreements-archive.php:45
 msgid "API Encryption Key"
-msgstr "Krypterings nyckel"
+msgstr "Krypterings-nyckel"
 
 #: acf-fields/php/modularity-agreements-archive.php:57
 #: acf-fields/php/modularity-agreements-archive.php:77
@@ -48,7 +48,7 @@ msgstr "Genereras automatiskt"
 
 #: acf-fields/php/modularity-agreements-archive.php:65
 msgid "API Encryption Salt"
-msgstr "Krypterings salt"
+msgstr "Krypterings-salt"
 
 #: acf-fields/php/modularity-agreements-archive.php:85
 msgid "API Token"
