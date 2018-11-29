@@ -18,7 +18,7 @@ class RenderTable extends React.Component {
                         <th className="number hidden-xs">{ModularityAgreementsArchiveObject.translation.number}</th>
                         <th className="valid-from hidden-xs">{ModularityAgreementsArchiveObject.translation.fromdate}</th>
                         <th className="valid-to hidden-xs">{ModularityAgreementsArchiveObject.translation.todate}</th>
-                        <th className="hidden-xs">{ModularityAgreementsArchiveObject.translation.buyername}</th>
+                        <th className="hidden-xs">{ModularityAgreementsArchiveObject.translation.contractsManager}</th>
                     </tr>
                     {paginatedItems.map((item, i) => (
                         (item.Supplier.Name) ?

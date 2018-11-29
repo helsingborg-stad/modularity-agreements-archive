@@ -1,9 +1,9 @@
-import RenderTable from './RenderTable.js';
-import Single from './Single.js';
-import Search from './Search.js';
-import Paginate from './Paginate.js';
+import RenderTable from './RenderTable';
+import Single from './Single';
+import Search from './Search';
+import Paginate from './Paginate';
 import axios from 'axios';
-import virtualUrl from '../Helpers/VirtualUrl.js';
+import virtualUrl from '../Helpers/VirtualUrl';
 
 module.exports = class extends React.Component {
 
@@ -99,6 +99,7 @@ module.exports = class extends React.Component {
             view: 'single',
             archId: itemId
         });
+        scroll(0,0);
         virtualUrl.showDetail(itemId, 'single');
     }
 
@@ -153,7 +154,7 @@ module.exports = class extends React.Component {
     }
 
     /**
-     * Submiting data from state to API
+     * Submiting query to API (Search)
      * @return void
      */
     handleSubmit() {

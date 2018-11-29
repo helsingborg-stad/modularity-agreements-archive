@@ -1,0 +1,203 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Modularity Agreements Archive\n"
+"POT-Creation-Date: 2018-11-29 15:44+0100\n"
+"PO-Revision-Date: 2018-11-29 15:51+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: modularity-agreements-archive.php\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: acf-fields/php/modularity-agreements-archive.php:10
+msgid "Api Host"
+msgstr "API Url"
+
+#: acf-fields/php/modularity-agreements-archive.php:22
+msgid "Write the Url to the API"
+msgstr "Ange Url till API"
+
+#: acf-fields/php/modularity-agreements-archive.php:26
+msgid "API Key"
+msgstr "API Nyckel"
+
+#: acf-fields/php/modularity-agreements-archive.php:38
+msgid "Add API key"
+msgstr "Lägg till API Nyckel"
+
+#: acf-fields/php/modularity-agreements-archive.php:45
+msgid "API Encryption Key"
+msgstr "Krypterings nyckel"
+
+#: acf-fields/php/modularity-agreements-archive.php:57
+#: acf-fields/php/modularity-agreements-archive.php:77
+#: acf-fields/php/modularity-agreements-archive.php:97
+msgid "Generates automaticly"
+msgstr "Genereras automatiskt"
+
+#: acf-fields/php/modularity-agreements-archive.php:65
+msgid "API Encryption Salt"
+msgstr "Krypterings salt"
+
+#: acf-fields/php/modularity-agreements-archive.php:85
+msgid "API Token"
+msgstr "API Token"
+
+#: acf-fields/php/modularity-agreements-archive_display.php:10
+msgid "Show search"
+msgstr "Visa sök"
+
+#: acf-fields/php/modularity-agreements-archive_display.php:24
+msgid "Yes"
+msgstr "Ja"
+
+#: acf-fields/php/modularity-agreements-archive_display.php:25
+msgid "No"
+msgstr "Nej"
+
+#: acf-fields/php/modularity-agreements-archive_display.php:29
+msgid "Show pagination"
+msgstr "Visa paginering"
+
+#: acf-fields/php/modularity-agreements-archive_display.php:48
+msgid "Pagination"
+msgstr "Paginering"
+
+#: source/php/Admin/Settings.php:65
+msgid "Update"
+msgstr "Uppdatera"
+
+#: source/php/Admin/Settings.php:66
+msgid "Options Updated"
+msgstr "Inställningar uppdaterade"
+
+#: source/php/Module/AgreementsArchive.php:13
+msgid "Agreements Archive"
+msgstr "Avtalskatalog"
+
+#: source/php/Module/AgreementsArchive.php:14
+msgid "Agreements Archives"
+msgstr "Avtalskataloger"
+
+#: source/php/Module/AgreementsArchive.php:15
+msgid "Integrates Modularity with Primona Kommers API"
+msgstr "Integrerar Modularity med Primona Kommers API"
+
+#: source/php/Module/AgreementsArchive.php:67
+msgid "Modularity Agreement Archive"
+msgstr ""
+
+#: source/php/Module/AgreementsArchive.php:68
+msgid "Number"
+msgstr "Nummer"
+
+#: source/php/Module/AgreementsArchive.php:69
+msgid "Category"
+msgstr "Kategori"
+
+#: source/php/Module/AgreementsArchive.php:70
+msgid "Supplier"
+msgstr "Leverantör"
+
+#: source/php/Module/AgreementsArchive.php:71
+msgid "Orgnr"
+msgstr "Orgnr"
+
+#: source/php/Module/AgreementsArchive.php:72
+msgid "From date"
+msgstr "Från"
+
+#: source/php/Module/AgreementsArchive.php:73
+msgid "To date"
+msgstr "Till"
+
+#: source/php/Module/AgreementsArchive.php:74
+msgid "Search"
+msgstr "Sök"
+
+#: source/php/Module/AgreementsArchive.php:75
+msgid "Download"
+msgstr "Ladda ner"
+
+#: source/php/Module/AgreementsArchive.php:76
+msgid "Back"
+msgstr "Tillbaka"
+
+#: source/php/Module/AgreementsArchive.php:77
+msgid "General information"
+msgstr "Grundinformation"
+
+#: source/php/Module/AgreementsArchive.php:78
+msgid "Details"
+msgstr "Allmän information"
+
+#: source/php/Module/AgreementsArchive.php:79
+msgid "Period of validity"
+msgstr "Giltlighetsperiod"
+
+#: source/php/Module/AgreementsArchive.php:80
+msgid "Contact person"
+msgstr "Konstaktperson"
+
+#: source/php/Module/AgreementsArchive.php:81
+msgid "Contracts Manager"
+msgstr "Avtalsansvarig"
+
+#: source/php/Module/AgreementsArchive.php:82
+msgid "Organization number"
+msgstr "Organisationsnr"
+
+#: source/php/Module/AgreementsArchive.php:83
+msgid "Address"
+msgstr "Adress"
+
+#: source/php/Module/AgreementsArchive.php:84
+msgid "E-mail"
+msgstr "E-post"
+
+#: source/php/Module/AgreementsArchive.php:85
+msgid "Phone"
+msgstr "Telefon"
+
+#: source/php/Module/AgreementsArchive.php:86
+msgid "Documents"
+msgstr "Dokument"
+
+#: source/php/Module/AgreementsArchive.php:87
+msgid "File"
+msgstr "Fil"
+
+#: source/php/Module/AgreementsArchive.php:88
+msgid "File size"
+msgstr "Filstorlek"
+
+#. Plugin Name of the plugin/theme
+msgid "Modularity Agreements Archive"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/helsingborg-stad/modularity-agreements-archive"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Integration for agreement data provider and Wordpress"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Johan Silvergrund"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://helsingborg.se"
+msgstr ""

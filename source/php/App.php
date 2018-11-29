@@ -15,8 +15,6 @@ class App
         add_action( 'init', array($this, 'rewriteEndpoint'));
 
         new \ModularityAgreementsArchive\Admin\Settings();
-
-
     }
 
 

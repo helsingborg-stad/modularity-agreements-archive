@@ -45,7 +45,7 @@ const changeVirtualUrl = (id = false) => {
     const url = new URL(window.location).pathname.split('/');
     if (Object.keys(queryStr).length > 0 || id || url.indexOf(singlePageParamKey) != 1) {
 
-        for (var key in queryStr) {
+        for (let key in queryStr) {
             buildQyery += (queryStr[key] != mediaId) ? key + '=' + queryStr[key] + amp : '';
         }
 
