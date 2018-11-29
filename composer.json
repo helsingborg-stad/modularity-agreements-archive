@@ -1,0 +1,14 @@
+{
+    "name": "helsingborg-stad/modularity-agreements-archive",
+    "description": "Plugin that fetches data from primona kommers and displays it in a react component",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Johan Silvergrund",
+            "email": "johan.silvergrund@helsingborg.se"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
