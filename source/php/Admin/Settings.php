@@ -4,7 +4,6 @@ namespace ModularityAgreementsArchive\Admin;
 
 class Settings
 {
-    public static $adminPageName = 'Agreement Archive';
 
     public function __construct()
     {
@@ -55,9 +54,9 @@ class Settings
     {
         if (function_exists('acf_add_options_page')) {
             acf_add_options_page(array(
-                'page_title' => self::$adminPageName,
-                'menu_title' => self::$adminPageName,
-                'menu_slug' => self::$adminPageName . '-settings',
+                'page_title' => __('Agreement Archive', 'modularity-agreements-archive'),
+                'menu_title' => __('Agreement Archive', 'modularity-agreements-archive'),
+                'menu_slug' => 'Agreement Archive-settings',
                 'capability' => 'manage_options',
                 'redirect' => false,
                 'post_id' => 'group_5be98c9780f80',
