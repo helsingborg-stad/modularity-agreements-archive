@@ -1,4 +1,3 @@
-
 import {Pagination} from 'hbg-react';
 
 class Paginate extends React.Component {

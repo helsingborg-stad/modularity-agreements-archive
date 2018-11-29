@@ -4,7 +4,6 @@ class Search extends React.Component {
     }
 
     render() {
-
         return (
             <div className="grid-md-8 gutter">
                 <div className="searchApi input-group">
@@ -30,6 +29,7 @@ class Search extends React.Component {
                     </span>
                 </div>
             </div>
+
         );
     }
 

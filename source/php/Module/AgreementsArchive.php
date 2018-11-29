@@ -16,19 +16,29 @@ class AgreementsArchive extends \Modularity\Module
 
     }
 
+    /**
+    * Data array
+    * @return array $data
+    */
     public function data() : array
     {
         $data = array();
-
-        //Send to view
         return $data;
     }
 
+    /**
+     * Blade Template
+     * @return string
+     */
     public function template() : string
     {
         return "modularityAgreementsArchive.blade.php";
     }
 
+    /**
+     * Adding javaScript and Localize to make variables available in doom
+     * @return string
+     */
     public function script()
     {
         $this->react = new \ModularityAgreementsArchive\Helper\React();
@@ -39,6 +49,10 @@ class AgreementsArchive extends \Modularity\Module
 
     }
 
+    /**
+     * Setting all variables for localize script
+     * @return array with data
+     */
     public function scriptData()
     {
         $data = array();
@@ -57,15 +71,33 @@ class AgreementsArchive extends \Modularity\Module
             'orgnr' => __('Orgnr', 'modularity-agreements-archive'),
             'fromdate' => __('From date', 'modularity-agreements-archive'),
             'todate' => __('To date', 'modularity-agreements-archive'),
-            'buyername' => __('Buyer name', 'modularity-agreements-archive'),
             'search' => __('Search', 'modularity-agreements-archive'),
             'download' => __('Download', 'modularity-agreements-archive'),
+            'back' => __('Back', 'modularity-agreements-archive'),
+            'generalInfo' => __('General information', 'modularity-agreements-archive'),
+            'details' => __('Details', 'modularity-agreements-archive'),
+            'periodOfValid' => __('Period of validity', 'modularity-agreements-archive'),
+            'contactPerson' => __('Contact person', 'modularity-agreements-archive'),
+            'contractsManager' => __('Contracts Manager', 'modularity-agreements-archive'),
+            'organizationnumber' => __('Organization number', 'modularity-agreements-archive'),
+            'address' => __('Address', 'modularity-agreements-archive'),
+            'email' => __('E-mail', 'modularity-agreements-archive'),
+            'phone' => __('Phone', 'modularity-agreements-archive'),
+            'documents' => __('Documents', 'modularity-agreements-archive'),
+            'file' => __('File', 'modularity-agreements-archive'),
+            'fileSize' => __('File size', 'modularity-agreements-archive'),
+            'fileSize' => __('File size', 'modularity-agreements-archive'),
         );
 
         //Send to script
         return $data;
     }
 
+    /**
+     * Style
+     * Register & adding css
+     * @return void
+     */
     public function style()
     {
         wp_register_style('modularity-agreements-archive-css', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('css/modularity-agreements-archive.css'));

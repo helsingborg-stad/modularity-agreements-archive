@@ -1,9 +1,9 @@
-import RenderTable from './RenderTable.js';
-import Single from './Single.js';
-import Search from './Search.js';
-import Paginate from './Paginate.js';
+import RenderTable from './RenderTable';
+import Single from './Single';
+import Search from './Search';
+import Paginate from './Paginate';
 import axios from 'axios';
-//import virtualUrl from '../Helpers/VirtualUrl.js';
+import virtualUrl from '../Helpers/VirtualUrl';
 
 module.exports = class extends React.Component {
 
@@ -22,45 +22,56 @@ module.exports = class extends React.Component {
             paginatedItems: [],
             totalPages: 0,
             currentPage: 1,
-            archId: '',
+            archId: null,
             searchInput: '',
             view: 'table',
             switchView: false,
+            shared: false
         };
 
         this.updateInput = this.updateInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSingleClick = this.handleSingleClick.bind(this);
-        this.handleChangeView = this.handleChangeView.bind(this);
+        this.resetView = this.resetView.bind(this);
+    }
 
+    /**
+     * Mounting data onLoad
+     * @return void
+     */
+    componentDidMount() {
+        let url = new URL(window.location).pathname.split('/');
+        let archiveId = (url.indexOf('agreementArchiveId') != -1) ? virtualUrl.getMediaID() : false;
+        (archiveId) ? this.getJsonData('id', archiveId) : this.getJsonData(false, false);
     }
 
     /**
      * Getting data from Back-end/API
      * @return void
      */
-    async getJsonData(type) {
+    getJsonData(type = false, archiveId) {
         const {perPage, showPagination} = this.props;
-        let apiUrl = '/ModularityAgreementsArchiveAPI/?authToken=' + ModularityAgreementsArchiveObject.authToken + '&archiveType=';
+        let apiUrl = '/wp-json/wp/v2/ModularityAgreementsArchive?authToken=' + ModularityAgreementsArchiveObject.authToken;
 
-        apiUrl += (type === 'list') ? 'list' : '';
-        apiUrl += (type === 'query') ? 'search&query=' + this.state.searchInput : '';
-        apiUrl += (type === 'single') ? 'single&archiveId=' + this.state.archId : '';
+        apiUrl += (type === 'query') ? '&search=' + this.state.searchInput : '';
+        apiUrl += (type === 'id') ? '&id=' + archiveId : '';
+
+        (archiveId)
+            ? this.setState({archId : archiveId, view: 'single', shared: true, isLoaded: false})
+            : this.setState({archId : null, view: 'table', isLoaded: false});
 
         axios
             .get(apiUrl)
             .then(response => {
                 const jsonData = JSON.parse(response.data).reverse();
-                const view = (type === 'list') ? 'table' : 'single';
                 this.setState({
                     responseData: jsonData,
                     isLoaded: true,
                     filteredItems: jsonData,
                     paginatedItems: jsonData,
                     totalPages: Math.ceil(jsonData.length / perPage),
-                    view: view
+                    view: this.state.view
                 });
-                console.log(jsonData);
                 if (showPagination) {
                     let page = (this.state.switchView) ? this.state.currentPage : 1;
                     this.updateItemList(page);
@@ -70,13 +81,53 @@ module.exports = class extends React.Component {
     }
 
     /**
-     * Mounting data onLoad
+     * Fetching show single page view with detailed information
      * @return void
      */
-    componentDidMount() {
-        this.getJsonData('list');
-        const url = new URL(window.location).pathname.split('/');
-        const archiveId = (url.indexOf('archiveId') != -1) ? virtualUrl.getMediaID() : false;
+    handleSingleClick(e, itemId) {
+        e.preventDefault();
+        this.showSingleDetails(itemId);
+    }
+
+    /**
+     * Show detailed information
+     * @return void
+     */
+    showSingleDetails(itemId) {
+        let singleItem = this.state.responseData.filter(function (i) {
+            return i.Id === itemId;
+        });
+        this.setState({
+            isLoaded: true,
+            filteredItems: singleItem,
+            view: 'single',
+            archId: itemId
+        });
+        scroll(0,0);
+        virtualUrl.showDetail(itemId, 'single');
+    }
+
+    /**
+     * Change back to table view
+     * @return void
+     */
+    resetView() {
+        let loaded = true;
+        if (this.state.shared) {
+            this.getJsonData(false, false)
+            loaded = false;
+        }
+        this.setState({
+            isLoaded: loaded,
+            filteredItems: this.state.responseData,
+            view: 'table',
+            searchInput: '',
+            archId: null,
+            switchView: false,
+            searchView: false,
+            shared: false
+        });
+        virtualUrl.showDetail('', 'table');
     }
 
     /**
@@ -93,29 +144,25 @@ module.exports = class extends React.Component {
      * @return void
      */
     handleSubmit() {
+        this.setState({archId : null, view: 'table'});
         this.getJsonData('query');
-
     }
 
     /**
-     * Fetching singleData from API
+     * Updating state from search input
+     * @param event (string) Search input value from Search Component
      * @return void
      */
-    handleSingleClick(e, itemId) {
-        e.preventDefault();
-        this.setState({archId: itemId});
-        this.getJsonData('single');
-
+    updateInput(event) {
+        this.setState({searchInput: event});
     }
 
     /**
-     * Change to table view fetch data from API
+     * Submiting query to API (Search)
      * @return void
      */
-    handleChangeView() {
-        this.setState({switchView: true});
-        this.setState({view: 'table'});
-        this.getJsonData('list');
+    handleSubmit() {
+        this.getJsonData('query');
     }
 
     /**
@@ -128,7 +175,6 @@ module.exports = class extends React.Component {
         const {perPage} = this.props;
         const begin = ((currentPage - 1) * perPage);
         const end = begin + perPage;
-
         this.setState({
             paginatedItems: filteredItems.slice(begin, end)
         });
@@ -179,6 +225,7 @@ module.exports = class extends React.Component {
      * @return Render to javaScript
      */
     render() {
+
         const view = this.state.view;
         if (!this.state.isLoaded) {
             return (
@@ -193,7 +240,6 @@ module.exports = class extends React.Component {
             );
         } else {
             return (
-
                 <div className="renderTable">
                     <div className="grid">
                         <Search
@@ -212,7 +258,6 @@ module.exports = class extends React.Component {
                             />
                             : ''}
                     </div>
-
                     {(view === 'table') ?
                         <RenderTable
                             paginatedItems={this.state.paginatedItems}
@@ -220,8 +265,8 @@ module.exports = class extends React.Component {
                         />
                         :
                         <Single
-                            singleItems={this.state.paginatedItems}
-                            tableView={this.handleChangeView}
+                            singleItems={this.state.filteredItems}
+                            tableView={this.resetView}
                         />
                     }
                 </div>

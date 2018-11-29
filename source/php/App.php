@@ -15,7 +15,6 @@ class App
         add_action( 'init', array($this, 'rewriteEndpoint'));
 
         new \ModularityAgreementsArchive\Admin\Settings();
-
     }
 
 
@@ -28,23 +27,6 @@ class App
         wp_register_script('modularity-agreements-archive-js', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('js/modularity-agreements-archive.js'), array('react', 'react-dom'));
     }
 
-
-    /**
-     * Flush permalinks
-     * @return void
-     */
-    public function flushRewrites() {
-        flush_rewrite_rules();
-    }
-
-    /**
-     * Adding new endpoints for this app
-     * @return void
-     */
-    public function rewriteEndpoint (){
-        add_rewrite_endpoint( 'ModularityAgreementsArchiveAPI', EP_ALL );
-        $this->flushRewrites();
-    }
 
     /**
      * Encrypt strings
@@ -103,4 +85,20 @@ class App
         }
     }
 
+    /**
+     * Flush permalinks
+     * @return void
+     */
+    function flushRewrites() {
+        flush_rewrite_rules();
+    }
+
+    /**
+     * Adding new endpoints for direct link to details
+     * @return void
+     */
+    public function rewriteEndpoint (){
+        add_rewrite_endpoint( 'agreementArchiveId', EP_ALL );
+        flush_rewrite_rules();
+    }
 }

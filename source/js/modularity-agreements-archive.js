@@ -1,7 +1,6 @@
 'use strict';
 import "@babel/polyfill";
 import FetchData from './Components/FetchData.js';
-
 const domElement = document.getElementById('modularity-agreement-archive');
 
 const App = class {
@@ -16,6 +15,7 @@ const App = class {
         }
 
         ReactDOM.render(
+
             <FetchData
                 token={ModularityAgreementsArchiveObject.authToken}
                 showSearch={ModularityAgreementsArchiveObject.showSearch}
@@ -23,6 +23,7 @@ const App = class {
                 perPage={parseInt(ModularityAgreementsArchiveObject.perPage)}
 
             />
+
             , domElement
         );
     }
