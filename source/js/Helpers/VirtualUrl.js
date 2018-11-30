@@ -41,7 +41,7 @@ const changeVirtualUrl = (id = false) => {
         buildQyery = '?';
         amp = '&';
     }
-    const stripTrailingSlash= uri.replace(/^(.+?)\/*?$/, "$1");
+    const stripTrailingSlash = uri.replace(/^(.+?)\/*?$/, "$1");
     const url = new URL(stripTrailingSlash).pathname.split('/');
     if (Object.keys(queryStr).length > 0 || id || url.indexOf(singlePageParamKey) != 1) {
 

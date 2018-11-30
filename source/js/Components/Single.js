@@ -36,10 +36,13 @@ class Single extends React.Component {
                 <a name="top"></a>
                 <div className="grid">
                     <div className="grid-md-2">
-                        <button className="go-back btn btn-contrasted"
-                                onClick={(e) =>
-                                    this.props.tableView(e)
-                                }><i className="pricon pricon-previous"></i>&nbsp;{ModularityAgreementsArchiveObject.translation.back}
+                        <button
+                            className="go-back btn validated valid hf-in-range hf-user-valid"
+                            aria-invalid="false"
+                            onClick={(e) =>
+                                this.props.tableView(e)
+                            }>
+                            <i className="pricon pricon-back"></i> {ModularityAgreementsArchiveObject.translation.back}
                         </button>
                     </div>
 

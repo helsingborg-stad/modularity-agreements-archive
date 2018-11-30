@@ -227,12 +227,15 @@ module.exports = class extends React.Component {
             return (
                 <div className="renderTable">
                     <div className="grid">
+                        {(this.state.view != 'single') ?
                         <Search
                             change={this.updateInput}
                             submit={this.handleSubmit}
                             value={this.state.searchInput}
+                            view={this.state.view}
 
                         />
+                            : ''}
                         {(this.state.view != 'single') ?
                             <Paginate
                                 showSearch={this.props.showSearch}
