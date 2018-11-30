@@ -148,22 +148,6 @@ module.exports = class extends React.Component {
         this.getJsonData('query');
     }
 
-    /**
-     * Updating state from search input
-     * @param event (string) Search input value from Search Component
-     * @return void
-     */
-    updateInput(event) {
-        this.setState({searchInput: event});
-    }
-
-    /**
-     * Submiting query to API (Search)
-     * @return void
-     */
-    handleSubmit() {
-        this.getJsonData('query');
-    }
 
     /**
      * Accordion - Updating list, depending on settings in db and page
@@ -244,7 +228,9 @@ module.exports = class extends React.Component {
                     <div className="grid">
                         <Search
                             change={this.updateInput}
-                            click={this.handleSubmit}
+                            submit={this.handleSubmit}
+                            value={this.state.searchInput}
+
                         />
                         {(this.state.view != 'single') ?
                             <Paginate

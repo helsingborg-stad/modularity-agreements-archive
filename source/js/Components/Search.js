@@ -9,9 +9,16 @@ class Search extends React.Component {
                 <div className="searchApi input-group">
                     <span className="input-group-addon"><i className="pricon pricon-file"></i></span>
                     <input
+                        value={this.props.value}
                         id="searchInput"
                         type="text"
                         className="form-control"
+                        onKeyPress={(ev) => {
+                            if (ev.key === 'Enter') {
+                                this.props.submit();
+                                ev.preventDefault();
+                            }
+                        }}
                         onChange={ () =>
                             this.props.change(document.getElementById("searchInput").value)
                         }
@@ -21,7 +28,7 @@ class Search extends React.Component {
                             className="btn btn-primary"
                             value="Send"
                             onClick={ () =>
-                                this.props.click()
+                                this.props.submit()
                             }
                     >
                     {ModularityAgreementsArchiveObject.translation.search}
