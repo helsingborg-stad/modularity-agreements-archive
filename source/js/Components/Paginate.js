@@ -8,7 +8,7 @@ class Paginate extends React.Component {
 
     render() {
         const showSearch = this.props.showSearch;
-        const css = (showSearch) ? 'grid-md-4' : 'grid-md-12';
+        const css = (showSearch) ? 'grid-md-6' : 'grid-md-12';
         return (
 
             <div className={css}>
@@ -21,6 +21,8 @@ class Paginate extends React.Component {
                             next={this.props.next}
                             prev={this.props.prev}
                             input={this.props.input}
+                            langPrev={ModularityAgreementsArchiveObject.translation.previous}
+                            langNext={ModularityAgreementsArchiveObject.translation.next}
                         />
                     </div>
                 </div>

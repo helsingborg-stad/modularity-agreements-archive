@@ -211,6 +211,7 @@ module.exports = class extends React.Component {
     render() {
 
         const view = this.state.view;
+        {ModularityAgreementsArchiveObject.translation.previous}
         if (!this.state.isLoaded) {
             return (
                 <div className="gutter">

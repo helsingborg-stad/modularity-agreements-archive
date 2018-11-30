@@ -87,6 +87,8 @@ class AgreementsArchive extends \Modularity\Module
             'file' => __('File', 'modularity-agreements-archive'),
             'fileSize' => __('File size', 'modularity-agreements-archive'),
             'fileSize' => __('File size', 'modularity-agreements-archive'),
+            'next' => __('Next', 'modularity-agreements-archive'),
+            'previous' => __('Previous', 'modularity-agreements-archive'),
         );
 
         //Send to script

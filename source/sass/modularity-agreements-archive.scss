@@ -4,6 +4,10 @@
     table {
         margin-top:0px;
         padding-top:0px;
+
+        .number {
+            min-width:142px;
+        }
     }
     td {
         height:72px;
@@ -15,15 +19,31 @@
     .valid-from, .valid-to {
         min-width:115px;
     }
-    .number {
-        min-width:142px;
-    }
+
     .container-fluid {
         padding:0px;
     }
 
     .box {
         margin-bottom: 20px;
+    }
+    .searchApi  {
+        .button {
+            margin-left:16px;
+        }
+    }
+    .renderTable {
+        @media screen and (max-width: 500px) {
+            .gutter:not(.gutter-margin) {
+                padding: 16px 0px;
+            }
+            .grid-fit-content {
+                margin: 0px;
+            }
+        }
+    }
+    .grid-fit-content {
+        margin-right:-6px;
     }
 
 }

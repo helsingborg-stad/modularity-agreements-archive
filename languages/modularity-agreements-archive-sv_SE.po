@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modularity Agreements Archive\n"
-"POT-Creation-Date: 2018-11-29 16:23+0100\n"
-"PO-Revision-Date: 2018-11-29 16:35+0100\n"
+"POT-Creation-Date: 2018-11-30 11:51+0100\n"
+"PO-Revision-Date: 2018-11-30 11:51+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -186,6 +186,14 @@ msgstr "Fil"
 #: source/php/Module/AgreementsArchive.php:89
 msgid "File size"
 msgstr "Filstorlek"
+
+#: source/php/Module/AgreementsArchive.php:90
+msgid "Next"
+msgstr "Nästa"
+
+#: source/php/Module/AgreementsArchive.php:91
+msgid "Previous"
+msgstr "Föregående"
 
 #. Plugin Name of the plugin/theme
 msgid "Modularity Agreements Archive"
