@@ -23,17 +23,17 @@ class RenderTable extends React.Component {
                     {paginatedItems.map((item, i) => (
                         (item.Supplier.Name) ?
                             <tr key={'row' + item.Id}>
-                                <td key={'supplierName_' + item.Id}><span className="hidden-md">{ModularityAgreementsArchiveObject.translation.supplier}: &nbsp;</span> <a
+                                <td key={'supplierName_' + item.Id}><span className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.supplier}: &nbsp;</span> <a
                                     data-id={item.Id}
                                     onClick={ (e) =>
                                         this.props.single(e, item.Id)
                                     }
                                     href="#"><b>{item.Supplier.Name}</b></a></td>
-                                <td key={'category_' + item.Id}><span className="hidden-md">{ModularityAgreementsArchiveObject.translation.category}: &nbsp;</span>{item.Category}</td>
-                                <td key={'number_' + item.Id}><span className="hidden-md">{ModularityAgreementsArchiveObject.translation.number}: &nbsp;</span>{item.Number}</td>
-                                <td key={'validFrom_' + item.Id}><span className="hidden-md">{ModularityAgreementsArchiveObject.translation.fromdate}: &nbsp;</span>{item.ValidFrom.replace('T00:00:00', '')}</td>
-                                <td key={'validTo_' + item.Id}><span className="hidden-md">{ModularityAgreementsArchiveObject.translation.todate}: &nbsp;</span>{item.ValidTo.replace('T00:00:00', '')}</td>
-                                <td key={'buyerName_' + item.Id}><span className="hidden-md">{ModularityAgreementsArchiveObject.translation.contractsManager}: &nbsp;</span>{item.Buyer.Name}</td>
+                                <td key={'category_' + item.Id}><span className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.category}: &nbsp;</span>{item.Category}</td>
+                                <td key={'number_' + item.Id}><span className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.number}: &nbsp;</span>{item.Number}</td>
+                                <td key={'validFrom_' + item.Id}><span className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.fromdate}: &nbsp;</span>{item.ValidFrom.replace('T00:00:00', '')}</td>
+                                <td key={'validTo_' + item.Id}><span className="table-hover hidden-md hidden-lg">{ModularityAgreementsArchiveObject.translation.todate}: &nbsp;</span>{item.ValidTo.replace('T00:00:00', '')}</td>
+                                <td key={'buyerName_' + item.Id}><span className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.contractsManager}: &nbsp;</span>{item.Buyer.Name}</td>
                             </tr>
                             : ''
                     ))}

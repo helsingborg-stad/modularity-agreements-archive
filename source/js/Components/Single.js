@@ -52,19 +52,19 @@ class Single extends React.Component {
                             <table className="table">
                                 <tbody>
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.supplier}</td>
+                                    <td className="title">{ModularityAgreementsArchiveObject.translation.supplier}</td>
                                     <td>{item.Supplier.Name}</td>
                                 </tr>
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.category}</td>
+                                    <td className="title">{ModularityAgreementsArchiveObject.translation.category}</td>
                                     <td>{item.Category}</td>
                                 </tr>
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.details}</td>
+                                    <td className="align-top title">{ModularityAgreementsArchiveObject.translation.details}</td>
                                     <td>{item.Description}</td>
                                 </tr>
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.periodOfValid}</td>
+                                    <td  className="title">{ModularityAgreementsArchiveObject.translation.periodOfValid}</td>
                                     <td>{item.ValidFrom.replace('T00:00:00', '') + ' - ' + item.ValidTo.replace('T00:00:00', '')}</td>
                                 </tr>
                                 </tbody>
@@ -78,16 +78,16 @@ class Single extends React.Component {
                             <table className="table">
                                 <tbody>
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.contractsManager}</td>
+                                    <td className="title">{ModularityAgreementsArchiveObject.translation.contractsManager}</td>
                                     <td>{item.Buyer.Name}</td>
                                 </tr>
                                 {(item.Buyer.OrganisationNumber) ?
                                     <tr>
-                                        <td>{ModularityAgreementsArchiveObject.translation.organizationnumber}</td>
+                                        <td className="title">{ModularityAgreementsArchiveObject.translation.organizationnumber}</td>
                                         <td>{item.Buyer.OrganisationNumber}</td>
                                     </tr> : null}
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.address}</td>
+                                    <td className="title align-top">{ModularityAgreementsArchiveObject.translation.address}</td>
                                     <td>{(item.Buyer.Address.LineOne) ? item.Buyer.Address.LineOne : null}
                                         {(item.Buyer.Address.LineOne) ? <br/> : null}
                                         {(item.Buyer.Address.LineTwo) ? item.Buyer.Address.LineTwo : null}
@@ -98,15 +98,15 @@ class Single extends React.Component {
                                         {(item.Buyer.Address.Country) ? item.Buyer.Address.Country : null}</td>
                                 </tr>
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.contactPerson}</td>
+                                    <td className="title">{ModularityAgreementsArchiveObject.translation.contactPerson}</td>
                                     <td>{item.Buyer.Contact.Name}</td>
                                 </tr>
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.email}</td>
+                                    <td className="title">{ModularityAgreementsArchiveObject.translation.email}</td>
                                     <td>{item.Buyer.Contact.EmailAddress}</td>
                                 </tr>
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.phone}</td>
+                                    <td className="title">{ModularityAgreementsArchiveObject.translation.phone}</td>
                                     <td>{item.Buyer.Contact.Telephone}</td>
                                 </tr>
                                 </tbody>
@@ -119,18 +119,18 @@ class Single extends React.Component {
                             <table className="table">
                                 <tbody>
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.supplier}</td>
+                                    <td className="title">{ModularityAgreementsArchiveObject.translation.supplier}</td>
                                     <td>{item.Supplier.Name}</td>
                                 </tr>
                                 {(item.Supplier.OrganisationNumber) ?
                                     <tr>
-                                        <td>{ModularityAgreementsArchiveObject.translation.organizationnumber}</td>
+                                        <td className="title">{ModularityAgreementsArchiveObject.translation.organizationnumber}</td>
                                         <td key="supOrgnr">{item.Supplier.OrganisationNumber}</td>
                                     </tr>
                                     : null
                                 }
                                 <tr>
-                                    <td>Adress</td>
+                                    <td className="title align-top">{ModularityAgreementsArchiveObject.translation.address}</td>
                                     <td key="supAddress">{(item.Supplier.Address.LineOne) ? item.Supplier.Address.LineOne : null}
                                         {(item.Supplier.Address.LineOne) ? <br/> : null}
                                         {(item.Supplier.Address.LineTwo) ? item.Supplier.Address.LineTwo : null}
@@ -140,17 +140,16 @@ class Single extends React.Component {
                                         {(item.Supplier.Address.City) ? <br/> : null}
                                         {(item.Supplier.Address.Country) ? item.Supplier.Address.Country : null}</td>
                                 </tr>
-
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.contactPerson}</td>
+                                    <td className="title">{ModularityAgreementsArchiveObject.translation.contactPerson}</td>
                                     <td key="supContactperson">{item.Supplier.Contact.Name}</td>
                                 </tr>
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.email}</td>
+                                    <td className="title">{ModularityAgreementsArchiveObject.translation.email}</td>
                                     <td key="supEmail">{item.Supplier.Contact.EmailAddress}</td>
                                 </tr>
                                 <tr>
-                                    <td>{ModularityAgreementsArchiveObject.translation.phone}</td>
+                                    <td className="title">{ModularityAgreementsArchiveObject.translation.phone}</td>
                                     <td key="supTelephone">{item.Supplier.Contact.Telephone}</td>
                                 </tr>
                                 </tbody>

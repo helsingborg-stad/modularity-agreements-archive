@@ -1,39 +1,51 @@
 .mod-agreementsarchiv {
-    max-width:100% !important;
-    width:100%;
-    padding-top:15px;
+    max-width: 100% !important;
+    width: 100%;
+    padding-top: 15px;
 
     table {
-        margin-top:0px;
-        padding-top:0px;
+        margin-top: 0px;
+        padding-top: 0px;
 
         .number {
-            min-width:142px;
+            min-width: 142px;
         }
     }
+
     td {
-        height:72px;
+        height: 72px;
+        &.title {
+            font-weight: bold;
+        }
+        &.align-top{
+            vertical-align: top;
+            padding-top:23px;
+        }
     }
+
     h4 {
-        max-width:100% !important;
+        max-width: 100% !important;
 
     }
+
     .valid-from, .valid-to {
-        min-width:115px;
+        min-width: 115px;
     }
 
     .container-fluid {
-        padding:0px;
+        padding: 0px;
     }
 
     .box {
         margin-bottom: 20px;
     }
-    .searchApi  {
+
+    .searchApi {
         .button {
-            margin-left:16px;
+            margin-left: 16px;
         }
     }
+
     .renderTable {
         @media screen and (max-width: 500px) {
             .gutter:not(.gutter-margin) {
@@ -44,8 +56,9 @@
             }
         }
     }
+
     .grid-fit-content {
-        margin-right:-6px;
+        margin-right: -6px;
     }
 
 
@@ -53,9 +66,10 @@
 
         table {
             span {
-                font-weight:bold;
+                font-weight: bold;
                 white-space: pre;
             }
+
             thead {
                 border: none;
                 clip: rect(0 0 0 0);
@@ -73,7 +87,7 @@
 
             td {
                 display: block;
-                height:auto;
+                height: auto;
             }
 
             td::before {

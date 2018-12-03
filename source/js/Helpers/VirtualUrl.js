@@ -41,16 +41,16 @@ const changeVirtualUrl = (id = false) => {
         buildQyery = '?';
         amp = '&';
     }
-    const stripTrailingSlash = uri.replace(/^(.+?)\/*?$/, "$1");
-    const url = new URL(stripTrailingSlash).pathname.split('/');
-    if (Object.keys(queryStr).length > 0 || id || url.indexOf(singlePageParamKey) != 1) {
+    
+    const url = new URL(uri).pathname.split('/');
+    if (Object.keys(queryStr).length > 0 || id || uri.indexOf(singlePageParamKey) != 1) {
 
         for (let key in queryStr) {
             buildQyery += (queryStr[key] != mediaId) ? key + '=' + queryStr[key] + amp : '';
         }
 
         if (url.indexOf(singlePageParamKey) != 1) {
-            buildQyery += (id != false) ? uri + '/'+singlePageParamKey+'/' + id + '/' : '';
+            buildQyery += (id != false) ? uri.replace(/^(.+?)\/*?$/, "$1") + '/'+singlePageParamKey+'/' + id + '/' : '';
         }
 
         buildQyery = (buildQyery.substring(buildQyery.length - 1) == "&") ? buildQyery.substring(0, buildQyery.length - 1) : buildQyery;
