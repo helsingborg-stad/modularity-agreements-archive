@@ -2,7 +2,9 @@
     max-width: 100% !important;
     width: 100%;
     padding-top: 15px;
-
+    .box-title {
+        padding-bottom:10px;
+    }
     table {
         margin-top: 0px;
         padding-top: 0px;
@@ -37,7 +39,7 @@
     }
 
     .box {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
 
     .searchApi {
@@ -45,9 +47,12 @@
             margin-left: 16px;
         }
     }
+    .searchResult {
+        padding-top:10px;
+    }
 
     .renderTable {
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 1002px) {
             .gutter:not(.gutter-margin) {
                 padding: 16px 0px;
             }
@@ -62,9 +67,14 @@
     }
 
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 1002px) {
+        .mod-agreementsarchiv {
+            width:98%
 
+        }
         table {
+
+
             span {
                 font-weight: bold;
                 white-space: pre;
@@ -102,6 +112,4 @@
         }
 
     }
-
-
 }

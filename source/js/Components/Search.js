@@ -1,3 +1,5 @@
+import {Pagination} from "./Paginate";
+
 class Search extends React.Component {
     constructor(props) {
         super(props);
@@ -27,7 +29,7 @@ class Search extends React.Component {
                     <button type="submit"
                             className="btn btn-primary"
                             value="Send"
-                            onClick={ () =>
+                            onClick={() =>
                                 this.props.submit()
                             }
                     >
@@ -35,6 +37,12 @@ class Search extends React.Component {
                     </button>
                     </span>
                 </div>
+                {(this.props.search) ?
+                <div className="searchResult">
+                    {ModularityAgreementsArchiveObject.translation.yoursearch} <b>{this.props.totalItems}</b>&nbsp;
+                    {ModularityAgreementsArchiveObject.translation.hits}&nbsp;<b>{this.props.current}</b>&nbsp;
+                    {ModularityAgreementsArchiveObject.translation.of}&nbsp;<b>{this.props.totalPages}</b></div>
+                 : ''}
             </div>
 
         );

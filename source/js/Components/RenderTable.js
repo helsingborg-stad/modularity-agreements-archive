@@ -13,12 +13,12 @@ class RenderTable extends React.Component {
                 <table className="table table-striped" items={paginatedItems}>
                     <tbody>
                     <tr>
-                        <th className="hidden-xs">{ModularityAgreementsArchiveObject.translation.supplier}</th>
-                        <th className="hidden-xs">{ModularityAgreementsArchiveObject.translation.category}</th>
-                        <th className="number hidden-xs">{ModularityAgreementsArchiveObject.translation.number}</th>
-                        <th className="valid-from hidden-xs">{ModularityAgreementsArchiveObject.translation.fromdate}</th>
-                        <th className="valid-to hidden-xs">{ModularityAgreementsArchiveObject.translation.todate}</th>
-                        <th className="hidden-xs">{ModularityAgreementsArchiveObject.translation.contractsManager}</th>
+                        <th className="hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.supplier}</th>
+                        <th className="hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.category}</th>
+                        <th className="number hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.number}</th>
+                        <th className="valid-from hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.fromdate}</th>
+                        <th className="valid-to hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.todate}</th>
+                        <th className="hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.contractsManager}</th>
                     </tr>
                     {paginatedItems.map((item, i) => (
                         (item.Supplier.Name) ?

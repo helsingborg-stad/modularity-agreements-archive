@@ -29,11 +29,16 @@ class Single extends React.Component {
         });
     }
 
+    createMarkup(html) {
+        escapeEl.textContent = html;
+        return escapeEl.innerHTML;
+    };
+
     render() {
         const item = this.props.singleItems[0];
+
         return (
-            <div id="singleView container-fluid">
-                <a name="top"></a>
+            <div id="singleView" className="container-fluid">
                 <div className="grid">
                     <div className="grid-md-2">
                         <button
@@ -61,7 +66,7 @@ class Single extends React.Component {
                                 </tr>
                                 <tr>
                                     <td className="align-top title">{ModularityAgreementsArchiveObject.translation.details}</td>
-                                    <td>{item.Description}</td>
+                                    <td>{item.Description.replace(/(<([^>]+)>)/ig,'')}</td>
                                 </tr>
                                 <tr>
                                     <td  className="title">{ModularityAgreementsArchiveObject.translation.periodOfValid}</td>

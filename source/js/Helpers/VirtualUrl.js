@@ -41,7 +41,7 @@ const changeVirtualUrl = (id = false) => {
         buildQyery = '?';
         amp = '&';
     }
-    
+
     const url = new URL(uri).pathname.split('/');
     if (Object.keys(queryStr).length > 0 || id || uri.indexOf(singlePageParamKey) != 1) {
 

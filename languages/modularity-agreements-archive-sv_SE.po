@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modularity Agreements Archive\n"
-"POT-Creation-Date: 2018-11-30 11:51+0100\n"
-"PO-Revision-Date: 2018-12-03 10:03+0100\n"
+"POT-Creation-Date: 2018-12-03 15:55+0100\n"
+"PO-Revision-Date: 2018-12-03 15:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -195,6 +195,18 @@ msgstr "Nästa"
 msgid "Previous"
 msgstr "Föregående"
 
+#: source/php/Module/AgreementsArchive.php:92
+msgid "Your search gave:"
+msgstr "Din sökning gav:"
+
+#: source/php/Module/AgreementsArchive.php:93
+msgid "hits, showing page"
+msgstr "träffar, visar sida"
+
+#: source/php/Module/AgreementsArchive.php:94
+msgid "of"
+msgstr "av"
+
 #. Plugin Name of the plugin/theme
 msgid "Modularity Agreements Archive"
 msgstr "Modularity Avtalskatalogen"
@@ -214,3 +226,6 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://helsingborg.se"
 msgstr ""
+
+#~ msgid "av"
+#~ msgstr "of"

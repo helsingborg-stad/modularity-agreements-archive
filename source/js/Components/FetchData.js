@@ -60,6 +60,8 @@ module.exports = class extends React.Component {
             ? this.setState({archId : archiveId, view: 'single', shared: true, isLoaded: false})
             : this.setState({archId : null, view: 'table', isLoaded: false});
 
+        (type === 'query') ? this.setState({search: true}) : false;
+
         axios
             .get(apiUrl)
             .then(response => {
@@ -70,7 +72,8 @@ module.exports = class extends React.Component {
                     filteredItems: jsonData,
                     paginatedItems: jsonData,
                     totalPages: Math.ceil(jsonData.length / perPage),
-                    view: this.state.view
+                    view: this.state.view,
+                    totalItems: jsonData.length
                 });
                 if (showPagination) {
                     let page = (this.state.switchView) ? this.state.currentPage : 1;
@@ -89,6 +92,7 @@ module.exports = class extends React.Component {
         this.showSingleDetails(itemId);
     }
 
+
     /**
      * Show detailed information
      * @return void
@@ -103,7 +107,12 @@ module.exports = class extends React.Component {
             view: 'single',
             archId: itemId
         });
-        scroll(0,0);
+        const element = document.getElementById('modularity-agreement-archive');
+        window.scrollTo({
+
+            'left': 0,
+            'top': element.offsetTop +100
+        });
         virtualUrl.showDetail(itemId, 'single');
     }
 
@@ -233,7 +242,11 @@ module.exports = class extends React.Component {
                             submit={this.handleSubmit}
                             value={this.state.searchInput}
                             view={this.state.view}
-
+                            totalPages={this.state.totalPages}
+                            totalItems={this.state.totalItems}
+                            current={this.state.currentPage}
+                            input={this.paginationInput.bind(this)}
+                            search={this.state.search}
                         />
                             : ''}
                         {(this.state.view != 'single') ?
