@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Modularity Agreements Archive\n"
 "POT-Creation-Date: 2018-11-30 11:51+0100\n"
-"PO-Revision-Date: 2018-11-30 11:51+0100\n"
+"PO-Revision-Date: 2018-12-03 10:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -152,7 +152,7 @@ msgstr "Giltlighetsperiod"
 
 #: source/php/Module/AgreementsArchive.php:80
 msgid "Contact person"
-msgstr "Konstaktperson"
+msgstr "Kontaktperson"
 
 #: source/php/Module/AgreementsArchive.php:81
 msgid "Contracts Manager"
