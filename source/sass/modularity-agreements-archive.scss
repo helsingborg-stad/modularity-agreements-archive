@@ -2,9 +2,11 @@
     max-width: 100% !important;
     width: 100%;
     padding-top: 15px;
+
     .box-title {
-        padding-bottom:10px;
+        padding-bottom: 10px;
     }
+
     table {
         margin-top: 0px;
         padding-top: 0px;
@@ -16,18 +18,19 @@
 
     td {
         height: 72px;
+
         &.title {
             font-weight: bold;
         }
-        &.align-top{
+
+        &.align-top {
             vertical-align: top;
-            padding-top:23px;
+            padding-top: 23px;
         }
     }
 
     h4 {
         max-width: 100% !important;
-
     }
 
     .valid-from, .valid-to {
@@ -43,12 +46,13 @@
     }
 
     .searchApi {
-        .button {
+        button {
             margin-left: 16px !important;
         }
     }
+
     .searchResult {
-        padding-top:10px;
+        padding-top: 10px;
     }
 
     .renderTable {
@@ -69,12 +73,15 @@
 
     @media screen and (max-width: 1002px) {
         .mod-agreementsarchiv {
-            width:98%
+            width: 98%
 
         }
+
+        .searchApi {
+            padding: 0px 16px !important;
+        }
+
         table {
-
-
             span {
                 font-weight: bold;
                 white-space: pre;
@@ -110,6 +117,10 @@
                 border-bottom: 0;
             }
         }
-
+    }
+    @media screen and (max-width: 515px) {
+        .searchApi {
+            padding: 0px !important;
+        }
     }
 }
