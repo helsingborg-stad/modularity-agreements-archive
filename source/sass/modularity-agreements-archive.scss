@@ -1,5 +1,5 @@
-.modularity-mod-agreementsarchiv {
-    display: block;
+.mod-agreementsarchiv, .modularity-mod-agreementsarchiv  {
+
     max-width: 100% !important;
     width: 100%;
     padding-top: 15px;
@@ -18,12 +18,15 @@
     }
 
     td {
+        height: 72px;
+
         &.title {
             font-weight: bold;
         }
 
         &.align-top {
             vertical-align: top;
+            padding-top: 23px;
         }
     }
 
@@ -65,18 +68,22 @@
     }
 
     .grid-fit-content {
-        margin-right: -6px;
+        margin-right: -5px;
     }
 
 
     @media screen and (max-width: 1002px) {
+        .grid-fit-content {
+            margin-right: -4px;
+        }
+
         .mod-agreementsarchiv {
             width: 98%
 
         }
 
         .searchApi {
-            padding: 0px 16px !important;
+            padding: 16px !important;
         }
 
         table {
