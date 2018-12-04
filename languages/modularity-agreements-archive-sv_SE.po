@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Modularity Agreements Archive\n"
 "POT-Creation-Date: 2018-12-04 11:03+0100\n"
-"PO-Revision-Date: 2018-12-04 13:02+0100\n"
+"PO-Revision-Date: 2018-12-04 14:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -209,7 +209,7 @@ msgstr "av"
 
 #: source/php/Module/AgreementsArchive.php:95
 msgid "gave"
-msgstr "gav"
+msgstr "gav "
 
 #. Plugin Name of the plugin/theme
 msgid "Modularity Agreements Archive"
