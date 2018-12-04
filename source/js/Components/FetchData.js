@@ -131,7 +131,7 @@ module.exports = class extends React.Component {
             isLoaded: loaded,
             filteredItems: this.state.responseData,
             view: 'table',
-            searchInput: '',
+            searchInput: this.state.searchInput,
             archId: null,
             switchView: false,
             searchView: false,
@@ -248,6 +248,7 @@ module.exports = class extends React.Component {
                             current={this.state.currentPage}
                             input={this.paginationInput.bind(this)}
                             search={this.state.search}
+                            searchInput={this.state.searchInput}
                         />
                             : ''}
                         {(this.state.view != 'single') ?

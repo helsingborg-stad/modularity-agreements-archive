@@ -38,11 +38,11 @@ class Search extends React.Component {
                     </span>
                 </div>
                 {(this.props.search) ?
-                <div className="searchResult">
-                    {ModularityAgreementsArchiveObject.translation.yoursearch} <b>{searchInput}</b> {ModularityAgreementsArchiveObject.translation.gave}
-                    <b>{this.props.totalItems}</b>&nbsp;{ModularityAgreementsArchiveObject.translation.hits}&nbsp;<b>{this.props.current}</b>&nbsp;
-                    {ModularityAgreementsArchiveObject.translation.of}&nbsp;<b>{this.props.totalPages}</b></div>
-                 : ''}
+                    <div className="searchResult">
+                        {ModularityAgreementsArchiveObject.translation.yoursearch}&nbsp;<b>{this.props.searchInput}</b> {ModularityAgreementsArchiveObject.translation.gave}
+                        <b>{this.props.totalItems}</b>&nbsp;{ModularityAgreementsArchiveObject.translation.hits}&nbsp;<b>{this.props.current}</b>&nbsp;
+                        {ModularityAgreementsArchiveObject.translation.of}&nbsp;<b>{this.props.totalPages}</b></div>
+                    : ''}
             </div>
 
         );
