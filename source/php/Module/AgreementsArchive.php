@@ -92,6 +92,7 @@ class AgreementsArchive extends \Modularity\Module
             'yoursearch' => __('Your search gave:', 'modularity-agreements-archive'),
             'hits' => __('hits, showing page', 'modularity-agreements-archive'),
             'of' => __('of', 'modularity-agreements-archive'),
+            'gave' => __('gave', 'modularity-agreements-archive'),
         );
 
         //Send to script

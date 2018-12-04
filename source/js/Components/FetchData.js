@@ -60,7 +60,7 @@ module.exports = class extends React.Component {
             ? this.setState({archId : archiveId, view: 'single', shared: true, isLoaded: false})
             : this.setState({archId : null, view: 'table', isLoaded: false});
 
-        (type === 'query') ? this.setState({search: true}) : false;
+        (type === 'query') ? this.setState({search: true, currentPage: 1}) : false;
 
         axios
             .get(apiUrl)
@@ -89,6 +89,7 @@ module.exports = class extends React.Component {
      */
     handleSingleClick(e, itemId) {
         e.preventDefault();
+        this.setState({currentPage: 1});
         this.showSingleDetails(itemId);
     }
 
@@ -153,7 +154,7 @@ module.exports = class extends React.Component {
      * @return void
      */
     handleSubmit() {
-        this.setState({archId : null, view: 'table'});
+        this.setState({archId : null, view: 'table', currentPage: 1});
         this.getJsonData('query');
     }
 
