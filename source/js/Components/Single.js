@@ -80,7 +80,7 @@ class Single extends React.Component {
                     <div className="grid-md-6">
                         <div className="box box-panel box-panel-secondary">
                             <h4 className="box-title">{ModularityAgreementsArchiveObject.translation.contactPerson}</h4>
-                            <table className="table">
+                            <table className="table table-striped">
                                 <tbody>
                                 <tr>
                                     <td className="title">{ModularityAgreementsArchiveObject.translation.contractsManager}</td>
@@ -121,7 +121,7 @@ class Single extends React.Component {
                     <div className="grid-md-6">
                         <div className="box box-panel box-panel-secondary">
                             <h4 className="box-title">{ModularityAgreementsArchiveObject.translation.supplier}</h4>
-                            <table className="table">
+                            <table className="table table-striped">
                                 <tbody>
                                 <tr>
                                     <td className="title">{ModularityAgreementsArchiveObject.translation.supplier}</td>
