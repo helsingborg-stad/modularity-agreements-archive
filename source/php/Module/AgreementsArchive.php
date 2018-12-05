@@ -41,12 +41,14 @@ class AgreementsArchive extends \Modularity\Module
      */
     public function script()
     {
-        $this->react = new \ModularityAgreementsArchive\Helper\React();
+        if (!class_exists('\Modularity\Helper\React'))
+            die();
+
+        $this->react = new \Modularity\Helper\React();
         $this->react::enqueue();
 
         wp_enqueue_script('modularity-agreements-archive-js');
         wp_localize_script('modularity-agreements-archive-js', 'ModularityAgreementsArchiveObject', $this->scriptData());
-
     }
 
     /**
