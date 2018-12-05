@@ -5,7 +5,7 @@ Modularity module for retrieving data from Primonas API.
 Get the latest version and follow the installation steps bellow.
 
 ### Dependencies
-Wordpress, Municipio and Modularity
+Wordpress, Municipio and Modularity v2.11.0 or higher
 
 
 ### Installing
