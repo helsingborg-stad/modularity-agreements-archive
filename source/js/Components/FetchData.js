@@ -57,14 +57,13 @@ module.exports = class extends React.Component {
         apiUrl += (type === 'id') ? '&id=' + archiveId : '';
 
         (archiveId)
-            ? this.setState({archId : archiveId, view: 'single', shared: true, isLoaded: false})
-            : this.setState({archId : null, view: 'table', isLoaded: false});
-
+            ? this.setState({archId: archiveId, view: 'single', shared: true, isLoaded: false})
+            : this.setState({archId: null, view: 'table', isLoaded: false});
+        console.log(apiUrl);
         (type === 'query') ? this.setState({search: true, currentPage: 1}) : false;
 
         axios
             .get(apiUrl)
-            .then(json => json)
             .then(json => {
                 const jsonData = json.data.reverse();
                 this.setState({
@@ -114,7 +113,7 @@ module.exports = class extends React.Component {
         window.scrollTo({
 
             'left': 0,
-            'top': element.offsetTop +100
+            'top': element.offsetTop + 100
         });
         virtualUrl.showDetail(itemId, 'single');
     }
@@ -156,7 +155,7 @@ module.exports = class extends React.Component {
      * @return void
      */
     handleSubmit() {
-        this.setState({archId : null, view: 'table', currentPage: 1});
+        this.setState({archId: null, view: 'table', currentPage: 1});
         this.getJsonData('query');
     }
 
@@ -221,25 +220,16 @@ module.exports = class extends React.Component {
      * @return Render to javaScript
      */
     render() {
-
+        console.log(this.state.filteredItems);
         const view = this.state.view;
-        {ModularityAgreementsArchiveObject.translation.previous}
-        if (!this.state.isLoaded) {
-            return (
-                <div className="gutter">
-                    <div className="loading">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                </div>
-            );
-        } else {
-            return (
-                <div className="renderTable">
-                    <div className="grid">
-                        {(this.state.view != 'single') ?
+        {
+            ModularityAgreementsArchiveObject.translation.previous
+        }
+
+        return (
+            <div className="renderTable">
+                <div className="grid">
+                    {(this.state.view != 'single') ?
                         <Search
                             change={this.updateInput}
                             submit={this.handleSubmit}
@@ -251,33 +241,34 @@ module.exports = class extends React.Component {
                             input={this.paginationInput.bind(this)}
                             search={this.state.search}
                             searchInput={this.state.searchInput}
+                            isLoaded={this.state.isLoaded}
                         />
-                            : ''}
-                        {(this.state.view != 'single') ?
-                            <Paginate
-                                showSearch={this.props.showSearch}
-                                current={this.state.currentPage}
-                                total={this.state.totalPages}
-                                next={this.nextPage.bind(this)}
-                                prev={this.prevPage.bind(this)}
-                                input={this.paginationInput.bind(this)}
-                                view={this.state.view}
-                            />
-                            : ''}
-                    </div>
-                    {(view === 'table') ?
-                        <RenderTable
-                            paginatedItems={this.state.paginatedItems}
-                            single={this.handleSingleClick}
+                        : ''}
+                    {(this.state.view != 'single') ?
+                        <Paginate
+                            showSearch={this.props.showSearch}
+                            current={this.state.currentPage}
+                            total={this.state.totalPages}
+                            next={this.nextPage.bind(this)}
+                            prev={this.prevPage.bind(this)}
+                            input={this.paginationInput.bind(this)}
+                            view={this.state.view}
                         />
-                        :
-                        <Single
-                            singleItems={this.state.filteredItems}
-                            tableView={this.resetView}
-                        />
-                    }
+                        : ''}
                 </div>
-            );
-        }
+                {(view === 'table') ?
+                    <RenderTable
+                        paginatedItems={this.state.paginatedItems}
+                        single={this.handleSingleClick}
+                        isLoaded={this.state.isLoaded}
+                    />
+                    :
+                    <Single
+                        singleItems={this.state.filteredItems}
+                        tableView={this.resetView}
+                    />
+                }
+            </div>
+        );
     }
 };
