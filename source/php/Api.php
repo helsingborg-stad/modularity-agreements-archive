@@ -42,7 +42,7 @@ class Api
             return wp_send_json(
                 array(
                     'state' => 'error',
-                    'message' => __("No api-key entered, please privode one in the agreement archive settings.", '')
+                    'message' => __("No api-key entered, please privode one in the agreement archive settings.", 'modularity-agreements-archive')
                 )
             );
         }
@@ -69,7 +69,7 @@ class Api
         return wp_send_json(
             array(
                 'state' => 'error',
-                'message' => __("A unknown error with the response occured.", '')
+                'message' => __("A unknown error with the response occured.", 'modularity-agreements-archive')
             )
         );
     }
