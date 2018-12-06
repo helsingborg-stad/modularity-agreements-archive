@@ -100,8 +100,15 @@ class Api
     {
         if (is_array($dataArray) && !empty($dataArray)) {
             foreach ($dataArray as &$item) {
+
+                //Clean text content
                 if (isset($item->Description)) {
                     $item->Description = preg_replace('/<br\s?\/?>/ius', "\n", str_replace("\n", "", str_replace("\r", "", htmlspecialchars_decode($item->Description))));
+                }
+
+                //Remove url
+                if (isset($item->Url)) {
+                    unset($item->Url);
                 }
             }
         }
