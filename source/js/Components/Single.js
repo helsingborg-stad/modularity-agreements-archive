@@ -36,7 +36,7 @@ class Single extends React.Component {
 
     render() {
         const item = this.props.singleItems[0];
-
+        console.log(item);
         return (
             <div id="singleView" className="container-fluid">
                 <div className="grid">
@@ -66,7 +66,7 @@ class Single extends React.Component {
                                 </tr>
                                 <tr>
                                     <td className="align-top title">{ModularityAgreementsArchiveObject.translation.details}</td>
-                                    <td>{item.Description.replace(/(<([^>]+)>)/ig,'')}</td>
+                                    <td>{item.Description}</td>
                                 </tr>
                                 <tr>
                                     <td  className="title">{ModularityAgreementsArchiveObject.translation.periodOfValid}</td>
@@ -172,14 +172,14 @@ class Single extends React.Component {
                                             <th>ModularityAgreementsArchiveObject.translation.fileSize}</th>
                                         </thead>
                                     </tr>
-                                    {item.Documents.map((doc, index) => (
+                                    {item.Documents.map((doc) => (
                                         <tr>
                                             <td>
                                                 <a onClick={(e) =>
-                                                    this.downLoad(e, doc[index].Url)
-                                                } href="#">{doc[index].Name}</a>
+                                                    this.downLoad(e, doc.Url)
+                                                } href="#">{doc.Name}</a>
                                             </td>
-                                            <td>{doc[index].Size}</td>
+                                            <td>{doc.Size}</td>
                                         </tr>
                                     ))}
                                 </table>

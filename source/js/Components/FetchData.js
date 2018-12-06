@@ -59,12 +59,13 @@ module.exports = class extends React.Component {
         (archiveId)
             ? this.setState({archId: archiveId, view: 'single', shared: true, isLoaded: false})
             : this.setState({archId: null, view: 'table', isLoaded: false});
-        console.log(apiUrl);
+
         (type === 'query') ? this.setState({search: true, currentPage: 1}) : false;
 
         axios
             .get(apiUrl)
             .then(json => {
+                console.log(json);
                 const jsonData = json.data.reverse();
                 this.setState({
                     responseData: jsonData,
@@ -75,13 +76,13 @@ module.exports = class extends React.Component {
                     view: this.state.view,
                     totalItems: jsonData.length
                 });
+
                 if (showPagination) {
                     let page = (this.state.switchView) ? this.state.currentPage : 1;
                     this.updateItemList(page);
                 }
             })
             .catch(error => this.setState({error, isLoaded: true}));
-
     }
 
     /**
@@ -220,11 +221,10 @@ module.exports = class extends React.Component {
      * @return Render to javaScript
      */
     render() {
-        console.log(this.state.filteredItems);
+
         const view = this.state.view;
-        {
-            ModularityAgreementsArchiveObject.translation.previous
-        }
+
+        {ModularityAgreementsArchiveObject.translation.previous}
 
         return (
             <div className="renderTable">
@@ -263,10 +263,12 @@ module.exports = class extends React.Component {
                         isLoaded={this.state.isLoaded}
                     />
                     :
+                    (this.state.isLoaded) ?
                     <Single
                         singleItems={this.state.filteredItems}
                         tableView={this.resetView}
                     />
+                        : false
                 }
             </div>
         );
