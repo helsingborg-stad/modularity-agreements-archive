@@ -35,8 +35,7 @@ class Api
      */
     public function fetchData()
     {
-        $authToken = (isset($_GET['authToken']) && !empty($_GET['authToken'])) ? str_replace('"', '',
-            \ModularityAgreementsArchive\App::decrypt($_GET['authToken'])) : '';
+        $authToken = (isset($_GET['authToken']) && !empty($_GET['authToken'])) ? str_replace('"', '', \ModularityAgreementsArchive\App::decrypt($_GET['authToken'])) : '';
 
         //No valid auth token
         if ($authToken != get_option('group_5be98c9780f80_mod_agreement_archive_api_token')) {
@@ -70,7 +69,10 @@ class Api
 
         //Validate response, return
         if (isset($apiCallReturn['body']) && !empty($apiCallReturn['body']) && $decodedJson = json_decode($apiCallReturn['body'])) {
-            wp_send_json($this->cleanData($decodedJson), 200);
+            wp_send_json(
+                $this->cleanData($decodedJson),
+                200
+            );
         }
 
         //Not valid response above, send error
@@ -85,7 +87,7 @@ class Api
     /**
      * Fetch data from API
      *
-     * @param array $dataArray
+     * @param array $dataArray Array containing response data
      *
      * @return false || void
      */
