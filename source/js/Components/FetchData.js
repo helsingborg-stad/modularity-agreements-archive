@@ -51,7 +51,7 @@ module.exports = class extends React.Component {
      */
     getJsonData(type = false, archiveId) {
         const {perPage, showPagination} = this.props;
-        let apiUrl = '/wp-json/wp/v2/ModularityAgreementsArchive?authToken=' + ModularityAgreementsArchiveObject.authToken;
+        let apiUrl = '/wp-json/ModularityAgreementsArchive/v1/Get/?authToken=' + ModularityAgreementsArchiveObject.authToken;
 
         apiUrl += (type === 'query') ? '&search=' + this.state.searchInput : '';
         apiUrl += (type === 'id') ? '&id=' + archiveId : '';
@@ -64,8 +64,9 @@ module.exports = class extends React.Component {
 
         axios
             .get(apiUrl)
-            .then(response => {
-                const jsonData = JSON.parse(response.data).reverse();
+            .then(json => json)
+            .then(json => {
+                const jsonData = json.data.reverse();
                 this.setState({
                     responseData: jsonData,
                     isLoaded: true,
@@ -81,6 +82,7 @@ module.exports = class extends React.Component {
                 }
             })
             .catch(error => this.setState({error, isLoaded: true}));
+
     }
 
     /**

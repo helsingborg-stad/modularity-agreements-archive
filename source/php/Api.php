@@ -42,7 +42,7 @@ class Api
             return wp_send_json(
                 array(
                     'state' => 'error',
-                    'message' => __("No api-key entered, please privode one in the agreement archive settings.", 'modularity-agreements-archive')
+                    'message' => __("No api-key entered, please provide one in the agreement archive settings.", 'modularity-agreements-archive')
                 )
             );
         }
