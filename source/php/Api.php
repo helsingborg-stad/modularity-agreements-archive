@@ -107,9 +107,7 @@ class Api
                     //Remove br's
                     $item->Description = preg_replace('/<br\s?\/?>/ius', "\n", str_replace("\n", "", str_replace("\r", "", htmlspecialchars_decode($item->Description))));
 
-                    //DEcode html entities
-
-
+                    //Detect titles / paragraphs
                     if ($data = explode("\n", $item->Description)) {
 
                         if (is_array($data) && !empty($data)) {
