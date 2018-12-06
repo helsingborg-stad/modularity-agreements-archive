@@ -65,7 +65,7 @@ class Single extends React.Component {
                                 </tr>
                                 <tr>
                                     <td className="align-top title">{ModularityAgreementsArchiveObject.translation.details}</td>
-                                    <td>{item.Description}</td>
+                                    <td dangerouslySetInnerHTML={{__html: item.Description}} />
                                 </tr>
                                 <tr>
                                     <td className="title">{ModularityAgreementsArchiveObject.translation.periodOfValid}</td>
