@@ -21,9 +21,9 @@
     "react-dom": "^16.5.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/plugin-proposal-export-default-from": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
+    "@babel/core": "^7.2.0",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "babelify": "^10.0.0",
     "browserify": "^16.2.3",
@@ -42,10 +42,10 @@
     "gulp-sass": "^2.1.0",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-streamify": "^1.0.2",
-    "gulp-terser": "^1.1.5",
+    "gulp-terser": "^1.1.6",
     "gulp-uglify": "^1.1.0",
     "gulp-util": "^3.0.8",
-    "hbg-react": "^0.6.2",
+    "hbg-react": "^0.6.4",
     "node-notifier": "^5.2.1",
     "object-path": "^0.11.4",
     "react": "^16.5.2",
@@ -61,12 +61,10 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/polyfill": "^7.0.0",
-    "@types/lodash": "^4.14.118",
+    "@types/lodash": "^4.14.119",
     "axios": "^0.18.0",
-    "react-redux": "^5.1.1",
-    "redux": "^4.0.1",
     "throttle-debounce": "^2.0.1"
   }
 }

@@ -7,8 +7,6 @@ class App
     public function __construct()
     {
 
-        add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
-
         register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
         register_activation_hook( __FILE__, 'flushRewrites' );
 
@@ -17,15 +15,6 @@ class App
         new \ModularityAgreementsArchive\Admin\Settings();
     }
 
-
-    /**
-     * Enqueue required scripts
-     * @return void
-     */
-    public function enqueueScripts()
-    {
-        wp_register_script('modularity-agreements-archive-js', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('js/modularity-agreements-archive.js'), array('react', 'react-dom'));
-    }
 
 
     /**

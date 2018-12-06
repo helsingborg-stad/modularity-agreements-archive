@@ -14,6 +14,7 @@ class AgreementsArchive extends \Modularity\Module
         $this->namePlural = __("Agreements Archives", 'modularity-agreements-archive');
         $this->description = __("Integrates Modularity with Primona Kommers API", 'modularity-agreements-archive');
 
+        add_action('wp_enqueue_scripts', array($this, 'registerScripts'));
     }
 
     /**
@@ -37,6 +38,16 @@ class AgreementsArchive extends \Modularity\Module
         return "modularityAgreementsArchive.blade.php";
     }
 
+
+    /**
+     * Enqueue required scripts
+     * @return void
+     */
+    public function registerScripts()
+    {
+        wp_register_script('modularity-agreements-archive-js', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('js/modularity-agreements-archive.js'), array('react', 'react-dom'));
+    }
+
     /**
      * Adding javaScript and Localize to make variables available in dom
      *
@@ -50,12 +61,13 @@ class AgreementsArchive extends \Modularity\Module
             return;
         }
 
-        $this->react = new \Modularity\Helper\React();
-        $this->react::enqueue();
+        (!class_exists('\Modularity\Helper\React')) ? \Modularity\Helper\React::enqueue() : \ModularityAgreementsArchive\Helper\React::enqueue();
 
         wp_enqueue_script('modularity-agreements-archive-js');
         wp_localize_script('modularity-agreements-archive-js', 'ModularityAgreementsArchiveObject', $this->scriptData());
     }
+
+
 
     /**
      * Setting all variables for localize script
