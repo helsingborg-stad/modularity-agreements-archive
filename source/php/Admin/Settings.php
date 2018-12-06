@@ -15,12 +15,14 @@ class Settings
         add_filter('acf/load_field/name=mod_agreement_archive_api_encryption_salt', array($this, 'disabledField'));
         add_filter('acf/load_field/name=mod_agreement_archive_api_encryption_key', array($this, 'disabledField'));
         add_filter('acf/load_field/name=mod_agreement_archive_api_token', array($this, 'disabledField'));
-        add_filter( 'acf/save_post', array($this, 'generateKeys'), 1 );
+        add_filter('acf/save_post', array($this, 'generateKeys'), 1 );
     }
 
     /**
      * Disable Fields in Settings
-     * @param $field (string)
+     *
+     * @param string $field
+     *
      * @return $field (bool) disabled
      */
     public function disabledField($field)
