@@ -13,7 +13,7 @@ class React
 
         //@babel/polyfill
         if (!wp_script_is('@babel/polyfill')) {
-            wp_enqueue_script('@babel/polyfill', 'https://cdn.jsdelivr.net/npm/@babel/polyfill@7.0.0/dist/polyfill' . (defined('DEV_MODE') && DEV_MODE) ? '.min.js' : '.js', array(), null);
+            wp_enqueue_script('@babel/polyfill', 'https://cdn.jsdelivr.net/npm/@babel/polyfill@7.0.0/dist/polyfill.min.js', array(), null);
         }
 
         //Enqueue react

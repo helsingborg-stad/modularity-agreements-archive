@@ -1,5 +1,4 @@
 'use strict';
-import "@babel/polyfill";
 import FetchData from './Components/FetchData.js';
 const domElement = document.getElementById('modularity-agreement-archive');
 
@@ -21,7 +20,6 @@ const App = class {
                 showSearch={ModularityAgreementsArchiveObject.showSearch}
                 showPagination={ModularityAgreementsArchiveObject.showPagination}
                 perPage={parseInt(ModularityAgreementsArchiveObject.perPage)}
-
             />
 
             , domElement
