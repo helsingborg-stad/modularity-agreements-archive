@@ -65,7 +65,6 @@ module.exports = class extends React.Component {
         axios
             .get(apiUrl)
             .then(json => {
-                console.log(json);
                 const jsonData = json.data.reverse();
                 this.setState({
                     responseData: jsonData,

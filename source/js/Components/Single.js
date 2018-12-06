@@ -36,7 +36,6 @@ class Single extends React.Component {
 
     render() {
         const item = this.props.singleItems[0];
-        console.log(item);
         return (
             <div id="singleView" className="container-fluid">
                 <div className="grid">
@@ -69,7 +68,7 @@ class Single extends React.Component {
                                     <td>{item.Description}</td>
                                 </tr>
                                 <tr>
-                                    <td  className="title">{ModularityAgreementsArchiveObject.translation.periodOfValid}</td>
+                                    <td className="title">{ModularityAgreementsArchiveObject.translation.periodOfValid}</td>
                                     <td>{item.ValidFrom.replace('T00:00:00', '') + ' - ' + item.ValidTo.replace('T00:00:00', '')}</td>
                                 </tr>
                                 </tbody>
@@ -166,22 +165,22 @@ class Single extends React.Component {
                             <div className="box box-panel box-panel-secondary">
                                 <h4 className="box-title">{ModularityAgreementsArchiveObject.translation.documents}</h4>
                                 <table className="table table-striped">
+                                    <tbody>
                                     <tr>
-                                        <thead>
-                                            <th>{ModularityAgreementsArchiveObject.translation.file}</th>
-                                            <th>ModularityAgreementsArchiveObject.translation.fileSize}</th>
-                                        </thead>
+                                        <td>{ModularityAgreementsArchiveObject.translation.file}</td>
+                                        <td>ModularityAgreementsArchiveObject.translation.fileSize}</td>
                                     </tr>
-                                    {item.Documents.map((doc) => (
-                                        <tr>
-                                            <td>
-                                                <a onClick={(e) =>
+                                    {item.Documents.map((doc, index) => (
+                                        <tr key={'tr_doc_' + index}>
+                                            <td key={'file_doc_' + index}>
+                                                <a key={'a_doc_' + index} onClick={(e) =>
                                                     this.downLoad(e, doc.Url)
                                                 } href="#">{doc.Name}</a>
                                             </td>
-                                            <td>{doc.Size}</td>
+                                            <td key={'size_doc_' + index}>{doc.Size}</td>
                                         </tr>
                                     ))}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
