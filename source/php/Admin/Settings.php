@@ -63,6 +63,7 @@ class Settings
                 'autoload' => false,
                 'update_button' => __('Update', 'acf'),
                 'updated_message' => __("Options Updated", 'acf'),
+                'parent_slug' => 'options-general.php'
             ));
         }
     }
