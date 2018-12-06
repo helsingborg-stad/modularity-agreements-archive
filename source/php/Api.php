@@ -27,7 +27,9 @@ class Api
 
     /**
      * Fetch data from API
+     *
      * @wp return object wp_send_json
+     *
      * @return false || void
      */
     public function fetchData()
@@ -35,27 +37,60 @@ class Api
         $authToken = (isset($_GET['authToken']) && !empty($_GET['authToken'])) ? str_replace('"', '',
             \ModularityAgreementsArchive\App::decrypt($_GET['authToken'])) : '';
 
+        //No valid auth token
         if ($authToken != get_option('group_5be98c9780f80_mod_agreement_archive_api_token')) {
-            return false;
+            return wp_send_json(
+                array(
+                    'state' => 'error',
+                    'message' => __("No api-key entered, please privode one in the agreement archive settings.", '')
+                )
+            );
         }
 
+        //Get query vars
         $query = (isset($_GET['search']) && !empty($_GET['search'])) ? $_GET['search'] : '';
         $id = (isset($_GET['id']) && !empty($_GET['id'])) ? $_GET['id'] : '';
         $hostUrl = get_option('group_5be98c9780f80_mod_agreement_archive_api_host');
 
+        //Create API url
         $apiUrl = $hostUrl;
-        $apiUrl .= ($query) ? "/?q=" . $query : '';
+        $apiUrl .= ($query) ? "/?q=" . sanitize_text_field($query) : '';
         $apiUrl .= ($id) ? "/" . $id : '';
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $apiUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'apiKey: ' . get_option('group_5be98c9780f80_mod_agreement_archive_api_key')
-        ));
+        //Get from resource
+        $apiCallReturn = wp_remote_get($apiUrl, array('headers' => array('apiKey' => get_option('group_5be98c9780f80_mod_agreement_archive_api_key'))));
 
-        wp_send_json(curl_exec($ch));
-        curl_close($ch);
+        //Validate response, return
+        if (isset($apiCallReturn['body']) && !empty($apiCallReturn['body']) && $decodedJson = json_decode($apiCallReturn['body'])) {
+            wp_send_json($this->cleanData($decodedJson), 200);
+        }
+
+        //Not valid response above, send error
+        return wp_send_json(
+            array(
+                'state' => 'error',
+                'message' => __("A unknown error with the response occured.", '')
+            )
+        );
+    }
+
+    /**
+     * Fetch data from API
+     *
+     * @param array $dataArray
+     *
+     * @return false || void
+     */
+    public function cleanData($dataArray)
+    {
+        if (is_array($dataArray) && !empty($dataArray)) {
+            foreach ($dataArray as &$item) {
+                if (isset($item->Description)) {
+                    $item->Description = preg_replace('/<br\s?\/?>/ius', "\n", str_replace("\n", "", str_replace("\r", "", htmlspecialchars_decode($item->Description))));
+                }
+            }
+        }
+        return $dataArray;
     }
 }
 
