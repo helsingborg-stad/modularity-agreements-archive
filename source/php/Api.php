@@ -58,14 +58,19 @@ class Api
         $apiUrl .= ($id) ? "/" . $id : '';
 
         //Get from resource
-        $apiCallReturn = wp_remote_get(
-            $apiUrl,
-            array(
-                'headers' => array(
-                    'apiKey' => get_option('group_5be98c9780f80_mod_agreement_archive_api_key')
+        if ($cachedCall = wp_cache_get('ModularityAgreementsArchive', 'getCall')) {
+            $apiCallReturn = $cachedCall;
+        } else {
+            $apiCallReturn = wp_remote_get(
+                $apiUrl,
+                array(
+                    'headers' => array(
+                        'apiKey' => get_option('group_5be98c9780f80_mod_agreement_archive_api_key')
+                    )
                 )
-            )
-        );
+            );
+            wp_cache_add('ModularityAgreementsArchive', $apiCallReturn, 'getCall', 60*15);
+        }
 
         //Validate response, return
         if (isset($apiCallReturn['body']) && !empty($apiCallReturn['body']) && $decodedJson = json_decode($apiCallReturn['body'])) {
