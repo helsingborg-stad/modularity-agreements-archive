@@ -37,7 +37,7 @@ class Search extends React.Component {
                     </button>
                     </span>
                 </div>
-                {(this.props.search) ?
+                {(this.props.search && this.props.isLoaded) ?
                     <div className="searchResult">
                         {ModularityAgreementsArchiveObject.translation.yoursearch}&nbsp;<b>{this.props.searchInput}</b> {ModularityAgreementsArchiveObject.translation.gave}&nbsp;
                         <b>{this.props.totalItems}</b>&nbsp;{ModularityAgreementsArchiveObject.translation.hits}&nbsp;<b>{this.props.current}</b>&nbsp;
