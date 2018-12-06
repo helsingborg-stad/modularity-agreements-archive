@@ -17,9 +17,10 @@ class AgreementsArchive extends \Modularity\Module
     }
 
     /**
-    * Data array
-    * @return array $data
-    */
+     * Data array
+     *
+     * @return array $data
+     */
     public function data() : array
     {
         $data = array();
@@ -28,6 +29,7 @@ class AgreementsArchive extends \Modularity\Module
 
     /**
      * Blade Template
+     *
      * @return string
      */
     public function template() : string
@@ -36,13 +38,17 @@ class AgreementsArchive extends \Modularity\Module
     }
 
     /**
-     * Adding javaScript and Localize to make variables available in doom
-     * @return string
+     * Adding javaScript and Localize to make variables available in dom
+     *
+     * @return string || void
      */
     public function script()
     {
-        if (!class_exists('\Modularity\Helper\React'))
-            die();
+        //Check if modularity is comatible.
+        if (!class_exists('\Modularity\Helper\React')) {
+            error_log("Agreements archive cannot run. This plugin requires modularity version 2.11.0 or higher.");
+            return;
+        }
 
         $this->react = new \Modularity\Helper\React();
         $this->react::enqueue();
@@ -53,6 +59,7 @@ class AgreementsArchive extends \Modularity\Module
 
     /**
      * Setting all variables for localize script
+     *
      * @return array with data
      */
     public function scriptData()
@@ -102,8 +109,8 @@ class AgreementsArchive extends \Modularity\Module
     }
 
     /**
-     * Style
-     * Register & adding css
+     * Style - Register & adding css
+     *
      * @return void
      */
     public function style()
