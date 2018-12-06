@@ -17,10 +17,11 @@ class Api
     public function registerRestRoutes()
     {
         register_rest_route(
-            'wp/v2', '/' . 'ModularityAgreementsArchive',
+            "ModularityAgreementsArchive/v1",
+            "Get",
             array(
                 'methods' => \WP_REST_Server::READABLE,
-                'callback' => array($this, 'fetchData'),
+                'callback' => array($this, 'fetchData')
             )
         );
     }
@@ -58,7 +59,14 @@ class Api
         $apiUrl .= ($id) ? "/" . $id : '';
 
         //Get from resource
-        $apiCallReturn = wp_remote_get($apiUrl, array('headers' => array('apiKey' => get_option('group_5be98c9780f80_mod_agreement_archive_api_key'))));
+        $apiCallReturn = wp_remote_get(
+            $apiUrl,
+            array(
+                'headers' => array(
+                    'apiKey' => get_option('group_5be98c9780f80_mod_agreement_archive_api_key')
+                )
+            )
+        );
 
         //Validate response, return
         if (isset($apiCallReturn['body']) && !empty($apiCallReturn['body']) && $decodedJson = json_decode($apiCallReturn['body'])) {
