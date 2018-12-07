@@ -138,6 +138,13 @@ class Api
                 if (isset($item->Url)) {
                     unset($item->Url);
                 }
+
+                //Streamlines categories
+                if (isset($item->Category)) {
+                    $item->Category = ucfirst(mb_strtolower($item->Category));
+                }
+
+                //Streamlines company names
             }
         }
         return $dataArray;
