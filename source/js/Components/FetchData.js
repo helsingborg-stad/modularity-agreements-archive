@@ -43,6 +43,39 @@ module.exports = class extends React.Component {
         let url = new URL(window.location).pathname.split('/');
         let archiveId = (url.indexOf('agreementArchiveId') != -1) ? virtualUrl.getMediaID() : false;
         (archiveId) ? this.getJsonData('id', archiveId) : this.getJsonData(false, false);
+
+        this.windowHistory();
+    }
+
+    /**
+     * Handling Browser back button on unmount
+     * @return void
+     */
+    componentWillUnmount () {
+        window.onpopstate = () => {}
+    }
+
+    /**
+     * Handling Browser back button on did mount
+     * @return void
+     */
+    componentDidUpdate(){
+        this.windowHistory();
+    }
+
+    /**
+     * Handling Browser back button
+     * @return void
+     */
+    windowHistory() {
+        window.onpopstate  = (e) => {
+            e.preventDefault();
+            if (this.state.archId != null){
+                this.setState({shared: true});
+                this.resetView();
+                history.go(1);
+            }
+        }
     }
 
     /**
@@ -90,10 +123,8 @@ module.exports = class extends React.Component {
      */
     handleSingleClick(e, itemId) {
         e.preventDefault();
-        this.setState({currentPage: 1});
         this.showSingleDetails(itemId);
     }
-
 
     /**
      * Show detailed information
@@ -107,7 +138,8 @@ module.exports = class extends React.Component {
             isLoaded: true,
             filteredItems: singleItem,
             view: 'single',
-            archId: itemId
+            archId: itemId,
+            //currentPage: this.state.currentPage
         });
         const element = document.getElementById('modularity-agreement-archive');
         window.scrollTo({
@@ -128,6 +160,7 @@ module.exports = class extends React.Component {
             this.getJsonData(false, false)
             loaded = false;
         }
+
         this.setState({
             isLoaded: loaded,
             filteredItems: this.state.responseData,

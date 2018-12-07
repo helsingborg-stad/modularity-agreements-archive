@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modularity Agreements Archive\n"
-"POT-Creation-Date: 2018-12-04 11:03+0100\n"
-"PO-Revision-Date: 2018-12-04 14:47+0100\n"
+"POT-Creation-Date: 2018-12-06 16:39+0100\n"
+"PO-Revision-Date: 2018-12-06 16:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -74,17 +74,28 @@ msgstr "Visa paginering"
 msgid "Pagination"
 msgstr "Paginering"
 
-#: source/php/Admin/Settings.php:57 source/php/Admin/Settings.php:58
+#: source/php/Admin/Settings.php:59 source/php/Admin/Settings.php:60
 msgid "Agreement Archive"
 msgstr "Avtalskatalogen"
 
-#: source/php/Admin/Settings.php:64
+#: source/php/Admin/Settings.php:66
 msgid "Update"
 msgstr "Uppdatera"
 
-#: source/php/Admin/Settings.php:65
+#: source/php/Admin/Settings.php:67
 msgid "Options Updated"
 msgstr "Inställningar uppdaterade"
+
+#: source/php/Api.php:45
+msgid ""
+"No api-key entered, please provide one in the agreement archive settings."
+msgstr ""
+"Det finns ingen API nyckel tillgänglig. Ange API Nyckel i Avtalskatalogens "
+"inställningar."
+
+#: source/php/Api.php:87
+msgid "A unknown error with the response occured."
+msgstr "Ett okänt fel uppstod vid hämtning av data"
 
 #: source/php/Module/AgreementsArchive.php:13
 msgid "Agreements Archive"
@@ -98,116 +109,115 @@ msgstr "Avtalskataloger"
 msgid "Integrates Modularity with Primona Kommers API"
 msgstr "Integrerar Modularity med Primona Kommers API"
 
-#: source/php/Module/AgreementsArchive.php:67
+#: source/php/Module/AgreementsArchive.php:88
 msgid "Modularity Agreement Archive"
 msgstr "Avtalskatalogen"
 
-#: source/php/Module/AgreementsArchive.php:68
+#: source/php/Module/AgreementsArchive.php:89
 msgid "Number"
 msgstr "Nummer"
 
-#: source/php/Module/AgreementsArchive.php:69
+#: source/php/Module/AgreementsArchive.php:90
 msgid "Category"
 msgstr "Kategori"
 
-#: source/php/Module/AgreementsArchive.php:70
+#: source/php/Module/AgreementsArchive.php:91
 msgid "Supplier"
 msgstr "Leverantör"
 
-#: source/php/Module/AgreementsArchive.php:71
+#: source/php/Module/AgreementsArchive.php:92
 msgid "Orgnr"
 msgstr "Orgnr"
 
-#: source/php/Module/AgreementsArchive.php:72
+#: source/php/Module/AgreementsArchive.php:93
 msgid "From date"
 msgstr "Från"
 
-#: source/php/Module/AgreementsArchive.php:73
+#: source/php/Module/AgreementsArchive.php:94
 msgid "To date"
 msgstr "Till"
 
-#: source/php/Module/AgreementsArchive.php:74
+#: source/php/Module/AgreementsArchive.php:95
 msgid "Search"
 msgstr "Sök"
 
-#: source/php/Module/AgreementsArchive.php:75
+#: source/php/Module/AgreementsArchive.php:96
 msgid "Download"
 msgstr "Ladda ner"
 
-#: source/php/Module/AgreementsArchive.php:76
+#: source/php/Module/AgreementsArchive.php:97
 msgid "Back"
 msgstr "Tillbaka"
 
-#: source/php/Module/AgreementsArchive.php:77
+#: source/php/Module/AgreementsArchive.php:98
 msgid "General information"
 msgstr "Grundinformation"
 
-#: source/php/Module/AgreementsArchive.php:78
+#: source/php/Module/AgreementsArchive.php:99
 msgid "Details"
 msgstr "Allmän information"
 
-#: source/php/Module/AgreementsArchive.php:79
+#: source/php/Module/AgreementsArchive.php:100
 msgid "Period of validity"
 msgstr "Giltlighetsperiod"
 
-#: source/php/Module/AgreementsArchive.php:80
+#: source/php/Module/AgreementsArchive.php:101
 msgid "Contact person"
 msgstr "Kontaktperson"
 
-#: source/php/Module/AgreementsArchive.php:81
+#: source/php/Module/AgreementsArchive.php:102
 msgid "Contracts Manager"
 msgstr "Avtalsansvarig"
 
-#: source/php/Module/AgreementsArchive.php:82
+#: source/php/Module/AgreementsArchive.php:103
 msgid "Organization number"
 msgstr "Organisationsnr"
 
-#: source/php/Module/AgreementsArchive.php:83
+#: source/php/Module/AgreementsArchive.php:104
 msgid "Address"
 msgstr "Adress"
 
-#: source/php/Module/AgreementsArchive.php:84
+#: source/php/Module/AgreementsArchive.php:105
 msgid "E-mail"
 msgstr "E-post"
 
-#: source/php/Module/AgreementsArchive.php:85
+#: source/php/Module/AgreementsArchive.php:106
 msgid "Phone"
 msgstr "Telefon"
 
-#: source/php/Module/AgreementsArchive.php:86
+#: source/php/Module/AgreementsArchive.php:107
 msgid "Documents"
 msgstr "Dokument"
 
-#: source/php/Module/AgreementsArchive.php:87
+#: source/php/Module/AgreementsArchive.php:108
 msgid "File"
 msgstr "Fil"
 
-#: source/php/Module/AgreementsArchive.php:88
-#: source/php/Module/AgreementsArchive.php:89
+#: source/php/Module/AgreementsArchive.php:109
 msgid "File size"
 msgstr "Filstorlek"
 
-#: source/php/Module/AgreementsArchive.php:90
+#: source/php/Module/AgreementsArchive.php:110
 msgid "Next"
 msgstr "Nästa"
 
-#: source/php/Module/AgreementsArchive.php:91
+#: source/php/Module/AgreementsArchive.php:111
 msgid "Previous"
 msgstr "Föregående"
 
-#: source/php/Module/AgreementsArchive.php:92
+#: source/php/Module/AgreementsArchive.php:112
 msgid "Your search gave:"
 msgstr "Din sökning"
 
-#: source/php/Module/AgreementsArchive.php:93
+#: source/php/Module/AgreementsArchive.php:113
 msgid "hits, showing page"
 msgstr "träffar, visar sida"
 
-#: source/php/Module/AgreementsArchive.php:94
+#: source/php/Module/AgreementsArchive.php:114
 msgid "of"
 msgstr "av"
 
-#: source/php/Module/AgreementsArchive.php:95
+#: source/php/Module/AgreementsArchive.php:115
 msgid "gave"
 msgstr "gav "
 
