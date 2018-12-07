@@ -26,7 +26,8 @@ module.exports = class extends React.Component {
             searchInput: '',
             view: 'table',
             switchView: false,
-            shared: false
+            shared: false,
+            searchHistory: []
         };
 
         this.updateInput = this.updateInput.bind(this);
@@ -92,8 +93,11 @@ module.exports = class extends React.Component {
         (archiveId)
             ? this.setState({archId: archiveId, view: 'single', shared: true, isLoaded: false})
             : this.setState({archId: null, view: 'table', isLoaded: false});
+        (type === 'query')
+            ? this.setState({search: true, currentPage: 1, searchHistory: this.state.searchHistory.concat([this.state.searchInput])})
+            : false;
 
-        (type === 'query') ? this.setState({search: true, currentPage: 1}) : false;
+
 
         axios
             .get(apiUrl)
@@ -274,6 +278,7 @@ module.exports = class extends React.Component {
                             search={this.state.search}
                             searchInput={this.state.searchInput}
                             isLoaded={this.state.isLoaded}
+                            searchHistory={this.state.searchHistory[this.state.searchHistory.length - 1]}
                         />
                         : ''}
                     {(this.state.view != 'single') ?
