@@ -307,6 +307,18 @@ module.exports = class extends React.Component {
                     />
                         : false
                 }
+
+                {(this.state.view != 'single') ?
+                    <Paginate
+              
+                        current={this.state.currentPage}
+                        total={this.state.totalPages}
+                        next={this.nextPage.bind(this)}
+                        prev={this.prevPage.bind(this)}
+                        input={this.paginationInput.bind(this)}
+                        view={this.state.view}
+                    />
+                    : ''}
             </div>
         );
     }
