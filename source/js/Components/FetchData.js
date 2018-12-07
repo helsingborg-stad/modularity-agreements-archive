@@ -143,11 +143,9 @@ module.exports = class extends React.Component {
             filteredItems: singleItem,
             view: 'single',
             archId: itemId,
-            //currentPage: this.state.currentPage
         });
         const element = document.getElementById('modularity-agreement-archive');
         window.scrollTo({
-
             'left': 0,
             'top': element.offsetTop + 100
         });
@@ -195,7 +193,6 @@ module.exports = class extends React.Component {
         this.setState({archId: null, view: 'table', currentPage: 1});
         this.getJsonData('query');
     }
-
 
     /**
      * Accordion - Updating list, depending on settings in db and page
@@ -257,11 +254,8 @@ module.exports = class extends React.Component {
      * @return Render to javaScript
      */
     render() {
-
         const view = this.state.view;
-
         {ModularityAgreementsArchiveObject.translation.previous}
-
         return (
             <div className="renderTable">
                 <div className="grid">
@@ -307,10 +301,9 @@ module.exports = class extends React.Component {
                     />
                         : false
                 }
-
                 {(this.state.view != 'single') ?
                     <Paginate
-              
+
                         current={this.state.currentPage}
                         total={this.state.totalPages}
                         next={this.nextPage.bind(this)}
