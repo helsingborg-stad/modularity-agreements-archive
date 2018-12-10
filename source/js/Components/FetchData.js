@@ -26,7 +26,9 @@ module.exports = class extends React.Component {
             searchInput: '',
             view: 'table',
             switchView: false,
-            shared: false
+            shared: false,
+            searchHistory: [],
+            browserEvent: false
         };
 
         this.updateInput = this.updateInput.bind(this);
@@ -43,6 +45,43 @@ module.exports = class extends React.Component {
         let url = new URL(window.location).pathname.split('/');
         let archiveId = (url.indexOf('agreementArchiveId') != -1) ? virtualUrl.getMediaID() : false;
         (archiveId) ? this.getJsonData('id', archiveId) : this.getJsonData(false, false);
+
+        this.windowHistory();
+    }
+
+    /**
+     * Handling Browser back button on unmount
+     * @return void
+     */
+    componentWillUnmount() {
+        window.onpopstate = () => {
+        }
+    }
+
+    /**
+     * Handling Browser back button on did mount
+     * @return void
+     */
+    componentDidUpdate() {
+        this.windowHistory();
+    }
+
+    /**
+     * Handling Browser back button
+     * @return void
+     */
+    windowHistory() {
+        window.onpopstate = (e) => {
+            e.preventDefault();
+            this.setState({
+                browserEvent: true,
+            });
+            if (this.state.archId != null) {
+                this.setState({shared: true});
+                this.resetView();
+                history.go(1);
+            }
+        }
     }
 
     /**
@@ -59,8 +98,13 @@ module.exports = class extends React.Component {
         (archiveId)
             ? this.setState({archId: archiveId, view: 'single', shared: true, isLoaded: false})
             : this.setState({archId: null, view: 'table', isLoaded: false});
-
-        (type === 'query') ? this.setState({search: true, currentPage: 1}) : false;
+        (type === 'query')
+            ? this.setState({
+                search: true,
+                currentPage: 1,
+                searchHistory: this.state.searchHistory.concat([this.state.searchInput])
+            })
+            : false;
 
         axios
             .get(apiUrl)
@@ -77,7 +121,7 @@ module.exports = class extends React.Component {
                 });
 
                 if (showPagination) {
-                    let page = (this.state.switchView) ? this.state.currentPage : 1;
+                    let page = (this.state.switchView || this.state.browserEvent) ? this.state.currentPage : 1;
                     this.updateItemList(page);
                 }
             })
@@ -90,10 +134,8 @@ module.exports = class extends React.Component {
      */
     handleSingleClick(e, itemId) {
         e.preventDefault();
-        this.setState({currentPage: 1});
         this.showSingleDetails(itemId);
     }
-
 
     /**
      * Show detailed information
@@ -107,15 +149,15 @@ module.exports = class extends React.Component {
             isLoaded: true,
             filteredItems: singleItem,
             view: 'single',
-            archId: itemId
+            archId: itemId,
         });
         const element = document.getElementById('modularity-agreement-archive');
         window.scrollTo({
-
             'left': 0,
             'top': element.offsetTop + 100
         });
         virtualUrl.showDetail(itemId, 'single');
+        this.state.browserEvent = false;
     }
 
     /**
@@ -128,6 +170,7 @@ module.exports = class extends React.Component {
             this.getJsonData(false, false)
             loaded = false;
         }
+
         this.setState({
             isLoaded: loaded,
             filteredItems: this.state.responseData,
@@ -138,6 +181,7 @@ module.exports = class extends React.Component {
             searchView: false,
             shared: false
         });
+
         virtualUrl.showDetail('', 'table');
     }
 
@@ -158,7 +202,6 @@ module.exports = class extends React.Component {
         this.setState({archId: null, view: 'table', currentPage: 1});
         this.getJsonData('query');
     }
-
 
     /**
      * Accordion - Updating list, depending on settings in db and page
@@ -220,11 +263,10 @@ module.exports = class extends React.Component {
      * @return Render to javaScript
      */
     render() {
-
         const view = this.state.view;
-
-        {ModularityAgreementsArchiveObject.translation.previous}
-
+        {
+            ModularityAgreementsArchiveObject.translation.previous
+        }
         return (
             <div className="renderTable">
                 <div className="grid">
@@ -241,6 +283,7 @@ module.exports = class extends React.Component {
                             search={this.state.search}
                             searchInput={this.state.searchInput}
                             isLoaded={this.state.isLoaded}
+                            searchHistory={this.state.searchHistory[this.state.searchHistory.length - 1]}
                         />
                         : ''}
                     {(this.state.view != 'single') ?
@@ -263,12 +306,33 @@ module.exports = class extends React.Component {
                     />
                     :
                     (this.state.isLoaded) ?
-                    <Single
-                        singleItems={this.state.filteredItems}
-                        tableView={this.resetView}
-                    />
-                        : false
+                        <Single
+                            singleItems={this.state.filteredItems}
+                            tableView={this.resetView}
+                            isLoaded={this.state.isLoaded}
+                        />
+                        : <div>
+                            <div className="gutter">
+                                <div className="loading">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
                 }
+                {(this.state.view != 'single') ?
+                    <Paginate
+
+                        current={this.state.currentPage}
+                        total={this.state.totalPages}
+                        next={this.nextPage.bind(this)}
+                        prev={this.prevPage.bind(this)}
+                        input={this.paginationInput.bind(this)}
+                        view={this.state.view}
+                    />
+                    : ''}
             </div>
         );
     }

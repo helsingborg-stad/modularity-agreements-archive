@@ -7,7 +7,6 @@ class Single extends React.Component {
 
     downLoad(e, datafileUrl) {
         e.preventDefault();
-
         axios
         ({
             url: datafileUrl,
@@ -16,7 +15,6 @@ class Single extends React.Component {
         }).then((response) => {
             let blob = new Blob([response.data]);
             if (typeof window.navigator.msSaveBlob !== 'undefined') {
-
                 window.navigator.msSaveBlob(blob, datafileUrl);
             } else {
                 const url = window.URL.createObjectURL(blob);
@@ -29,14 +27,10 @@ class Single extends React.Component {
         });
     }
 
-    createMarkup(html) {
-        escapeEl.textContent = html;
-        return escapeEl.innerHTML;
-    };
-
     render() {
         const item = this.props.singleItems[0];
         return (
+
             <div id="singleView" className="container-fluid">
                 <div className="grid">
                     <div className="grid-md-2">
@@ -55,6 +49,7 @@ class Single extends React.Component {
                             <h4 className="box-title">{ModularityAgreementsArchiveObject.translation.generalInfo}</h4>
                             <table className="table">
                                 <tbody>
+
                                 <tr>
                                     <td className="title">{ModularityAgreementsArchiveObject.translation.supplier}</td>
                                     <td>{item.Supplier.Name}</td>
@@ -65,7 +60,7 @@ class Single extends React.Component {
                                 </tr>
                                 <tr>
                                     <td className="align-top title">{ModularityAgreementsArchiveObject.translation.details}</td>
-                                    <td dangerouslySetInnerHTML={{__html: item.Description}} />
+                                    <td dangerouslySetInnerHTML={{__html: item.Description}}/>
                                 </tr>
                                 <tr>
                                     <td className="title">{ModularityAgreementsArchiveObject.translation.periodOfValid}</td>
