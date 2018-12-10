@@ -324,7 +324,6 @@ module.exports = class extends React.Component {
                 }
                 {(this.state.view != 'single') ?
                     <Paginate
-
                         current={this.state.currentPage}
                         total={this.state.totalPages}
                         next={this.nextPage.bind(this)}
