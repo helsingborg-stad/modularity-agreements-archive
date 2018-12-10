@@ -7,7 +7,7 @@ class Search extends React.Component {
 
     render() {
         return (
-            <div className="grid-md-6 gutter searchApi">
+            <div className="grid-md-6 searchApi">
                 <div className=" input-group">
                     <span className="input-group-addon"><i className="pricon pricon-file"></i></span>
                     <input
