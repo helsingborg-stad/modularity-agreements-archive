@@ -12,7 +12,7 @@ class Paginate extends React.Component {
         return (
 
             <div className={css}>
-                <div className="gutter grid">
+                <div className="grid">
                     <div className="grid-fit-content u-ml-auto">
                         <Pagination
                             className="pagination"

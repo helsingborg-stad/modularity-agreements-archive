@@ -1,20 +1,7 @@
 .mod-agreementsarchiv, .modularity-mod-agreementsarchiv  {
 
-    max-width: 100% !important;
-    width: 100%;
-    padding-top: 15px;
-
     .box-title {
         padding-bottom: 10px;
-    }
-
-    table {
-        margin-top: 0px;
-        padding-top: 0px;
-
-        .number {
-            min-width: 142px;
-        }
     }
 
     td {
@@ -27,16 +14,8 @@
         }
     }
 
-    h4 {
-        max-width: 100% !important;
-    }
-
     .valid-from, .valid-to {
         min-width: 115px;
-    }
-
-    .container-fluid {
-        padding: 0px;
     }
 
     .box {
@@ -49,14 +28,10 @@
         }
     }
 
-    .searchResult {
-        padding-top: 10px;
-    }
-
     .renderTable {
         @media screen and (max-width: 1002px) {
-            .gutter:not(.gutter-margin) {
-                padding: 16px 0px;
+            .searchApi {
+                padding-bottom: 16px;
             }
             .grid-fit-content {
                 margin: 0px;
@@ -64,23 +39,14 @@
         }
     }
 
-    .grid-fit-content {
-        margin-right: -5px;
-    }
-
-
     @media screen and (max-width: 1002px) {
-        .grid-fit-content {
-            margin-right: -4px;
-        }
 
         .mod-agreementsarchiv {
             width: 98%
-
         }
 
         .searchApi {
-            padding: 16px !important;
+            padding-bottom: 16px !important;
         }
 
         table {
@@ -118,11 +84,6 @@
             td:last-child {
                 border-bottom: 0;
             }
-        }
-    }
-    @media screen and (max-width: 515px) {
-        .searchApi {
-            padding: 0px !important;
         }
     }
 }

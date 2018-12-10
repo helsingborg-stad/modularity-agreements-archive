@@ -31,7 +31,7 @@ class Single extends React.Component {
         const item = this.props.singleItems[0];
         return (
 
-            <div id="singleView" className="container-fluid">
+            <div id="singleView">
                 <div className="grid">
                     <div className="grid-md-2">
                         <button
