@@ -104,14 +104,14 @@ class Api
                 //Clean text content
                 if (isset($item->Description)) {
 
-                    //Remove br's
-                    $item->Description = preg_replace('/<br\s?\/?>/ius', "\n", str_replace("\n", "", str_replace("\r", "", htmlspecialchars_decode($item->Description))));
-
                     //Decode html
                     $item->Description = html_entity_decode($item->Description);
 
+                    //Remove all tags
+                    $item->Description = strip_tags($item->Description);
+
                     //Detect titles / paragraphs
-                    if ($data = explode("\n", $item->Description)) {
+                    if ($data = explode("\n\r", $item->Description)) {
 
                         if (is_array($data) && !empty($data)) {
 
@@ -120,8 +120,8 @@ class Api
 
                             //Detect uppercase, handle them as titles
                             foreach ($data as &$element) {
-                                if ($element == mb_strtoupper($element)) {
-                                    $element = '<h2>' . ucfirst(mb_strtolower($element)) . '</h2>';
+                                if (trim($element) == mb_strtoupper(trim($element))) {
+                                    $element = '<h4>' . ucfirst(mb_strtolower(trim($element))) . '</h4>';
                                 }
                             }
 

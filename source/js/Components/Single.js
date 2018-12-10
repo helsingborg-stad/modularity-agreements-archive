@@ -47,34 +47,36 @@ class Single extends React.Component {
                     <div className="grid-md-12">
                         <div className="box box-panel box-panel-secondary">
                             <h4 className="box-title">{ModularityAgreementsArchiveObject.translation.generalInfo}</h4>
-                            <table className="table">
-                                <tbody>
+                            <article>
+                                <table className="table">
+                                    <tbody>
 
-                                <tr>
-                                    <td className="title">{ModularityAgreementsArchiveObject.translation.supplier}</td>
-                                    <td>{item.Supplier.Name}</td>
-                                </tr>
-                                <tr>
-                                    <td className="title">{ModularityAgreementsArchiveObject.translation.category}</td>
-                                    <td>{item.Category}</td>
-                                </tr>
-                                <tr>
-                                    <td className="align-top title">{ModularityAgreementsArchiveObject.translation.details}</td>
-                                    <td dangerouslySetInnerHTML={{__html: item.Description}}/>
-                                </tr>
-                                <tr>
-                                    <td className="title">{ModularityAgreementsArchiveObject.translation.periodOfValid}</td>
-                                    <td>{item.ValidFrom.replace('T00:00:00', '') + ' - ' + item.ValidTo.replace('T00:00:00', '')}</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                    <tr>
+                                        <td className="title">{ModularityAgreementsArchiveObject.translation.supplier}</td>
+                                        <td>{item.Supplier.Name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="title">{ModularityAgreementsArchiveObject.translation.category}</td>
+                                        <td>{item.Category}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="align-top title">{ModularityAgreementsArchiveObject.translation.details}</td>
+                                        <td dangerouslySetInnerHTML={{__html: item.Description}}/>
+                                    </tr>
+                                    <tr>
+                                        <td className="title">{ModularityAgreementsArchiveObject.translation.periodOfValid}</td>
+                                        <td>{item.ValidFrom.replace('T00:00:00', '') + ' - ' + item.ValidTo.replace('T00:00:00', '')}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </article>
                         </div>
                     </div>
 
                     <div className="grid-md-6">
                         <div className="box box-panel box-panel-secondary">
                             <h4 className="box-title">{ModularityAgreementsArchiveObject.translation.contactPerson}</h4>
-                            <table className="table table-striped">
+                            <table className="table table-bordered">
                                 <tbody>
                                 <tr>
                                     <td className="title">{ModularityAgreementsArchiveObject.translation.contractsManager}</td>
@@ -115,7 +117,7 @@ class Single extends React.Component {
                     <div className="grid-md-6">
                         <div className="box box-panel box-panel-secondary">
                             <h4 className="box-title">{ModularityAgreementsArchiveObject.translation.supplier}</h4>
-                            <table className="table table-striped">
+                            <table className="table table-bordered">
                                 <tbody>
                                 <tr>
                                     <td className="title">{ModularityAgreementsArchiveObject.translation.supplier}</td>
@@ -159,11 +161,11 @@ class Single extends React.Component {
                         <div className="grid-md-12">
                             <div className="box box-panel box-panel-secondary">
                                 <h4 className="box-title">{ModularityAgreementsArchiveObject.translation.documents}</h4>
-                                <table className="table table-striped">
+                                <table className="table table-bordered">
                                     <tbody>
                                     <tr>
-                                        <td>{ModularityAgreementsArchiveObject.translation.file}</td>
-                                        <td>ModularityAgreementsArchiveObject.translation.fileSize}</td>
+                                        <td className="title">{ModularityAgreementsArchiveObject.translation.file}</td>
+                                        <td className="title">{ModularityAgreementsArchiveObject.translation.fileSize}</td>
                                     </tr>
                                     {item.Documents.map((doc, index) => (
                                         <tr key={'tr_doc_' + index}>
