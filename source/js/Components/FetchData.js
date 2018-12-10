@@ -53,15 +53,16 @@ module.exports = class extends React.Component {
      * Handling Browser back button on unmount
      * @return void
      */
-    componentWillUnmount () {
-        window.onpopstate = () => {}
+    componentWillUnmount() {
+        window.onpopstate = () => {
+        }
     }
 
     /**
      * Handling Browser back button on did mount
      * @return void
      */
-    componentDidUpdate(){
+    componentDidUpdate() {
         this.windowHistory();
     }
 
@@ -70,12 +71,12 @@ module.exports = class extends React.Component {
      * @return void
      */
     windowHistory() {
-        window.onpopstate  = (e) => {
+        window.onpopstate = (e) => {
             e.preventDefault();
             this.setState({
                 browserEvent: true,
             });
-            if (this.state.archId != null){
+            if (this.state.archId != null) {
                 this.setState({shared: true});
                 this.resetView();
                 history.go(1);
@@ -98,7 +99,11 @@ module.exports = class extends React.Component {
             ? this.setState({archId: archiveId, view: 'single', shared: true, isLoaded: false})
             : this.setState({archId: null, view: 'table', isLoaded: false});
         (type === 'query')
-            ? this.setState({search: true, currentPage: 1, searchHistory: this.state.searchHistory.concat([this.state.searchInput])})
+            ? this.setState({
+                search: true,
+                currentPage: 1,
+                searchHistory: this.state.searchHistory.concat([this.state.searchInput])
+            })
             : false;
 
         axios
@@ -259,7 +264,9 @@ module.exports = class extends React.Component {
      */
     render() {
         const view = this.state.view;
-        {ModularityAgreementsArchiveObject.translation.previous}
+        {
+            ModularityAgreementsArchiveObject.translation.previous
+        }
         return (
             <div className="renderTable">
                 <div className="grid">
@@ -299,11 +306,21 @@ module.exports = class extends React.Component {
                     />
                     :
                     (this.state.isLoaded) ?
-                    <Single
-                        singleItems={this.state.filteredItems}
-                        tableView={this.resetView}
-                    />
-                        : false
+                        <Single
+                            singleItems={this.state.filteredItems}
+                            tableView={this.resetView}
+                            isLoaded={this.state.isLoaded}
+                        />
+                        : <div>
+                            <div className="gutter">
+                                <div className="loading">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
                 }
                 {(this.state.view != 'single') ?
                     <Paginate
