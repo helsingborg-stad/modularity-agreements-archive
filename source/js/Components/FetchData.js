@@ -152,6 +152,7 @@ module.exports = class extends React.Component {
             'top': element.offsetTop + 100
         });
         virtualUrl.showDetail(itemId, 'single');
+        this.state.browserEvent = false;
     }
 
     /**
