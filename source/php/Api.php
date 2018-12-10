@@ -58,7 +58,7 @@ class Api
         $apiUrl .= ($id) ? "/" . $id : '';
 
         //Get from resource
-        if ($cachedCall = wp_cache_get('ModularityAgreementsArchive', 'getCall')) {
+        if ($cachedCall = wp_cache_get('ModularityAgreementsArchive', 'getCall' . md5($apiUrl))) {
             $apiCallReturn = $cachedCall;
         } else {
             $apiCallReturn = wp_remote_get(
@@ -69,7 +69,7 @@ class Api
                     )
                 )
             );
-            wp_cache_add('ModularityAgreementsArchive', $apiCallReturn, 'getCall', 60*15);
+            wp_cache_add('ModularityAgreementsArchive', $apiCallReturn, 'getCall' . md5($apiUrl), 60*30);
         }
 
         //Validate response, return
