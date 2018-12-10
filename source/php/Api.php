@@ -111,7 +111,7 @@ class Api
                     $item->Description = strip_tags($item->Description);
 
                     //Detect titles / paragraphs
-                    if ($data = explode("\n\r", $item->Description)) {
+                    if ($data = explode("\n", str_replace("\n\n", "\n", str_replace("\n\r", "\n", $item->Description)))) {
 
                         if (is_array($data) && !empty($data)) {
 
