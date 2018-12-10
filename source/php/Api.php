@@ -107,6 +107,9 @@ class Api
                     //Remove br's
                     $item->Description = preg_replace('/<br\s?\/?>/ius', "\n", str_replace("\n", "", str_replace("\r", "", htmlspecialchars_decode($item->Description))));
 
+                    //Decode html
+                    $item->Description = html_entity_decode($item->Description);
+
                     //Detect titles / paragraphs
                     if ($data = explode("\n", $item->Description)) {
 
@@ -129,9 +132,6 @@ class Api
 
                     //The content filter
                     $item->Description = apply_filters('the_content', $item->Description);
-
-                    //Decode html
-                    $item->Description = html_entity_decode($item->Description);
                 }
 
                 //Remove url
