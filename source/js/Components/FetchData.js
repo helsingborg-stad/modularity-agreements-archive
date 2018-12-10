@@ -176,7 +176,7 @@ module.exports = class extends React.Component {
             searchView: false,
             shared: false
         });
-        (this.state.browserEvent) ? this.updateItemList(this.state.currentPage) : false;
+
         virtualUrl.showDetail('', 'table');
     }
 

@@ -7,7 +7,6 @@ class Single extends React.Component {
 
     downLoad(e, datafileUrl) {
         e.preventDefault();
-
         axios
         ({
             url: datafileUrl,
@@ -16,7 +15,6 @@ class Single extends React.Component {
         }).then((response) => {
             let blob = new Blob([response.data]);
             if (typeof window.navigator.msSaveBlob !== 'undefined') {
-
                 window.navigator.msSaveBlob(blob, datafileUrl);
             } else {
                 const url = window.URL.createObjectURL(blob);
@@ -28,12 +26,7 @@ class Single extends React.Component {
             }
         });
     }
-
-    createMarkup(html) {
-        escapeEl.textContent = html;
-        return escapeEl.innerHTML;
-    };
-
+    
     render() {
         const item = this.props.singleItems[0];
         return (
