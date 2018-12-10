@@ -72,14 +72,14 @@ module.exports = class extends React.Component {
     windowHistory() {
         window.onpopstate  = (e) => {
             e.preventDefault();
+            this.setState({
+                browserEvent: true,
+            });
             if (this.state.archId != null){
                 this.setState({shared: true});
                 this.resetView();
                 history.go(1);
             }
-            this.setState({
-                browserEvent: true,
-            });
         }
     }
 
@@ -116,7 +116,7 @@ module.exports = class extends React.Component {
                 });
 
                 if (showPagination) {
-                    let page = (this.state.switchView) ? this.state.currentPage : 1;
+                    let page = (this.state.switchView || this.state.browserEvent) ? this.state.currentPage : 1;
                     this.updateItemList(page);
                 }
             })
