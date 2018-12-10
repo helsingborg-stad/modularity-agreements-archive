@@ -27,7 +27,8 @@ module.exports = class extends React.Component {
             view: 'table',
             switchView: false,
             shared: false,
-            searchHistory: []
+            searchHistory: [],
+            browserEvent: false
         };
 
         this.updateInput = this.updateInput.bind(this);
@@ -76,6 +77,9 @@ module.exports = class extends React.Component {
                 this.resetView();
                 history.go(1);
             }
+            this.setState({
+                browserEvent: true,
+            });
         }
     }
 
@@ -171,7 +175,7 @@ module.exports = class extends React.Component {
             searchView: false,
             shared: false
         });
-        this.updateItemList(this.state.currentPage);
+        (this.state.browserEvent) ? this.updateItemList(this.state.currentPage) : false;
         virtualUrl.showDetail('', 'table');
     }
 
