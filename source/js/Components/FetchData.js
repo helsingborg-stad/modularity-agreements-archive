@@ -97,8 +97,6 @@ module.exports = class extends React.Component {
             ? this.setState({search: true, currentPage: 1, searchHistory: this.state.searchHistory.concat([this.state.searchInput])})
             : false;
 
-
-
         axios
             .get(apiUrl)
             .then(json => {
@@ -173,6 +171,7 @@ module.exports = class extends React.Component {
             searchView: false,
             shared: false
         });
+        this.updateItemList(this.state.currentPage);
         virtualUrl.showDetail('', 'table');
     }
 
