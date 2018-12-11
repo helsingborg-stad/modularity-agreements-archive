@@ -158,10 +158,9 @@ class Api
                 if (isset($item->Category)) {
                     $item->Category = ucfirst(mb_strtolower($item->Category));
                 }
-
-                //Streamlines company names
             }
         }
+
         return $dataArray;
     }
 
