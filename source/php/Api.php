@@ -69,7 +69,7 @@ class Api
                     )
                 )
             );
-            wp_cache_add('ModularityAgreementsArchive', $apiCallReturn, 'getCall' . md5($apiUrl), 60*30);
+            wp_cache_add('ModularityAgreementsArchive', $apiCallReturn, 'getCall' . md5($apiUrl), 60*60);
         }
 
         //Validate response, return
@@ -107,11 +107,14 @@ class Api
                     //Decode html
                     $item->Description = html_entity_decode($item->Description);
 
-                    //Remove all tags
-                    $item->Description = strip_tags($item->Description);
+                    //Remove br's
+                    $item->Description = str_ireplace(array("<br />","<br>","<br/>"), "\r\n", $item->Description);
+
+                    //Handle as text area
+                    $item->Description = sanitize_textarea_field($item->Description);
 
                     //Detect titles / paragraphs
-                    if ($data = explode("\n", str_replace("\n\n", "\n", str_replace("\n\r", "\n", $item->Description)))) {
+                    if ($data = explode("\n", $item->Description)) {
 
                         if (is_array($data) && !empty($data)) {
 
@@ -120,8 +123,17 @@ class Api
 
                             //Detect uppercase, handle them as titles
                             foreach ($data as &$element) {
-                                if (trim($element) == mb_strtoupper(trim($element))) {
-                                    $element = '<h4>' . ucfirst(mb_strtolower(trim($element))) . '</h4>';
+                                if (trim($element) == mb_strtoupper(trim($element)) && trim($element) != "") {
+                                    $element = '<h3>' . mb_convert_case(mb_strtolower(trim($element)), MB_CASE_TITLE, "UTF-8") . '</h3>';
+                                } elseif (count(explode(" ", $element)) == 1 && substr($element, 0, 1) != "-" && trim($element) != "") {
+                                    $element = '<h3>' . mb_convert_case(mb_strtolower(trim($element)), MB_CASE_TITLE, "UTF-8") . '</h3>';
+                                }
+                            }
+
+                            //Detect dashes leading lists, handle them as lists
+                            foreach ($data as &$element) {
+                                if (substr($element, 0, 1) == "-") {
+                                    $element = '<span class="list-item">' . $element . '</span>';
                                 }
                             }
 
