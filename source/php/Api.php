@@ -125,7 +125,7 @@ class Api
                             foreach ($data as &$element) {
                                 if (trim($element) == mb_strtoupper(trim($element)) && trim($element) != "") {
                                     $element = '<h3>' . mb_convert_case(mb_strtolower(trim($element)), MB_CASE_TITLE, "UTF-8") . '</h3>';
-                                } elseif (count(explode(" ", $element)) == 1 && substr($element, 0, 1) != "-" && trim($element) != "") {
+                                } elseif (count(explode(" ", $element)) == 1 && !in_array(substr($element, 0, 1), array("•", "-")) && trim($element) != "") {
                                     $element = '<h3>' . mb_convert_case(mb_strtolower(trim($element)), MB_CASE_TITLE, "UTF-8") . '</h3>';
                                 }
                             }
