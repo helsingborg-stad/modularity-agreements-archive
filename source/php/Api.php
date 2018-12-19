@@ -69,7 +69,7 @@ class Api
                     )
                 )
             );
-            wp_cache_add('ModularityAgreementsArchive', $apiCallReturn, 'getCall' . md5($apiUrl), 60*30);
+            wp_cache_add('ModularityAgreementsArchive', $apiCallReturn, 'getCall' . md5($apiUrl), 60*60);
         }
 
         //Validate response, return
@@ -107,11 +107,17 @@ class Api
                     //Decode html
                     $item->Description = html_entity_decode($item->Description);
 
-                    //Remove all tags
-                    $item->Description = strip_tags($item->Description);
+                    //Remove br's
+                    $item->Description = str_ireplace(array("<br />","<br>","<br/>"), "\r\n", $item->Description);
+
+                    //Handle as text area
+                    $item->Description = sanitize_textarea_field($item->Description);
+
+                    //Format url's
+                    $item->Description = $this->formatUrlsInText($item->Description);
 
                     //Detect titles / paragraphs
-                    if ($data = explode("\n", str_replace("\n\n", "\n", str_replace("\n\r", "\n", $item->Description)))) {
+                    if ($data = explode("\n", $item->Description)) {
 
                         if (is_array($data) && !empty($data)) {
 
@@ -120,8 +126,17 @@ class Api
 
                             //Detect uppercase, handle them as titles
                             foreach ($data as &$element) {
-                                if (trim($element) == mb_strtoupper(trim($element))) {
-                                    $element = '<h4>' . ucfirst(mb_strtolower(trim($element))) . '</h4>';
+                                if (trim($element) == mb_strtoupper(trim($element)) && trim($element) != "") {
+                                    $element = '<h3>' . mb_convert_case(mb_strtolower(trim($element)), MB_CASE_TITLE, "UTF-8") . '</h3>';
+                                } elseif (count(explode(" ", $element)) == 1 && !in_array(substr($element, 0, 1), array("•", "-")) && trim($element) != "") {
+                                    $element = '<h3>' . mb_convert_case(mb_strtolower(trim($element)), MB_CASE_TITLE, "UTF-8") . '</h3>';
+                                }
+                            }
+
+                            //Detect dashes leading lists, handle them as lists
+                            foreach ($data as &$element) {
+                                if (substr($element, 0, 1) == "-") {
+                                    $element = '<span class="list-item">' . $element . '</span>';
                                 }
                             }
 
@@ -143,11 +158,32 @@ class Api
                 if (isset($item->Category)) {
                     $item->Category = ucfirst(mb_strtolower($item->Category));
                 }
-
-                //Streamlines company names
             }
         }
+
         return $dataArray;
+    }
+
+    /**
+     * Format url's automatically
+     *
+     * @param string $text Input text
+     *
+     * @return string
+     */
+    public function formatUrlsInText($text)
+    {
+        $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+        preg_match_all($reg_exUrl, $text, $matches);
+        $usedPatterns = array();
+
+        foreach ($matches[0] as $pattern) {
+            if (!array_key_exists($pattern, $usedPatterns)) {
+                $usedPatterns[$pattern]=true;
+                $text = str_replace($pattern, '<a href="' . $pattern . '" rel="nofollow" target="_blank">' . $pattern . '</a> ', $text);
+            }
+        }
+        return $text;
     }
 }
 
