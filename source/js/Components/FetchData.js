@@ -86,6 +86,8 @@ module.exports = class extends React.Component {
 
     /**
      * Getting data from Back-end/API
+     * @param type
+     * @param archiveId
      * @return void
      */
     getJsonData(type = false, archiveId) {
@@ -119,17 +121,20 @@ module.exports = class extends React.Component {
                     view: this.state.view,
                     totalItems: jsonData.length
                 });
-
+                console.log(jsonData);
                 if (showPagination) {
                     let page = (this.state.switchView || this.state.browserEvent) ? this.state.currentPage : 1;
                     this.updateItemList(page);
                 }
             })
             .catch(error => this.setState({error, isLoaded: true}));
+
     }
 
     /**
      * Fetching show single page view with detailed information
+     * @param e event
+     * @param itemId int
      * @return void
      */
     handleSingleClick(e, itemId) {

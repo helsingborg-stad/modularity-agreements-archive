@@ -16,9 +16,6 @@ class RenderTable extends React.Component {
                     <tr>
                         <th className="hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.supplier}</th>
                         <th className="hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.category}</th>
-                        <th className="number hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.number}</th>
-                        <th className="valid-from hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.fromdate}</th>
-                        <th className="valid-to hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.todate}</th>
                         <th className="hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.contractsManager}</th>
                     </tr>
                     {(!this.props.isLoaded) ?
@@ -49,15 +46,7 @@ class RenderTable extends React.Component {
                                 <td key={'category_' + item.Id}><span
                                     className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.category}: &nbsp;</span>{item.Category}
                                 </td>
-                                <td key={'number_' + item.Id}><span
-                                    className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.number}: &nbsp;</span>{item.Number}
-                                </td>
-                                <td key={'validFrom_' + item.Id}><span
-                                    className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.fromdate}: &nbsp;</span>{item.ValidFrom.replace('T00:00:00', '')}
-                                </td>
-                                <td key={'validTo_' + item.Id}><span
-                                    className="table-hover hidden-md hidden-lg">{ModularityAgreementsArchiveObject.translation.todate}: &nbsp;</span>{item.ValidTo.replace('T00:00:00', '')}
-                                </td>
+                                
                                 <td key={'buyerName_' + item.Id}><span
                                     className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.contractsManager}: &nbsp;</span>{item.Buyer.Name}
                                 </td>
