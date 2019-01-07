@@ -90,7 +90,7 @@ module.exports = class extends React.Component {
      * @param archiveId
      * @return void
      */
-    getJsonData(type = false, archiveId) {
+    getJsonData(type = false, archiveId = false) {
         const {perPage, showPagination} = this.props;
         let apiUrl = '/wp-json/ModularityAgreementsArchive/v1/Get/?authToken=' + ModularityAgreementsArchiveObject.authToken;
 
@@ -144,10 +144,11 @@ module.exports = class extends React.Component {
 
     /**
      * Show detailed information
+     * @param itemId (int)
      * @return void
      */
     showSingleDetails(itemId) {
-   
+
         this.getJsonData('id', itemId);
 
         this.setState({
