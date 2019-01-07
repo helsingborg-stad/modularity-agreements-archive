@@ -121,7 +121,7 @@ module.exports = class extends React.Component {
                     view: this.state.view,
                     totalItems: jsonData.length
                 });
-                console.log(jsonData);
+
                 if (showPagination) {
                     let page = (this.state.switchView || this.state.browserEvent) ? this.state.currentPage : 1;
                     this.updateItemList(page);
@@ -147,12 +147,11 @@ module.exports = class extends React.Component {
      * @return void
      */
     showSingleDetails(itemId) {
-        let singleItem = this.state.responseData.filter(function (i) {
-            return i.Id === itemId;
-        });
+   
+        this.getJsonData('id', itemId);
+
         this.setState({
-            isLoaded: true,
-            filteredItems: singleItem,
+            isLoaded: false,
             view: 'single',
             archId: itemId,
         });

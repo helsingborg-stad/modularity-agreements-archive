@@ -5,8 +5,9 @@ class Single extends React.Component {
         super(props);
     }
 
-    downLoad(e, datafileUrl) {
+    downLoad(e, datafileUrl, filename) {
         e.preventDefault();
+        console.log(datafileUrl);
         axios
         ({
             url: datafileUrl,
@@ -20,11 +21,28 @@ class Single extends React.Component {
                 const url = window.URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', 'file.pdf');
+                link.setAttribute('download', filename);
                 document.body.appendChild(link);
                 link.click();
             }
         });
+    }
+
+    formatBytes(bytes){
+        let neg = bytes < 0;
+        let units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+        if (neg){
+            bytes = -bytes;
+        }
+        if (bytes < 1){
+            return (neg ? '-' : '') + bytes + ' B';
+        }
+
+        let exponent = Math.min(Math.floor(Math.log(bytes) / Math.log(1000)), units.length - 1);
+        bytes = Number((bytes / Math.pow(1000, exponent)).toFixed(2));
+        let unit = units[exponent];
+        return (neg ? '-' : '') + bytes + ' ' + unit;
     }
 
     render() {
@@ -171,10 +189,10 @@ class Single extends React.Component {
                                         <tr key={'tr_doc_' + index}>
                                             <td key={'file_doc_' + index}>
                                                 <a key={'a_doc_' + index} onClick={(e) =>
-                                                    this.downLoad(e, doc.Url)
+                                                    this.downLoad(e, doc.Url, doc.Name)
                                                 } href="#">{doc.Name}</a>
                                             </td>
-                                            <td key={'size_doc_' + index}>{doc.Size}</td>
+                                            <td key={'size_doc_' + index}>{this.formatBytes(doc.Size)}</td>
                                         </tr>
                                     ))}
                                     </tbody>

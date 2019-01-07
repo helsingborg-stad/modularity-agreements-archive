@@ -44,9 +44,9 @@ class RenderTable extends React.Component {
                                         }
                                         href="#"><b>{item.Supplier.Name}</b></a></td>
                                 <td key={'category_' + item.Id}><span
-                                    className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.category}: &nbsp;</span>{item.Category}
+                                    className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.category}: &nbsp;</span>{item.Name}
                                 </td>
-                                
+
                                 <td key={'buyerName_' + item.Id}><span
                                     className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.contractsManager}: &nbsp;</span>{item.Buyer.Name}
                                 </td>
