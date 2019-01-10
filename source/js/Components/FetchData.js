@@ -45,7 +45,7 @@ module.exports = class extends React.Component {
      */
     componentDidMount() {
         let url = new URL(window.location).pathname.split('/');
-        let archiveId = (url.includes('agreementArchiveId')) ? virtualUrl.getMediaID() : false;
+        let archiveId = (url.includes('agreementArchiveId')) ? virtualUrl.getId() : false;
 
         // Show
         if (archiveId) {

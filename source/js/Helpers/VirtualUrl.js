@@ -9,11 +9,10 @@ const searchAgreementArchive = 'searchAgreementArchive';
 
 
 /**
- * Media id
+ * Article id
  * @returns {any}
  */
-const getMediaID = () => {
-
+const getId = () => {
     let url = new URL(window.location).pathname.split('/');
 
     if (url.indexOf(singlePageParamKey) != -1) {
@@ -35,7 +34,6 @@ const getMediaID = () => {
  * @return void
  */
 const changeVirtualUrl = (id = null, search = null) => {
-
     let buildQyery = null;
 
     if (search != null) {
@@ -61,11 +59,9 @@ const changeVirtualUrl = (id = null, search = null) => {
  * @param searchHistory
  * @return void
  */
-const showDetail = (archId, view, search = null, searchHistory = []) => {
-
+const showDetail = (archId, view, search = null) => {
     window.history.replaceState({}, document.title, window.location.pathname.substring(0, window.location.pathname.lastIndexOf("searchAgreementArchive") - 1));
-
-    (view === 'single') ? singleUrl(archId, search, searchHistory) : defaultAndSearchUrl(search);
+    (view === 'single') ? singleUrl(archId, search) : defaultAndSearchUrl(search);
 };
 
 
@@ -76,14 +72,13 @@ const showDetail = (archId, view, search = null, searchHistory = []) => {
  * @param searchHistory
  * @return void
  */
-const singleUrl = (archId, search = null, searchHistory = []) => {
-
+const singleUrl = (archId, search = null) => {
     clearUrl(search);
 
     const url = new URL(window.location).pathname.split('/');
-    const mediaId = (url.indexOf(singlePageParamKey) != 1) ? getMediaID() : '';
+    const artId = (url.includes('singlePageParamKey')) ? getId() : '';
 
-    (!mediaId) ? changeVirtualUrl(archId, search) : '';
+    (!artId) ? changeVirtualUrl(archId, search) : '';
 };
 
 
@@ -94,7 +89,6 @@ const singleUrl = (archId, search = null, searchHistory = []) => {
  * @return void
  */
 const clearUrl = (search = null) => {
-
     const decodeUri = decodeURIComponent(window.location.pathname);
     const removetrailingSlash = decodeUri.replace(/\/$/, '');
     const newPath = removetrailingSlash.replace('/' + search, '');
@@ -109,10 +103,9 @@ const clearUrl = (search = null) => {
  * @return void
  */
 const defaultAndSearchUrl = (search) => {
-
     const path = window.location.pathname.split('/');
-    const mediaId = path.pop() || path.pop();
-    const newPath = window.location.pathname.replace('/' + mediaId + '/', '');
+    const artId = path.pop() || path.pop();
+    const newPath = window.location.pathname.replace('/' + artId + '/', '');
 
     window.history.pushState({}, document.title, newPath.replace('/' + singlePageParamKey, ''));
 
@@ -126,11 +119,11 @@ const defaultAndSearchUrl = (search) => {
 
 
 /**
- * Export methods
- * @type {{getMediaID: getMediaID, showDetail: showDetail}}
+ *
+ * @type {{clearUrl: clearUrl, getId: getId, showDetail: showDetail}}
  */
 module.exports = {
     showDetail: showDetail,
-    getMediaID: getMediaID,
+    getId: getId,
     clearUrl: clearUrl
 };
