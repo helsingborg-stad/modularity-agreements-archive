@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- *
+ * path variables
  * @type {string}
  */
 const singlePageParamKey = 'agreementArchiveId';
@@ -9,7 +9,7 @@ const searchAgreementArchive = 'searchAgreementArchive';
 
 
 /**
- *
+ * Media id
  * @returns {any}
  */
 const getMediaID = () => {
@@ -29,9 +29,10 @@ const getMediaID = () => {
 
 
 /**
- *
+ * Rewrite browser url
  * @param id
  * @param search
+ * @return void
  */
 const changeVirtualUrl = (id = null, search = null) => {
 
@@ -53,11 +54,12 @@ const changeVirtualUrl = (id = null, search = null) => {
 
 
 /**
- *
+ * Display details
  * @param archId
  * @param view
  * @param search
  * @param searchHistory
+ * @return void
  */
 const showDetail = (archId, view, search = null, searchHistory = []) => {
 
@@ -68,10 +70,11 @@ const showDetail = (archId, view, search = null, searchHistory = []) => {
 
 
 /**
- *
+ * Rewrite url for single page view
  * @param archId
  * @param search
  * @param searchHistory
+ * @return void
  */
 const singleUrl = (archId, search = null, searchHistory = []) => {
 
@@ -82,10 +85,13 @@ const singleUrl = (archId, search = null, searchHistory = []) => {
 
     (!mediaId) ? changeVirtualUrl(archId, search) : '';
 };
+
+
 /**
- *
+ * Clear rewrite url
  * @param search
  * @param searchHistory
+ * @return void
  */
 const clearUrl = (search = null) => {
 
@@ -96,9 +102,11 @@ const clearUrl = (search = null) => {
     window.history.replaceState({}, document.title, newPath.replace('/' + searchAgreementArchive, ''));
 };
 
+
 /**
- *
+ * Rewrite url for search and default view
  * @param search
+ * @return void
  */
 const defaultAndSearchUrl = (search) => {
 
@@ -118,7 +126,7 @@ const defaultAndSearchUrl = (search) => {
 
 
 /**
- *
+ * Export methods
  * @type {{getMediaID: getMediaID, showDetail: showDetail}}
  */
 module.exports = {

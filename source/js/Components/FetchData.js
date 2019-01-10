@@ -38,6 +38,7 @@ module.exports = class extends React.Component {
         this.clearSearch = this.clearSearch.bind(this);
     }
 
+
     /**
      * Mounting data onLoad
      * @return void
@@ -65,6 +66,7 @@ module.exports = class extends React.Component {
         this.windowHistory();
     }
 
+
     /**
      * Handling Browser back button on unmount
      * @return void
@@ -75,6 +77,7 @@ module.exports = class extends React.Component {
         }
     }
 
+
     /**
      * Handling Browser back button on did mount
      * @return void
@@ -82,6 +85,7 @@ module.exports = class extends React.Component {
     componentDidUpdate() {
         this.windowHistory();
     }
+
 
     /**
      * Handling Browser back button
@@ -102,6 +106,7 @@ module.exports = class extends React.Component {
             }
         }
     }
+
 
     /**
      * Getting data from Back-end/API
@@ -150,6 +155,7 @@ module.exports = class extends React.Component {
 
     }
 
+
     /**
      * Fetching show single page view with detailed information
      * @param e event
@@ -160,6 +166,7 @@ module.exports = class extends React.Component {
         e.preventDefault();
         this.showSingleDetails(itemId);
     }
+
 
     /**
      * Show detailed information
@@ -187,6 +194,7 @@ module.exports = class extends React.Component {
         this.state.browserEvent = false;
     }
 
+
     /**
      * Change back to table view
      * @return void
@@ -213,6 +221,7 @@ module.exports = class extends React.Component {
         (this.state.searchInput) ? virtualUrl.showDetail('', 'table', this.state.searchInput, this.state.searchHistory) : virtualUrl.showDetail('', 'table', '');
     }
 
+
     /**
      * Updating state from search input
      * @param event (string) Search input value from Search Component
@@ -221,6 +230,7 @@ module.exports = class extends React.Component {
     updateInput(event) {
         this.setState({searchInput: event});
     }
+
 
     /**
      * Submiting data from state to API
@@ -233,6 +243,7 @@ module.exports = class extends React.Component {
         if (this.state.searchInput)
             virtualUrl.showDetail('', 'table', this.state.searchInput, this.state.searchHistory);
     }
+
 
     /**
      * Clear search input and states
@@ -250,6 +261,7 @@ module.exports = class extends React.Component {
         this.getJsonData(false, false);
     }
 
+
     /**
      * Accordion - Updating list, depending on settings in db and page
      * @param currentPage (int) value from state or static param
@@ -265,6 +277,7 @@ module.exports = class extends React.Component {
         });
     }
 
+
     /**
      * Accordion - Next page
      * @return void
@@ -279,6 +292,7 @@ module.exports = class extends React.Component {
         this.updateItemList(currentPage);
     }
 
+
     /**
      * Accordion - Previous page
      * @return void
@@ -292,6 +306,7 @@ module.exports = class extends React.Component {
         this.setState({currentPage: currentPage});
         this.updateItemList(currentPage);
     }
+
 
     /**
      * Accordion - Pagination input (page navigation)
@@ -308,6 +323,7 @@ module.exports = class extends React.Component {
         }
     }
 
+
     /**
      * Render jsx
      * @return Render to javaScript
@@ -317,6 +333,7 @@ module.exports = class extends React.Component {
         {
             ModularityAgreementsArchiveObject.translation.previous
         }
+
 
         return (
             <div className="renderTable">
