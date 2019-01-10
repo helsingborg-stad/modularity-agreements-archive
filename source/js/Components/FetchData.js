@@ -247,6 +247,7 @@ module.exports = class extends React.Component {
 
     /**
      * Clear search input and states
+     * @return void
      */
     clearSearch() {
         virtualUrl.clearUrl(this.state.searchInput, this.state.searchHistory);
