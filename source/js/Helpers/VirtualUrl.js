@@ -1,86 +1,128 @@
 'use strict';
 
-import queryString from 'query-string';
-
+/**
+ *
+ * @type {string}
+ */
 const singlePageParamKey = 'agreementArchiveId';
+const searchAgreementArchive = 'searchAgreementArchive';
+
 
 /**
- * Getting Id
- * @return (object) id
+ *
+ * @returns {any}
  */
 const getMediaID = () => {
 
     let url = new URL(window.location).pathname.split('/');
+
     if (url.indexOf(singlePageParamKey) != -1) {
         let newUrl = {};
+
         Object.keys(url).forEach(function (key) {
-            if (typeof url[key] != 'undefined' && url[key] != null && url[key] != '') {
-                newUrl[key] = url[key];
-            }
+            (typeof url[key] != 'undefined' && url[key] != null && url[key] != '') ? newUrl[key] = url[key] : '';
         });
+
         return Object.values(newUrl)[Object.values(newUrl).length - 1];
     }
 };
 
 
 /**
- * Changing url address
- * @return void
+ *
+ * @param id
+ * @param search
  */
-const changeVirtualUrl = (id = false) => {
+const changeVirtualUrl = (id = null, search = null) => {
 
-    const queryStr = queryString.parse(location.search);
-    const mediaId = (queryStr.mediaId) ? queryStr.mediaId : false;
-    let uri = window.location.toString();
-    let buildQyery = '';
-    let amp = '';
+    let buildQyery = null;
 
-    if (uri.indexOf("?") > 0) {
-        const clean_uri = uri.substring(0, uri.indexOf("?"));
-        window.history.replaceState({}, document.title, clean_uri);
-        buildQyery = '?';
-        amp = '&';
+    if (search != null) {
+        const newPath = window.location.pathname.replace('/' + search + '/', '');
+        window.history.pushState({}, document.title, newPath.replace('/' + singlePageParamKey, ''));
     }
 
-    const url = new URL(uri).pathname.split('/');
-    if (Object.keys(queryStr).length > 0 || id || uri.indexOf(singlePageParamKey) != 1) {
-
-        for (let key in queryStr) {
-            buildQyery += (queryStr[key] != mediaId) ? key + '=' + queryStr[key] + amp : '';
-        }
-
-        if (url.indexOf(singlePageParamKey) != 1) {
-            buildQyery += (id != false) ? uri.replace(/^(.+?)\/*?$/, "$1") + '/'+singlePageParamKey+'/' + id + '/' : '';
-        }
-
-        buildQyery = (buildQyery.substring(buildQyery.length - 1) == "&") ? buildQyery.substring(0, buildQyery.length - 1) : buildQyery;
-        window.history.replaceState({}, document.title, buildQyery);
+    if (id != null) {
+        let uri = window.location.toString();
+        buildQyery = uri.replace(/^(.+?)\/*?$/, "$1") + '/' + singlePageParamKey + '/' + id + '/';
     }
+
+    (buildQyery != null) ? window.history.replaceState({}, document.title, buildQyery) : '';
+
 };
 
 
 /**
- * Toogle Details dependant on state
- * @return void
+ *
+ * @param archId
+ * @param view
+ * @param search
+ * @param searchHistory
  */
-const showDetail = (archId, view) => {
+const showDetail = (archId, view, search = null, searchHistory = []) => {
 
-    if (view === 'single') {
-        const url = new URL(window.location).pathname.split('/');
-        const mediaId = (url.indexOf(singlePageParamKey) != 1) ? getMediaID() : '';
-        if (!mediaId)
-            changeVirtualUrl(archId);
-    }
-    else {
-        const path = window.location.pathname.split('/');
-        const mediaId = path.pop() || path.pop();
-        const newPath = window.location.pathname.replace('/' + mediaId + '/', '');
-        window.history.pushState({}, document.title, newPath.replace('/'+singlePageParamKey, ''));
-        changeVirtualUrl();
-    }
+    window.history.replaceState({}, document.title, window.location.pathname.substring(0, window.location.pathname.lastIndexOf("searchAgreementArchive") - 1));
+
+    (view === 'single') ? singleUrl(archId, search, searchHistory) : defaultAndSearchUrl(search);
 };
 
+
+/**
+ *
+ * @param archId
+ * @param search
+ * @param searchHistory
+ */
+const singleUrl = (archId, search = null, searchHistory = []) => {
+
+    clearUrl(search);
+
+    const url = new URL(window.location).pathname.split('/');
+    const mediaId = (url.indexOf(singlePageParamKey) != 1) ? getMediaID() : '';
+
+    (!mediaId) ? changeVirtualUrl(archId, search) : '';
+};
+/**
+ *
+ * @param search
+ * @param searchHistory
+ */
+const clearUrl = (search = null) => {
+
+    const decodeUri = decodeURIComponent(window.location.pathname);
+    const removetrailingSlash = decodeUri.replace(/\/$/, '');
+    const newPath = removetrailingSlash.replace('/' + search, '');
+
+    window.history.replaceState({}, document.title, newPath.replace('/' + searchAgreementArchive, ''));
+};
+
+/**
+ *
+ * @param search
+ */
+const defaultAndSearchUrl = (search) => {
+
+    const path = window.location.pathname.split('/');
+    const mediaId = path.pop() || path.pop();
+    const newPath = window.location.pathname.replace('/' + mediaId + '/', '');
+
+    window.history.pushState({}, document.title, newPath.replace('/' + singlePageParamKey, ''));
+
+    if (search) {
+        let slash = (!window.location.pathname.match(/\/$/)) ? '/' : '';
+        window.history.pushState({}, document.title, window.location.protocol + "//" + window.location.host + window.location.pathname + slash + searchAgreementArchive + '/' + search);
+    }
+
+    changeVirtualUrl();
+};
+
+
+/**
+ *
+ * @type {{getMediaID: getMediaID, showDetail: showDetail}}
+ */
 module.exports = {
     showDetail: showDetail,
-    getMediaID: getMediaID
+    getMediaID: getMediaID,
+    clearUrl: clearUrl
 };

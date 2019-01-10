@@ -25,6 +25,17 @@ class Search extends React.Component {
                             this.props.change(document.getElementById("searchInput").value)
                         }
                     />
+                    {(this.props.value) ?
+
+                    <i
+                        className="pricon pricon-close pricon-sm"
+                        onClick={() =>
+                            this.props.clearSearch()
+                        }
+                    >
+                    </i>
+
+                        : '' }
                     <span className="input-group-addon-btn">
                     <button type="submit"
                             className="btn btn-primary"
@@ -36,6 +47,7 @@ class Search extends React.Component {
                     {ModularityAgreementsArchiveObject.translation.search}
                     </button>
                     </span>
+
                 </div>
                 {(this.props.search && this.props.isLoaded) ?
                     <div className="searchResult">

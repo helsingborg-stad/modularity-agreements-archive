@@ -113,6 +113,7 @@ class AgreementsArchive extends \Modularity\Module
             'hits' => __('hits, showing page', 'modularity-agreements-archive'),
             'of' => __('of', 'modularity-agreements-archive'),
             'gave' => __('gave', 'modularity-agreements-archive'),
+            'clear' => __('clear', 'modularity-agreements-archive')
         );
 
         //Send to script

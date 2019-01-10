@@ -5,6 +5,10 @@ class Single extends React.Component {
         super(props);
     }
 
+    /**
+     * Download - Fetching document and download file to computer
+     * @return void
+     */
     downLoad(e, datafileUrl, filename) {
         e.preventDefault();
         console.log(datafileUrl);
@@ -28,6 +32,10 @@ class Single extends React.Component {
         });
     }
 
+    /**
+     * FormatBytes - Converting bytes to kb/Mb etc.
+     * @return (string) value and correct unit
+     */
     formatBytes(bytes){
         let neg = bytes < 0;
         let units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];

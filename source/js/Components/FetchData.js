@@ -35,6 +35,7 @@ module.exports = class extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSingleClick = this.handleSingleClick.bind(this);
         this.resetView = this.resetView.bind(this);
+        this.clearSearch = this.clearSearch.bind(this);
     }
 
     /**
@@ -43,8 +44,23 @@ module.exports = class extends React.Component {
      */
     componentDidMount() {
         let url = new URL(window.location).pathname.split('/');
-        let archiveId = (url.indexOf('agreementArchiveId') != -1) ? virtualUrl.getMediaID() : false;
-        (archiveId) ? this.getJsonData('id', archiveId) : this.getJsonData(false, false);
+        let archiveId = (url.includes('agreementArchiveId')) ? virtualUrl.getMediaID() : false;
+
+        // Show
+        if (archiveId) {
+            this.getJsonData('id', archiveId)
+        } else if (url.includes('searchAgreementArchive')) {
+            let search = decodeURIComponent(url.reverse()[0]);
+            this.setState({
+                searchInput: search,
+                isLoaded: true
+            }, () => {
+                document.getElementById('searchInput').value = search;
+                this.handleSubmit();
+            });
+        } else {
+            this.getJsonData(false, false);
+        }
 
         this.windowHistory();
     }
@@ -55,6 +71,7 @@ module.exports = class extends React.Component {
      */
     componentWillUnmount() {
         window.onpopstate = () => {
+
         }
     }
 
@@ -73,9 +90,11 @@ module.exports = class extends React.Component {
     windowHistory() {
         window.onpopstate = (e) => {
             e.preventDefault();
+
             this.setState({
                 browserEvent: true,
             });
+
             if (this.state.archId != null) {
                 this.setState({shared: true});
                 this.resetView();
@@ -156,11 +175,14 @@ module.exports = class extends React.Component {
             view: 'single',
             archId: itemId,
         });
+
         const element = document.getElementById('modularity-agreement-archive');
+
         window.scrollTo({
             'left': 0,
             'top': element.offsetTop + 100
         });
+
         virtualUrl.showDetail(itemId, 'single');
         this.state.browserEvent = false;
     }
@@ -171,8 +193,9 @@ module.exports = class extends React.Component {
      */
     resetView() {
         let loaded = true;
+
         if (this.state.shared) {
-            this.getJsonData(false, false)
+            (!this.state.searchInput) ? this.getJsonData(false, false) : this.getJsonData('query', this.state.searchInput);
             loaded = false;
         }
 
@@ -187,7 +210,7 @@ module.exports = class extends React.Component {
             shared: false
         });
 
-        virtualUrl.showDetail('', 'table');
+        (this.state.searchInput) ? virtualUrl.showDetail('', 'table', this.state.searchInput, this.state.searchHistory) : virtualUrl.showDetail('', 'table', '');
     }
 
     /**
@@ -206,6 +229,25 @@ module.exports = class extends React.Component {
     handleSubmit() {
         this.setState({archId: null, view: 'table', currentPage: 1});
         this.getJsonData('query');
+
+        if (this.state.searchInput)
+            virtualUrl.showDetail('', 'table', this.state.searchInput, this.state.searchHistory);
+    }
+
+    /**
+     * Clear search input and states
+     */
+    clearSearch() {
+        virtualUrl.clearUrl(this.state.searchInput, this.state.searchHistory);
+
+        this.setState({
+            search: false,
+            searchInput: '',
+            searchHistory: []
+        });
+
+        document.getElementById('searchInput').value = '';
+        this.getJsonData(false, false);
     }
 
     /**
@@ -231,6 +273,7 @@ module.exports = class extends React.Component {
         if (this.state.currentPage === this.state.totalPages) {
             return;
         }
+
         const currentPage = this.state.currentPage += 1;
         this.setState({currentPage: currentPage});
         this.updateItemList(currentPage);
@@ -244,6 +287,7 @@ module.exports = class extends React.Component {
         if (this.state.currentPage <= 1) {
             return;
         }
+
         const currentPage = this.state.currentPage -= 1;
         this.setState({currentPage: currentPage});
         this.updateItemList(currentPage);
@@ -258,6 +302,7 @@ module.exports = class extends React.Component {
         let currentPage = e.target.value ? parseInt(e.target.value) : '';
         currentPage = (currentPage > this.state.totalPages) ? this.state.totalPages : currentPage;
         this.setState({currentPage: currentPage});
+
         if (currentPage) {
             this.updateItemList(currentPage);
         }
@@ -272,6 +317,7 @@ module.exports = class extends React.Component {
         {
             ModularityAgreementsArchiveObject.translation.previous
         }
+
         return (
             <div className="renderTable">
                 <div className="grid">
@@ -289,6 +335,7 @@ module.exports = class extends React.Component {
                             searchInput={this.state.searchInput}
                             isLoaded={this.state.isLoaded}
                             searchHistory={this.state.searchHistory[this.state.searchHistory.length - 1]}
+                            clearSearch={this.clearSearch.bind(this)}
                         />
                         : ''}
                     {(this.state.view != 'single') ?

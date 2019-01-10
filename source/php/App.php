@@ -88,6 +88,8 @@ class App
      */
     public function rewriteEndpoint (){
         add_rewrite_endpoint( 'agreementArchiveId', EP_ALL );
+        add_rewrite_endpoint( 'searchAgreementArchive', EP_ALL );
+
         flush_rewrite_rules();
     }
 }
