@@ -35,14 +35,16 @@ class Api
      */
     public function fetchData()
     {
-        $authToken = (isset($_GET['authToken']) && !empty($_GET['authToken'])) ? str_replace('"', '', \ModularityAgreementsArchive\App::decrypt($_GET['authToken'])) : '';
+        $authToken = (isset($_GET['authToken']) && !empty($_GET['authToken'])) ? str_replace('"', '',
+            \ModularityAgreementsArchive\App::decrypt($_GET['authToken'])) : '';
 
         //No valid auth token
         if ($authToken != get_option('group_5be98c9780f80_mod_agreement_archive_api_token')) {
             return wp_send_json(
                 array(
                     'state' => 'error',
-                    'message' => __("No api-key entered, please provide one in the agreement archive settings.", 'modularity-agreements-archive')
+                    'message' => __("No api-key entered, please provide one in the agreement archive settings.",
+                        'modularity-agreements-archive')
                 )
             );
         }
@@ -69,7 +71,7 @@ class Api
                     )
                 )
             );
-            wp_cache_add('ModularityAgreementsArchive', $apiCallReturn, 'getCall' . md5($apiUrl), 60*60);
+            wp_cache_add('ModularityAgreementsArchive', $apiCallReturn, 'getCall' . md5($apiUrl), 60 * 60);
         }
 
         //Validate response, return
@@ -108,7 +110,7 @@ class Api
                     $item->Description = html_entity_decode($item->Description);
 
                     //Remove br's
-                    $item->Description = str_ireplace(array("<br />","<br>","<br/>"), "\r\n", $item->Description);
+                    $item->Description = str_ireplace(array("<br />", "<br>", "<br/>"), "\r\n", $item->Description);
 
                     //Handle as text area
                     $item->Description = sanitize_textarea_field($item->Description);
@@ -127,9 +129,12 @@ class Api
                             //Detect uppercase, handle them as titles
                             foreach ($data as &$element) {
                                 if (trim($element) == mb_strtoupper(trim($element)) && trim($element) != "") {
-                                    $element = '<h3>' . mb_convert_case(mb_strtolower(trim($element)), MB_CASE_TITLE, "UTF-8") . '</h3>';
-                                } elseif (count(explode(" ", $element)) == 1 && !in_array(substr($element, 0, 1), array("•", "-")) && trim($element) != "") {
-                                    $element = '<h3>' . mb_convert_case(mb_strtolower(trim($element)), MB_CASE_TITLE, "UTF-8") . '</h3>';
+                                    $element = '<h3>' . mb_convert_case(mb_strtolower(trim($element)), MB_CASE_TITLE,
+                                            "UTF-8") . '</h3>';
+                                } elseif (count(explode(" ", $element)) == 1 && !in_array(substr($element, 0, 1),
+                                        array("•", "-")) && trim($element) != "") {
+                                    $element = '<h3>' . mb_convert_case(mb_strtolower(trim($element)), MB_CASE_TITLE,
+                                            "UTF-8") . '</h3>';
                                 }
                             }
 
@@ -179,8 +184,9 @@ class Api
 
         foreach ($matches[0] as $pattern) {
             if (!array_key_exists($pattern, $usedPatterns)) {
-                $usedPatterns[$pattern]=true;
-                $text = str_replace($pattern, '<a href="' . $pattern . '" rel="nofollow" target="_blank">' . $pattern . '</a> ', $text);
+                $usedPatterns[$pattern] = true;
+                $text = str_replace($pattern,
+                    '<a href="' . $pattern . '" rel="nofollow" target="_blank">' . $pattern . '</a> ', $text);
             }
         }
         return $text;

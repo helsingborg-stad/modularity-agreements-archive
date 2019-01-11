@@ -8,6 +8,8 @@ const singlePageParamKey = 'agreementArchiveId';
 const searchAgreementArchive = 'searchAgreementArchive';
 
 
+
+
 /**
  * Article id
  * @returns {any}

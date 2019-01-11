@@ -8,7 +8,7 @@ class Paginate extends React.Component {
 
     render() {
         const showSearch = this.props.showSearch;
-        const css = (showSearch) ? 'grid-md-6 ' : 'grid-md-12';
+        const css = (showSearch) ? 'grid-md-5 ' : 'grid-md-12';
         return (
 
             <div className={css}>

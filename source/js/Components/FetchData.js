@@ -2,6 +2,7 @@ import RenderTable from './RenderTable';
 import Single from './Single';
 import Search from './Search';
 import Paginate from './Paginate';
+import {Dropdown} from 'hbg-react';
 import axios from 'axios';
 import virtualUrl from '../Helpers/VirtualUrl';
 
@@ -334,7 +335,12 @@ module.exports = class extends React.Component {
         {
             ModularityAgreementsArchiveObject.translation.previous
         }
-
+        
+        let dropDownItems = [];
+        this.state.responseData.map(item => (
+            dropDownItems.push(item.Category)
+        ));
+        dropDownItems = Array.from(new Set(dropDownItems));
 
         return (
             <div className="renderTable">
@@ -355,7 +361,28 @@ module.exports = class extends React.Component {
                             searchHistory={this.state.searchHistory[this.state.searchHistory.length - 1]}
                             clearSearch={this.clearSearch.bind(this)}
                         />
+
+
                         : ''}
+
+                    {this.state.isLoaded ?
+                        <div className="grid-md-2">
+                            <Dropdown title={ModularityAgreementsArchiveObject.translation.category}>
+                                {dropDownItems.map(item => (
+                                    <a
+                                        onClick={() => {
+                                            console.log(item);
+                                        }}
+                                    >
+                                        {item}
+                                    </a>
+                                ))}
+                            </Dropdown>
+                        </div>
+
+                        : ''}
+
+
                     {(this.state.view != 'single') ?
                         <Paginate
                             showSearch={this.props.showSearch}

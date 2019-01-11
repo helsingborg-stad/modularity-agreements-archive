@@ -1,4 +1,5 @@
 //const RenderTable = ({paginatedItems}) =>
+
 class RenderTable extends React.Component {
 
     constructor(props) {
@@ -17,6 +18,7 @@ class RenderTable extends React.Component {
                         <th className="hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.supplier}</th>
                         <th className="hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.category}</th>
                         <th className="hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.contractsManager}</th>
+                        <th className="hidden-xs hidden-sm">{ModularityAgreementsArchiveObject.translation.todate}</th>
                     </tr>
                     {(!this.props.isLoaded) ?
                         <tr>
@@ -49,6 +51,9 @@ class RenderTable extends React.Component {
 
                                 <td key={'buyerName_' + item.Id}><span
                                     className="table-hover hidden-md hidden-lg hidden-sm">{ModularityAgreementsArchiveObject.translation.contractsManager}: &nbsp;</span>{item.Buyer.Name}
+                                </td>
+                                <td key={'todDate_' + item.Id}><span
+                                    className="table-hover hidden-md hidden-lg hidden-sm valid-to">{ModularityAgreementsArchiveObject.translation.todate}: &nbsp;</span>{item.ValidTo.replace('T00:00:00','')}
                                 </td>
                             </tr>
                             : null
