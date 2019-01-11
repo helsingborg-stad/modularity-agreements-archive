@@ -343,9 +343,11 @@ module.exports = class extends React.Component {
         dropDownItems = Array.from(new Set(dropDownItems));
 
         return (
+
             <div className="renderTable">
                 <div className="grid">
                     {(this.state.view != 'single') ?
+                        // Render Search
                         <Search
                             change={this.updateInput}
                             submit={this.handleSubmit}
@@ -361,11 +363,10 @@ module.exports = class extends React.Component {
                             searchHistory={this.state.searchHistory[this.state.searchHistory.length - 1]}
                             clearSearch={this.clearSearch.bind(this)}
                         />
-
-
                         : ''}
 
                     {this.state.isLoaded ?
+                        // Render Drop down
                         <div className="grid-md-2">
                             <Dropdown title={ModularityAgreementsArchiveObject.translation.category}>
                                 {dropDownItems.map(item => (
@@ -379,11 +380,9 @@ module.exports = class extends React.Component {
                                 ))}
                             </Dropdown>
                         </div>
-
                         : ''}
-
-
                     {(this.state.view != 'single') ?
+                        // Render Pagination
                         <Paginate
                             showSearch={this.props.showSearch}
                             current={this.state.currentPage}
@@ -396,6 +395,7 @@ module.exports = class extends React.Component {
                         : ''}
                 </div>
                 {(view === 'table') ?
+                    // Render Table
                     <RenderTable
                         paginatedItems={this.state.paginatedItems}
                         single={this.handleSingleClick}
@@ -420,6 +420,7 @@ module.exports = class extends React.Component {
                         </div>
                 }
                 {(this.state.view != 'single') ?
+                    // Render Single view
                     <div className="grid">
                         <Paginate
                             current={this.state.currentPage}
