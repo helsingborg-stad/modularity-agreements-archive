@@ -48,7 +48,10 @@
             }
         }
     }
-
+    .dropdown button {
+        height: 40px;
+        margin-top: 0px;
+    }
     @media screen and (max-width: 1002px) {
 
         .mod-agreementsarchiv {

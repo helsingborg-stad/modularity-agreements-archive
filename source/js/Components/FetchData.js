@@ -341,7 +341,7 @@ module.exports = class extends React.Component {
             dropDownItems.push(item.Category)
         ));
         dropDownItems = Array.from(new Set(dropDownItems));
-
+        let dropDownKeys = 0;
         return (
 
             <div className="renderTable">
@@ -365,22 +365,24 @@ module.exports = class extends React.Component {
                         />
                         : ''}
 
-                    {this.state.isLoaded ?
+                    {(this.state.isLoaded && this.state.view != 'single') ?
                         // Render Drop down
-                        <div className="grid-md-2">
+                        <div className="grid-md-2 grid-sm-4 dropdown">
                             <Dropdown title={ModularityAgreementsArchiveObject.translation.category}>
                                 {dropDownItems.map(item => (
-                                    <a
+                                    <a key={'dropLink-'+dropDownKeys++}
                                         onClick={() => {
                                             console.log(item);
                                         }}
                                     >
                                         {item}
                                     </a>
+
                                 ))}
                             </Dropdown>
                         </div>
                         : ''}
+
                     {(this.state.view != 'single') ?
                         // Render Pagination
                         <Paginate
