@@ -365,10 +365,9 @@ module.exports = class extends React.Component {
                         />
                         : ''}
 
-                    {(this.state.isLoaded && this.state.view != 'single') ?
+                    /*{(this.state.isLoaded && this.state.view != 'single') ?
                         // Render Drop down
-                        <div className="grid-md-2 grid-sm-4 dropdown"></div>
-                        /*<div className="grid-md-2 grid-sm-4 dropdown">
+                        <div className="grid-md-2 grid-sm-4 dropdown">
                             <Dropdown title={ModularityAgreementsArchiveObject.translation.category}>
                                 {dropDownItems.map(item => (
                                     <a key={'dropLink-'+dropDownKeys++}
@@ -381,8 +380,8 @@ module.exports = class extends React.Component {
 
                                 ))}
                             </Dropdown>
-                        </div>*/
-                        : ''}
+                        </div>
+                        : ''}*/
 
                     {(this.state.view != 'single') ?
                         // Render Pagination
