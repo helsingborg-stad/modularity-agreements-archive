@@ -365,8 +365,10 @@ module.exports = class extends React.Component {
                         />
                         : ''}
 
-                    /*{(this.state.isLoaded && this.state.view != 'single') ?
+                    {(this.state.isLoaded && this.state.view != 'single') ?
+                        <div className="grid-md-2 grid-sm-4 dropdown"></div>
                         // Render Drop down
+                        /*
                         <div className="grid-md-2 grid-sm-4 dropdown">
                             <Dropdown title={ModularityAgreementsArchiveObject.translation.category}>
                                 {dropDownItems.map(item => (
@@ -381,7 +383,8 @@ module.exports = class extends React.Component {
                                 ))}
                             </Dropdown>
                         </div>
-                        : ''}*/
+                        */
+                        : ''}
 
                     {(this.state.view != 'single') ?
                         // Render Pagination
