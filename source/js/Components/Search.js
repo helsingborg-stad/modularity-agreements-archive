@@ -1,4 +1,4 @@
-import {Pagination} from "./Paginate";
+import { Pagination } from './Paginate';
 
 class Search extends React.Component {
     constructor(props) {
@@ -7,59 +7,62 @@ class Search extends React.Component {
 
     render() {
         return (
-            <div className="grid-md-5 searchApi">
+            <div className="grid-md-4 searchApi">
                 <div className=" input-group">
-                    <span className="input-group-addon"><i className="pricon pricon-file"></i></span>
+                    <span className="input-group-addon">
+                        <i className="pricon pricon-file" />
+                    </span>
                     <input
                         value={this.props.value}
                         id="searchInput"
                         type="text"
                         className="form-control"
-                        onKeyPress={(ev) => {
+                        onKeyPress={ev => {
                             if (ev.key === 'Enter') {
                                 this.props.submit();
                                 ev.preventDefault();
                             }
                         }}
-                        onChange={ () =>
-                            this.props.change(document.getElementById("searchInput").value)
+                        onChange={() =>
+                            this.props.change(document.getElementById('searchInput').value)
                         }
                     />
-                    {(this.props.value) ?
-
-                    <i
-                        className="pricon pricon-close pricon-sm"
-                        onClick={() =>
-                            this.props.clearSearch()
-                        }
-                    >
-                    </i>
-
-                        : '' }
+                    {this.props.value ? (
+                        <i
+                            className="pricon pricon-close pricon-sm"
+                            onClick={() => this.props.clearSearch()}
+                        />
+                    ) : (
+                        ''
+                    )}
                     <span className="input-group-addon-btn">
-                    <button type="submit"
+                        <button
+                            type="submit"
                             className="btn btn-primary"
                             value="Send"
-                            onClick={() =>
-                                this.props.submit()
-                            }
-                    >
-                    {ModularityAgreementsArchiveObject.translation.search}
-                    </button>
+                            onClick={() => this.props.submit()}
+                        >
+                            {ModularityAgreementsArchiveObject.translation.search}
+                        </button>
                     </span>
-
                 </div>
-                {(this.props.search && this.props.isLoaded) ?
+                {this.props.search && this.props.isLoaded ? (
                     <div className="searchResult">
-                        {ModularityAgreementsArchiveObject.translation.yoursearch}&nbsp;<b>{this.props.searchHistory}</b> {ModularityAgreementsArchiveObject.translation.gave}&nbsp;
-                        <b>{this.props.totalItems}</b>&nbsp;{ModularityAgreementsArchiveObject.translation.hits}&nbsp;<b>{this.props.current}</b>&nbsp;
-                        {ModularityAgreementsArchiveObject.translation.of}&nbsp;<b>{this.props.totalPages}</b></div>
-                    : ''}
+                        {ModularityAgreementsArchiveObject.translation.yoursearch}&nbsp;
+                        <b>{this.props.searchHistory}</b>{' '}
+                        {ModularityAgreementsArchiveObject.translation.gave}&nbsp;
+                        <b>{this.props.totalItems}</b>&nbsp;
+                        {ModularityAgreementsArchiveObject.translation.hits}&nbsp;
+                        <b>{this.props.current}</b>&nbsp;
+                        {ModularityAgreementsArchiveObject.translation.of}&nbsp;
+                        <b>{this.props.totalPages}</b>
+                    </div>
+                ) : (
+                    ''
+                )}
             </div>
-
         );
     }
-
 }
 
 export default Search;

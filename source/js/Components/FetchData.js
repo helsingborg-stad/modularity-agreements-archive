@@ -1,13 +1,13 @@
+import axios from 'axios';
+import virtualUrl from '../Helpers/VirtualUrl';
 import RenderTable from './RenderTable';
 import Single from './Single';
 import Search from './Search';
 import Paginate from './Paginate';
-import {Dropdown} from 'hbg-react';
-import axios from 'axios';
-import virtualUrl from '../Helpers/VirtualUrl';
+
+import { Dropdown } from 'hbg-react';
 
 module.exports = class extends React.Component {
-
     /**
      * Init
      * @return void
@@ -29,7 +29,9 @@ module.exports = class extends React.Component {
             switchView: false,
             shared: false,
             searchHistory: [],
-            browserEvent: false
+            browserEvent: false,
+            categories: [],
+            init: true,
         };
 
         this.updateInput = this.updateInput.bind(this);
@@ -39,27 +41,29 @@ module.exports = class extends React.Component {
         this.clearSearch = this.clearSearch.bind(this);
     }
 
-
     /**
      * Mounting data onLoad
      * @return void
      */
     componentDidMount() {
         let url = new URL(window.location).pathname.split('/');
-        let archiveId = (url.includes('agreementArchiveId')) ? virtualUrl.getId() : false;
+        let archiveId = url.includes('agreementArchiveId') ? virtualUrl.getId() : false;
 
         // Show
         if (archiveId) {
-            this.getJsonData('id', archiveId)
+            this.getJsonData('id', archiveId);
         } else if (url.includes('searchAgreementArchive')) {
             let search = decodeURIComponent(url.reverse()[0]);
-            this.setState({
-                searchInput: search,
-                isLoaded: true
-            }, () => {
-                document.getElementById('searchInput').value = search;
-                this.handleSubmit();
-            });
+            this.setState(
+                {
+                    searchInput: search,
+                    isLoaded: true,
+                },
+                () => {
+                    document.getElementById('searchInput').value = search;
+                    this.handleSubmit();
+                }
+            );
         } else {
             this.getJsonData(false, false);
         }
@@ -67,17 +71,13 @@ module.exports = class extends React.Component {
         this.windowHistory();
     }
 
-
     /**
      * Handling Browser back button on unmount
      * @return void
      */
     componentWillUnmount() {
-        window.onpopstate = () => {
-
-        }
+        window.onpopstate = () => {};
     }
-
 
     /**
      * Handling Browser back button on did mount
@@ -87,13 +87,12 @@ module.exports = class extends React.Component {
         this.windowHistory();
     }
 
-
     /**
      * Handling Browser back button
      * @return void
      */
     windowHistory() {
-        window.onpopstate = (e) => {
+        window.onpopstate = e => {
             e.preventDefault();
 
             this.setState({
@@ -101,13 +100,12 @@ module.exports = class extends React.Component {
             });
 
             if (this.state.archId != null) {
-                this.setState({shared: true});
+                this.setState({ shared: true });
                 this.resetView();
                 history.go(1);
             }
-        }
+        };
     }
-
 
     /**
      * Getting data from Back-end/API
@@ -115,23 +113,27 @@ module.exports = class extends React.Component {
      * @param archiveId
      * @return void
      */
-    getJsonData(type = false, archiveId = false) {
-        const {perPage, showPagination} = this.props;
-        let apiUrl = '/wp-json/ModularityAgreementsArchive/v1/Get/?authToken=' + ModularityAgreementsArchiveObject.authToken;
+    getJsonData(type = false, archiveId = false, category = null) {
+        const { perPage, showPagination, init } = this.props;
+        let apiUrl =
+            '/wp-json/ModularityAgreementsArchive/v1/Get/?authToken=' +
+            ModularityAgreementsArchiveObject.authToken;
 
-        apiUrl += (type === 'query') ? '&search=' + this.state.searchInput : '';
-        apiUrl += (type === 'id') ? '&id=' + archiveId : '';
+        apiUrl += type === 'query' ? '&search=' + this.state.searchInput : '';
+        apiUrl += type === 'id' ? '&id=' + archiveId : '';
 
-        (archiveId)
-            ? this.setState({archId: archiveId, view: 'single', shared: true, isLoaded: false})
-            : this.setState({archId: null, view: 'table', isLoaded: false});
-        (type === 'query')
+        archiveId
+            ? this.setState({ archId: archiveId, view: 'single', shared: true, isLoaded: false })
+            : this.setState({ archId: null, view: 'table', isLoaded: false });
+        type === 'query'
             ? this.setState({
-                search: true,
-                currentPage: 1,
-                searchHistory: this.state.searchHistory.concat([this.state.searchInput])
-            })
+                  search: true,
+                  currentPage: 1,
+                  searchHistory: this.state.searchHistory.concat([this.state.searchInput]),
+              })
             : false;
+
+        apiUrl += type === 'category' ? '&category=' + category : '';
 
         axios
             .get(apiUrl)
@@ -144,18 +146,40 @@ module.exports = class extends React.Component {
                     paginatedItems: jsonData,
                     totalPages: Math.ceil(jsonData.length / perPage),
                     view: this.state.view,
-                    totalItems: jsonData.length
+                    totalItems: jsonData.length,
                 });
 
+                if (this.state.init) {
+                    const cat = this.state.responseData.map(item => ({
+                        id: item.Buyer.OrganisationNumber,
+                        Name: item.Buyer.Name,
+                    }));
+
+                    const filteredCategories = cat.reduce((acc, current) => {
+                        const x = acc.find(item => item.Name === current.Name);
+                        if (!x) {
+                            return acc.concat([current]);
+                        } else {
+                            return acc;
+                        }
+                    }, []);
+
+                    this.setState({
+                        init: false,
+                        categories: filteredCategories,
+                    });
+                }
+
                 if (showPagination) {
-                    let page = (this.state.switchView || this.state.browserEvent) ? this.state.currentPage : 1;
+                    let page =
+                        this.state.switchView || this.state.browserEvent
+                            ? this.state.currentPage
+                            : 1;
                     this.updateItemList(page);
                 }
             })
-            .catch(error => this.setState({error, isLoaded: true}));
-
+            .catch(error => this.setState({ error, isLoaded: true }));
     }
-
 
     /**
      * Fetching show single page view with detailed information
@@ -168,14 +192,12 @@ module.exports = class extends React.Component {
         this.showSingleDetails(itemId);
     }
 
-
     /**
      * Show detailed information
      * @param itemId (int)
      * @return void
      */
     showSingleDetails(itemId) {
-
         this.getJsonData('id', itemId);
 
         this.setState({
@@ -187,14 +209,13 @@ module.exports = class extends React.Component {
         const element = document.getElementById('modularity-agreement-archive');
 
         window.scrollTo({
-            'left': 0,
-            'top': element.offsetTop + 100
+            left: 0,
+            top: element.offsetTop + 100,
         });
 
         virtualUrl.showDetail(itemId, 'single');
         this.state.browserEvent = false;
     }
-
 
     /**
      * Change back to table view
@@ -204,7 +225,9 @@ module.exports = class extends React.Component {
         let loaded = true;
 
         if (this.state.shared) {
-            (!this.state.searchInput) ? this.getJsonData(false, false) : this.getJsonData('query', this.state.searchInput);
+            !this.state.searchInput
+                ? this.getJsonData(false, false)
+                : this.getJsonData('query', this.state.searchInput);
             loaded = false;
         }
 
@@ -216,12 +239,13 @@ module.exports = class extends React.Component {
             archId: null,
             switchView: false,
             searchView: false,
-            shared: false
+            shared: false,
         });
 
-        (this.state.searchInput) ? virtualUrl.showDetail('', 'table', this.state.searchInput, this.state.searchHistory) : virtualUrl.showDetail('', 'table', '');
+        this.state.searchInput
+            ? virtualUrl.showDetail('', 'table', this.state.searchInput, this.state.searchHistory)
+            : virtualUrl.showDetail('', 'table', '');
     }
-
 
     /**
      * Updating state from search input
@@ -229,22 +253,20 @@ module.exports = class extends React.Component {
      * @return void
      */
     updateInput(event) {
-        this.setState({searchInput: event});
+        this.setState({ searchInput: event });
     }
-
 
     /**
      * Submiting data from state to API
      * @return void
      */
     handleSubmit() {
-        this.setState({archId: null, view: 'table', currentPage: 1});
+        this.setState({ archId: null, view: 'table', currentPage: 1 });
         this.getJsonData('query');
 
         if (this.state.searchInput)
             virtualUrl.showDetail('', 'table', this.state.searchInput, this.state.searchHistory);
     }
-
 
     /**
      * Clear search input and states
@@ -256,13 +278,12 @@ module.exports = class extends React.Component {
         this.setState({
             search: false,
             searchInput: '',
-            searchHistory: []
+            searchHistory: [],
         });
 
         document.getElementById('searchInput').value = '';
         this.getJsonData(false, false);
     }
-
 
     /**
      * Accordion - Updating list, depending on settings in db and page
@@ -270,15 +291,14 @@ module.exports = class extends React.Component {
      * @return void
      */
     updateItemList(currentPage) {
-        const {filteredItems} = this.state;
-        const {perPage} = this.props;
-        const begin = ((currentPage - 1) * perPage);
+        const { filteredItems } = this.state;
+        const { perPage } = this.props;
+        const begin = (currentPage - 1) * perPage;
         const end = begin + perPage;
         this.setState({
-            paginatedItems: filteredItems.slice(begin, end)
+            paginatedItems: filteredItems.slice(begin, end),
         });
     }
-
 
     /**
      * Accordion - Next page
@@ -289,11 +309,10 @@ module.exports = class extends React.Component {
             return;
         }
 
-        const currentPage = this.state.currentPage += 1;
-        this.setState({currentPage: currentPage});
+        const currentPage = (this.state.currentPage += 1);
+        this.setState({ currentPage: currentPage });
         this.updateItemList(currentPage);
     }
-
 
     /**
      * Accordion - Previous page
@@ -304,11 +323,10 @@ module.exports = class extends React.Component {
             return;
         }
 
-        const currentPage = this.state.currentPage -= 1;
-        this.setState({currentPage: currentPage});
+        const currentPage = (this.state.currentPage -= 1);
+        this.setState({ currentPage: currentPage });
         this.updateItemList(currentPage);
     }
-
 
     /**
      * Accordion - Pagination input (page navigation)
@@ -317,14 +335,22 @@ module.exports = class extends React.Component {
      */
     paginationInput(e) {
         let currentPage = e.target.value ? parseInt(e.target.value) : '';
-        currentPage = (currentPage > this.state.totalPages) ? this.state.totalPages : currentPage;
-        this.setState({currentPage: currentPage});
+        currentPage = currentPage > this.state.totalPages ? this.state.totalPages : currentPage;
+        this.setState({ currentPage: currentPage });
 
         if (currentPage) {
             this.updateItemList(currentPage);
         }
     }
 
+    /**
+     * Uniqe array - Removing dupes
+     * @param collection
+     * @returns {any[]}
+     */
+    uniq(collection) {
+        return Array.from(new Set(collection));
+    }
 
     /**
      * Render jsx
@@ -333,20 +359,17 @@ module.exports = class extends React.Component {
     render() {
         const view = this.state.view;
         {
-            ModularityAgreementsArchiveObject.translation.previous
+            ModularityAgreementsArchiveObject.translation.previous;
         }
-        
+
         let dropDownItems = [];
-        this.state.responseData.map(item => (
-            dropDownItems.push(item.Category)
-        ));
+        this.state.responseData.map(item => dropDownItems.push(item.Category));
         dropDownItems = Array.from(new Set(dropDownItems));
         let dropDownKeys = 0;
         return (
-
             <div className="renderTable">
                 <div className="grid">
-                    {(this.state.view != 'single') ?
+                    {this.state.view != 'single' ? (
                         // Render Search
                         <Search
                             change={this.updateInput}
@@ -360,33 +383,34 @@ module.exports = class extends React.Component {
                             search={this.state.search}
                             searchInput={this.state.searchInput}
                             isLoaded={this.state.isLoaded}
-                            searchHistory={this.state.searchHistory[this.state.searchHistory.length - 1]}
+                            searchHistory={
+                                this.state.searchHistory[this.state.searchHistory.length - 1]
+                            }
                             clearSearch={this.clearSearch.bind(this)}
                         />
-                        : ''}
+                    ) : (
+                        ''
+                    )}
 
-                    {(this.state.isLoaded && this.state.view != 'single') ?
-                        <div className="grid-md-2 grid-sm-4 dropdown"></div>
-                        // Render Drop down
-                        /*
-                        <div className="grid-md-2 grid-sm-4 dropdown">
-                            <Dropdown title={ModularityAgreementsArchiveObject.translation.category}>
-                                {dropDownItems.map(item => (
-                                    <a key={'dropLink-'+dropDownKeys++}
+                    {this.state.isLoaded && this.state.view != 'single' ? (
+                        <div className="grid-md-3">
+                            <Dropdown title="Dropdown button">
+                                {this.state.categories.map(item => (
+                                    <a
                                         onClick={() => {
-                                            console.log(item);
+                                            this.getJsonData('category', false, item.id);
                                         }}
                                     >
-                                        {item}
+                                        {item.Name}
                                     </a>
-
                                 ))}
                             </Dropdown>
                         </div>
-                        */
-                        : ''}
+                    ) : (
+                        ''
+                    )}
 
-                    {(this.state.view != 'single') ?
+                    {this.state.view != 'single' ? (
                         // Render Pagination
                         <Paginate
                             showSearch={this.props.showSearch}
@@ -397,34 +421,36 @@ module.exports = class extends React.Component {
                             input={this.paginationInput.bind(this)}
                             view={this.state.view}
                         />
-                        : ''}
+                    ) : (
+                        ''
+                    )}
                 </div>
-                {(view === 'table') ?
+                {view === 'table' ? (
                     // Render Table
                     <RenderTable
                         paginatedItems={this.state.paginatedItems}
                         single={this.handleSingleClick}
                         isLoaded={this.state.isLoaded}
                     />
-                    :
-                    (this.state.isLoaded) ?
-                        <Single
-                            singleItems={this.state.filteredItems}
-                            tableView={this.resetView}
-                            isLoaded={this.state.isLoaded}
-                        />
-                        : <div>
-                            <div className="gutter">
-                                <div className="loading">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
+                ) : this.state.isLoaded ? (
+                    <Single
+                        singleItems={this.state.filteredItems}
+                        tableView={this.resetView}
+                        isLoaded={this.state.isLoaded}
+                    />
+                ) : (
+                    <div>
+                        <div className="gutter">
+                            <div className="loading">
+                                <div />
+                                <div />
+                                <div />
+                                <div />
                             </div>
                         </div>
-                }
-                {(this.state.view != 'single') ?
+                    </div>
+                )}
+                {this.state.view != 'single' ? (
                     // Render Single view
                     <div className="grid">
                         <Paginate
@@ -436,7 +462,9 @@ module.exports = class extends React.Component {
                             view={this.state.view}
                         />
                     </div>
-                    : ''}
+                ) : (
+                    ''
+                )}
             </div>
         );
     }

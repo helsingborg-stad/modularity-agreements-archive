@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Modularity Agreements Archive\n"
 "POT-Creation-Date: 2019-01-09 13:32+0100\n"
-"PO-Revision-Date: 2019-01-10 13:02+0100\n"
+"PO-Revision-Date: 2019-05-28 10:59+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -119,7 +119,7 @@ msgstr "Nummer"
 
 #: source/php/Module/AgreementsArchive.php:90
 msgid "Category"
-msgstr "Upphandling"
+msgstr "Avtal"
 
 #: source/php/Module/AgreementsArchive.php:91
 msgid "Supplier"
@@ -159,7 +159,7 @@ msgstr "Allmän information"
 
 #: source/php/Module/AgreementsArchive.php:100
 msgid "Period of validity"
-msgstr "Giltlighetsperiod"
+msgstr "Avtalet kan användas till och med"
 
 #: source/php/Module/AgreementsArchive.php:101
 msgid "Contact person"
@@ -167,7 +167,7 @@ msgstr "Kontaktperson"
 
 #: source/php/Module/AgreementsArchive.php:102
 msgid "Contracts Manager"
-msgstr "Avtalsansvarig"
+msgstr "Förvaltning"
 
 #: source/php/Module/AgreementsArchive.php:103
 msgid "Organization number"
