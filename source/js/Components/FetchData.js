@@ -139,6 +139,7 @@ module.exports = class extends React.Component {
             .get(apiUrl)
             .then(json => {
                 const jsonData = json.data.reverse();
+
                 this.setState({
                     responseData: jsonData,
                     isLoaded: true,
@@ -362,10 +363,10 @@ module.exports = class extends React.Component {
             ModularityAgreementsArchiveObject.translation.previous;
         }
 
-        let dropDownItems = [];
+        /* let dropDownItems = [];
         this.state.responseData.map(item => dropDownItems.push(item.Category));
         dropDownItems = Array.from(new Set(dropDownItems));
-        let dropDownKeys = 0;
+        let dropDownKeys = 0; */
         return (
             <div className="renderTable">
                 <div className="grid">
@@ -394,11 +395,19 @@ module.exports = class extends React.Component {
 
                     {this.state.isLoaded && this.state.view != 'single' ? (
                         <div className="grid-md-3">
-                            <Dropdown title="Dropdown button">
+                            <Dropdown
+                                title={
+                                    ModularityAgreementsArchiveObject.translation.contractsManager
+                                }
+                            >
                                 {this.state.categories.map(item => (
                                     <a
                                         onClick={() => {
-                                            this.getJsonData('category', false, item.id);
+                                            this.getJsonData(
+                                                'category',
+                                                false,
+                                                encodeURIComponent(item.Name)
+                                            );
                                         }}
                                     >
                                         {item.Name}

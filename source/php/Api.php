@@ -35,6 +35,7 @@ class Api
      */
     public function fetchData()
     {
+
         $authToken = (isset($_GET['authToken']) && !empty($_GET['authToken'])) ? str_replace('"', '',
             \ModularityAgreementsArchive\App::decrypt($_GET['authToken'])) : '';
 
@@ -52,7 +53,7 @@ class Api
         //Get query vars
         $query = (isset($_GET['search']) && !empty($_GET['search'])) ? $_GET['search'] : '';
         $id = (isset($_GET['id']) && !empty($_GET['id'])) ? $_GET['id'] : '';
-        $category = (isset($_GET['category']) && !empty($_GET['category'])) ? $_GET['category'] : '';
+        $category = (isset($_GET['category']) && !empty($_GET['category'])) ? urldecode($_GET['category']) : '';
         $hostUrl = get_option('group_5be98c9780f80_mod_agreement_archive_api_host');
 
         //Create API url
@@ -78,11 +79,10 @@ class Api
         //Validate response, return
         if (isset($apiCallReturn['body']) && !empty($apiCallReturn['body']) && $decodedJson = json_decode($apiCallReturn['body'])) {
 
-            //var_dump($decodedJson);
             if ($category) {
                 $i=0;
                 foreach($decodedJson as $element) {
-                    if($category !== $element->Buyer->OrganisationNumber){
+                    if($category !== $element->Buyer->Name){
                         unset($decodedJson[$i]);
                     }
                     $i++;
@@ -90,7 +90,7 @@ class Api
             }
 
             wp_send_json(
-                $this->cleanData($decodedJson),
+                $this->cleanData(array_values($decodedJson)),
                 200
             );
         }

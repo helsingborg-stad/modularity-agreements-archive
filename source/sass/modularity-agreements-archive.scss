@@ -1,5 +1,10 @@
 .mod-agreementsarchiv, .modularity-mod-agreementsarchiv  {
-
+    .c-dropdown {
+        margin-top: -2px;
+        .o-dropdown-links {
+            cursor:pointer;
+        }
+    }
     .box-title {
         padding-bottom: 10px;
     }
