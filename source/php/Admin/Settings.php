@@ -41,7 +41,7 @@ class Settings
             return;
         }
 
-        if (!get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_key')) {
+        if (!get_site_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_key')) {
             $_POST['acf']['field_5be98d1034845'] = \ModularityAgreementsArchive\App::scrambleEggs();
             $_POST['acf']['field_5be98d3234846'] = \ModularityAgreementsArchive\App::scrambleEggs();
             $_POST['acf']['field_5bea90756612f'] = \ModularityAgreementsArchive\App::scrambleEggs();
