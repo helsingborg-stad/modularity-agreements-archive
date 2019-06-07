@@ -40,7 +40,7 @@ class Api
             \ModularityAgreementsArchive\App::decrypt($_GET['authToken'])) : '';
 
         //No valid auth token
-        if ($authToken != get_site_option('group_5be98c9780f80_mod_agreement_archive_api_token')) {
+        if ($authToken != get_option('group_5be98c9780f80_mod_agreement_archive_api_token')) {
             return wp_send_json(
                 array(
                     'state' => 'error',
@@ -54,7 +54,7 @@ class Api
         $query = (isset($_GET['search']) && !empty($_GET['search'])) ? $_GET['search'] : '';
         $id = (isset($_GET['id']) && !empty($_GET['id'])) ? $_GET['id'] : '';
         $category = (isset($_GET['category']) && !empty($_GET['category'])) ? urldecode($_GET['category']) : '';
-        $hostUrl = get_site_option('group_5be98c9780f80_mod_agreement_archive_api_host');
+        $hostUrl = get_option('group_5be98c9780f80_mod_agreement_archive_api_host');
 
         //Create API url
         $apiUrl = $hostUrl;
@@ -69,7 +69,7 @@ class Api
                 $apiUrl,
                 array(
                     'headers' => array(
-                        'apiKey' => get_site_option('group_5be98c9780f80_mod_agreement_archive_api_key')
+                        'apiKey' => get_option('group_5be98c9780f80_mod_agreement_archive_api_key')
                     )
                 )
             );

@@ -52,7 +52,7 @@ class Settings
             update_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_salt', $_POST['acf']['field_5be98d3234846']);
             update_option('group_5be98c9780f80_mod_agreement_archive_api_token', $_POST['acf']['field_5bea90756612f']);
         }
-        
+
         update_option('group_5be98c9780f80_mod_agreement_archive_api_host', $_POST['acf']['field_5be98c9d34843']);
         update_option('group_5be98c9780f80_mod_agreement_archive_api_key', $_POST['acf']['field_5be98cc334844']);
 
