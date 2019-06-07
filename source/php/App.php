@@ -52,8 +52,8 @@ class App
     static function encryptDecrypt($meth, $data)
     {
         $encryptMethod = 'AES-256-CBC';
-        $encryptSalt = get_site_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_salt');
-        $encryptKey = get_site_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_key');
+        $encryptSalt = get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_salt');
+        $encryptKey = get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_key');
 
         if ($encryptSalt && $encryptKey) {
             switch ($meth) {
