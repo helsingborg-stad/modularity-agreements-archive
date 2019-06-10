@@ -13,10 +13,6 @@ class Settings
 
         add_action('acf/init', array($this, 'setupAdminPage'));
         add_filter('acf/save_post', array($this, 'saveSettings'), 1 );
-        add_filter('acf/load_field/name=mod_agreement_archive_api_encryption_salt', array($this, 'disabledField'));
-        add_filter('acf/load_field/name=mod_agreement_archive_api_encryption_key', array($this, 'disabledField'));
-        add_filter('acf/load_field/name=mod_agreement_archive_api_token', array($this, 'disabledField'));
-
     }
 
     /**
@@ -33,7 +29,7 @@ class Settings
     }
 
     /**
-     * Generates Encryption keys and Token
+     * Save Settings
      * @return void
      */
     public static function saveSettings()
@@ -42,8 +38,8 @@ class Settings
             return;
         }
 
-        update_option('group_5be98c9780f80_mod_agreement_archive_api_host', $_POST['acf']['field_5be98c9d34843']);
-        update_option('group_5be98c9780f80_mod_agreement_archive_api_key', $_POST['acf']['field_5be98cc334844']);
+        //update_option('group_5be98c9780f80_mod_agreement_archive_api_host', $_POST['acf']['field_5be98c9d34843']);
+        //update_option('group_5be98c9780f80_mod_agreement_archive_api_key', $_POST['acf']['field_5be98cc334844']);
 
     }
 
