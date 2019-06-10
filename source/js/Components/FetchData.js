@@ -114,11 +114,12 @@ module.exports = class extends React.Component {
      * @return void
      */
     getJsonData(type = false, archiveId = false, category = null) {
-        const { perPage, showPagination, init } = this.props;
+        const { perPage, showPagination } = this.props;
         let apiUrl = '/wp-json/ModularityAgreementsArchive/v1/Get/';
 
-        apiUrl += type === 'query' ? '&search=' + this.state.searchInput : '';
-        apiUrl += type === 'id' ? '&id=' + archiveId : '';
+        apiUrl += type === 'query' ? '?search=' + this.state.searchInput : '';
+        apiUrl += type === 'id' ? '?id=' + archiveId : '';
+        apiUrl += type === 'category' ? '?category=' + category : '';
 
         archiveId
             ? this.setState({ archId: archiveId, view: 'single', shared: true, isLoaded: false })
@@ -130,8 +131,6 @@ module.exports = class extends React.Component {
                   searchHistory: this.state.searchHistory.concat([this.state.searchInput]),
               })
             : false;
-
-        apiUrl += type === 'category' ? '&category=' + category : '';
 
         const _nonce = ModularityAgreementsArchiveObject.authToken;
         const headers = {
