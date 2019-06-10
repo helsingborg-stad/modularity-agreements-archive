@@ -2,12 +2,19 @@
 
 namespace ModularityAgreementsArchive\Module;
 
+/**
+ * Class AgreementsArchive
+ * @package ModularityAgreementsArchive\Module
+ */
 class AgreementsArchive extends \Modularity\Module
 {
     public $slug = 'AgreementsArchive';
     public $supports = array();
     public $react = false;
 
+    /**
+     * Init - construct
+     */
     public function init()
     {
         $this->nameSingular = __("Agreements Archive", 'modularity-agreements-archive');

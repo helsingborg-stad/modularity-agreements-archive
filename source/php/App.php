@@ -2,8 +2,15 @@
 
 namespace ModularityAgreementsArchive;
 
+/**
+ * Class App
+ * @package ModularityAgreementsArchive
+ */
 class App
 {
+    /**
+     * App constructor.
+     */
     public function __construct()
     {
         register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
