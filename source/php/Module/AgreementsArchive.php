@@ -92,16 +92,6 @@ class AgreementsArchive extends \Modularity\Module
         $data['showSearch'] = get_option('group_5be98c9780f80_mod_agreement_archive_search');
         $data['showPagination'] = get_option('group_5be98c9780f80_mod_agreement_archive_show_pagination');
         $data['authToken'] = wp_create_nonce('wp_rest');
-
-        /*if (is_multisite()) {
-            $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ?
-                    "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .
-                $_SERVER['REQUEST_URI'];
-            $urlParts = explode('/', str_ireplace(array('http://', 'https://'), '', $url));
-            $data['baseUrl'] = get_rest_url(null, $urlParts[1]);
-        } else {
-            $data['baseUrl'] = get_rest_url();
-        }*/
         $data['baseUrl'] = get_rest_url();
 
         //Translation strings
