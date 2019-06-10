@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_5be98c9780f80',
-    'title' => __('Modularity agreements archive API', 'modularity-agreements-archive'),
+    'title' => 'Modularity agreements archive API',
     'fields' => array(
         0 => array(
             'key' => 'field_5be98c9d34843',
@@ -39,66 +39,6 @@
             'prepend' => '',
             'append' => '',
             'maxlength' => '',
-        ),
-        2 => array(
-            'key' => 'field_5be98d1034845',
-            'label' => __('API Encryption Key', 'modularity-agreements-archive'),
-            'name' => 'mod_agreement_archive_api_encryption_key',
-            'type' => 'text',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'default_value' => '',
-            'placeholder' => __('Generates automaticly', 'modularity-agreements-archive'),
-            'prepend' => '',
-            'append' => '',
-            'maxlength' => '',
-            'disabled' => true,
-        ),
-        3 => array(
-            'key' => 'field_5be98d3234846',
-            'label' => __('API Encryption Salt', 'modularity-agreements-archive'),
-            'name' => 'mod_agreement_archive_api_encryption_salt',
-            'type' => 'text',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'default_value' => '',
-            'placeholder' => __('Generates automaticly', 'modularity-agreements-archive'),
-            'prepend' => '',
-            'append' => '',
-            'maxlength' => '',
-            'disabled' => true,
-        ),
-        4 => array(
-            'key' => 'field_5bea90756612f',
-            'label' => __('API Token', 'modularity-agreements-archive'),
-            'name' => 'mod_agreement_archive_api_token',
-            'type' => 'text',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'default_value' => '',
-            'placeholder' => __('Generates automaticly', 'modularity-agreements-archive'),
-            'prepend' => '',
-            'append' => '',
-            'maxlength' => '',
-            'disabled' => true,
         ),
     ),
     'location' => array(

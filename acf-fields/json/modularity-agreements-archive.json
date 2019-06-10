@@ -36,66 +36,6 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
-        },
-        {
-            "key": "field_5be98d1034845",
-            "label": "API Encryption Key",
-            "name": "mod_agreement_archive_api_encryption_key",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "Generates automaticly",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
-            "disabled": true
-        },
-        {
-            "key": "field_5be98d3234846",
-            "label": "API Encryption Salt",
-            "name": "mod_agreement_archive_api_encryption_salt",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "Generates automaticly",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
-            "disabled": true
-        },
-        {
-            "key": "field_5bea90756612f",
-            "label": "API Token",
-            "name": "mod_agreement_archive_api_token",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "Generates automaticly",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
-            "disabled": true
         }
     ],
     "location": [

@@ -48,6 +48,7 @@ class AgreementsArchive extends \Modularity\Module
         wp_register_script('modularity-agreements-archive-js', MODULARITYAGREEMENTSARCHIVE_URL . '/dist/' . \ModularityAgreementsArchive\Helper\CacheBust::name('js/modularity-agreements-archive.js'), array('react', 'react-dom'));
     }
 
+
     /**
      * Adding javaScript and Localize to make variables available in dom
      *
@@ -68,7 +69,6 @@ class AgreementsArchive extends \Modularity\Module
     }
 
 
-
     /**
      * Setting all variables for localize script
      *
@@ -81,7 +81,7 @@ class AgreementsArchive extends \Modularity\Module
         $data['perPage'] = get_option('group_5be98c9780f80_mod_agreement_archive_pagination');
         $data['showSearch'] = get_option('group_5be98c9780f80_mod_agreement_archive_search');
         $data['showPagination'] = get_option('group_5be98c9780f80_mod_agreement_archive_show_pagination');
-        $data['authToken'] = \ModularityAgreementsArchive\App::encrypt(get_option('group_5be98c9780f80_mod_agreement_archive_api_token'));
+        $data['authToken'] = wp_create_nonce( 'wp_rest');
 
         //Translation strings
         $data['translation'] = array(

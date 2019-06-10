@@ -2,8 +2,15 @@
 
 namespace ModularityAgreementsArchive;
 
+/**
+ * Class Api
+ * @package ModularityAgreementsArchive
+ */
 class Api
 {
+    /**
+     * Api constructor.
+     */
     public function __construct()
     {
         add_action('rest_api_init', array($this, 'registerRestRoutes'));
@@ -35,20 +42,6 @@ class Api
      */
     public function fetchData()
     {
-
-        $authToken = (isset($_GET['authToken']) && !empty($_GET['authToken'])) ? str_replace('"', '',
-            \ModularityAgreementsArchive\App::decrypt($_GET['authToken'])) : '';
-
-        //No valid auth token
-        if ($authToken != get_option('group_5be98c9780f80_mod_agreement_archive_api_token')) {
-            return wp_send_json(
-                array(
-                    'state' => 'error',
-                    'message' => __("No api-key entered, please provide one in the agreement archive settings.",
-                        'modularity-agreements-archive')
-                )
-            );
-        }
 
         //Get query vars
         $query = (isset($_GET['search']) && !empty($_GET['search'])) ? $_GET['search'] : '';

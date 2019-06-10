@@ -12,7 +12,7 @@ class Settings
         }
 
         add_action('acf/init', array($this, 'setupAdminPage'));
-        add_filter('acf/save_post', array($this, 'generateKeys'), 1 );
+        add_filter('acf/save_post', array($this, 'saveSettings'), 1 );
         add_filter('acf/load_field/name=mod_agreement_archive_api_encryption_salt', array($this, 'disabledField'));
         add_filter('acf/load_field/name=mod_agreement_archive_api_encryption_key', array($this, 'disabledField'));
         add_filter('acf/load_field/name=mod_agreement_archive_api_token', array($this, 'disabledField'));
@@ -36,27 +36,14 @@ class Settings
      * Generates Encryption keys and Token
      * @return void
      */
-    public static function generateKeys()
+    public static function saveSettings()
     {
         if( empty($_POST['acf']) ) {
             return;
         }
 
-        if (!get_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_key')) {
-
-            $_POST['acf']['field_5be98d1034845'] = \ModularityAgreementsArchive\App::scrambleEggs();
-            $_POST['acf']['field_5be98d3234846'] = \ModularityAgreementsArchive\App::scrambleEggs();
-            $_POST['acf']['field_5bea90756612f'] = \ModularityAgreementsArchive\App::scrambleEggs();
-
-            update_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_key', $_POST['acf']['field_5be98d1034845']);
-            update_option('group_5be98c9780f80_mod_agreement_archive_api_encryption_salt', $_POST['acf']['field_5be98d3234846']);
-            update_option('group_5be98c9780f80_mod_agreement_archive_api_token', $_POST['acf']['field_5bea90756612f']);
-        }
-
         update_option('group_5be98c9780f80_mod_agreement_archive_api_host', $_POST['acf']['field_5be98c9d34843']);
         update_option('group_5be98c9780f80_mod_agreement_archive_api_key', $_POST['acf']['field_5be98cc334844']);
-
-
 
     }
 
