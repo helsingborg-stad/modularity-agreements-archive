@@ -61,6 +61,7 @@ class Api
             $apiCallReturn = wp_remote_get(
                 $apiUrl,
                 array(
+                    'timeout'     => 20,
                     'headers' => array(
                         'apiKey' => get_option('group_5be98c9780f80_mod_agreement_archive_api_key')
                     )
