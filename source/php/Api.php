@@ -51,7 +51,7 @@ class Api
 
         //Create API url
         $apiUrl = $hostUrl;
-        $apiUrl .= ($query) ? "/?q=" . sanitize_text_field($query) : '';
+        $apiUrl .= ($query) ? "/?q=" . urldecode (sanitize_text_field($query)) : '';
         $apiUrl .= ($id) ? "/" . $id : '';
 
         //Get from resource
